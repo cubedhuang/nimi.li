@@ -42,7 +42,7 @@
 <Meta
 	title="{word.word} – nimi.li | Toki Pona Dictionary"
 	description={translation.definition}
-	url="https://nimi.li${getWordLink(word.id, language)}"
+	url="https://nimi.li{getWordLink(word.id, language)}"
 	image="https://raw.githubusercontent.com/lipu-linku/ijo/main/sitelenpona/sitelen-seli-kiwen/${word.id}.png"
 	imageSize="256"
 	keywords={[word.word]}
