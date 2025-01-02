@@ -96,7 +96,7 @@
 	</footer>
 </blockquote>
 
-<p class="mt-2 text-muted">
+<p class="text-muted">
 	{filteredCompounds.length} / {compounds.length}
 </p>
 
