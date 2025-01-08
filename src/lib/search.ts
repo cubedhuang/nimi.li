@@ -21,7 +21,6 @@ export function filter(
 			if (content.length === 0) return 0;
 
 			let score = 0;
-
 			for (const item of content) {
 				score += scoreMatch(item);
 			}
@@ -30,7 +29,6 @@ export function filter(
 		}
 
 		const normalized = normalize(content);
-
 		const includes = normalized.includes(search);
 
 		if (includes) {
@@ -39,7 +37,6 @@ export function filter(
 
 		const distanceScore =
 			distance(normalized, search) / (normalized.length + 1);
-
 		if (distanceScore > 0.3) {
 			return 0;
 		}
@@ -55,6 +52,12 @@ export function filter(
 			scoreMatch(translation.definition) * 50 +
 			scoreMatch(word.source_language) * 20 +
 			scoreMatch(word.creator) * 20;
+
+		const pu =
+			word.pu_verbatim?.[$language as 'en'] ?? word.pu_verbatim?.en;
+		if (pu) {
+			score += scoreMatch(pu) * 50;
+		}
 
 		if (word.ku_data) {
 			score += scoreMatch(Object.keys(word.ku_data)) * 10;
