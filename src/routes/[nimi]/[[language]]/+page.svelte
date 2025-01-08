@@ -1,6 +1,4 @@
 <script lang="ts">
-	import type { LocalizedWord } from '@kulupu-linku/sona';
-
 	import { page } from '$app/state';
 
 	import { outclick } from '$lib/actions/outclick';
@@ -20,6 +18,7 @@
 	import Link from '$lib/components/Link.svelte';
 	import LipamankaData from '$lib/components/LipamankaData.svelte';
 	import Meta from '$lib/components/Meta.svelte';
+	import PuData from '$lib/components/PuData.svelte';
 	import SignsList from '$lib/components/SignsList.svelte';
 	import Wikipedia from '$lib/components/icons/Wikipedia.svelte';
 	import WordEtymology from '$lib/components/WordEtymology.svelte';
@@ -30,11 +29,6 @@
 	const word = $derived(data.word);
 
 	const translation = $derived(getTranslation(word, language));
-
-	const puData = $derived(
-		word.pu_verbatim?.[language as keyof LocalizedWord['pu_verbatim']] ||
-			word.pu_verbatim?.en
-	);
 
 	let showHistory = $state(false);
 </script>
@@ -210,6 +204,23 @@
 			</div>
 		{/if}
 
+		{#if word.pu_verbatim?.en}
+			<h2 class="mb-1 mt-4 flex items-center text-lg">
+				pu verbatim
+				<a
+					class="icon-interactable"
+					href="https://sona.pona.la/wiki/Toki_Pona:_The_Language_of_Good"
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label="source"
+				>
+					<ExternalLink />
+				</a>
+			</h2>
+
+			<PuData data={word.pu_verbatim} {language} />
+		{/if}
+
 		{#if word.ku_data}
 			<h2 class="mb-1 mt-4 flex items-center text-lg">
 				ku translations
@@ -225,24 +236,6 @@
 			</h2>
 
 			<KuData data={word.ku_data} />
-		{/if}
-
-		{#if puData}
-			<h2 class="mt-4 text-lg">pu verbatim</h2>
-
-			<ul class="mt-1">
-				{#each puData.split('\n') as line}
-					{@const partOfSpeech = line.split(' ')[0]}
-					{@const definition = line.slice(partOfSpeech.length + 1)}
-
-					<li>
-						<span class="shrink-0 text-sm text-muted"
-							>{partOfSpeech}</span
-						>
-						{definition}
-					</li>
-				{/each}
-			</ul>
 		{/if}
 	</div>
 

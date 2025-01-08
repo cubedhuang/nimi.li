@@ -15,6 +15,7 @@
 	import KuData from './KuData.svelte';
 	import Link from '$lib/components/Link.svelte';
 	import LipamankaData from '$lib/components/LipamankaData.svelte';
+	import PuData from './PuData.svelte';
 	import Wikipedia from './icons/Wikipedia.svelte';
 	import WordEtymology from './WordEtymology.svelte';
 	import WordUsageSummary from './WordUsageSummary.svelte';
@@ -187,10 +188,26 @@
 			</div>
 		{/if}
 
+		{#if word.pu_verbatim?.en}
+			<h3 class="mt-2 flex items-center text-lg">
+				pu verbatim
+				<a
+					class="icon-interactable"
+					href="https://sona.pona.la/wiki/Toki_Pona:_The_Language_of_Good"
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label="source"
+				>
+					<ExternalLink />
+				</a>
+			</h3>
+
+			<PuData data={word.pu_verbatim} />
+		{/if}
+
 		{#if word.ku_data}
 			<h3 class="mt-2 flex items-center text-lg">
 				ku translations
-
 				<a
 					class="icon-interactable"
 					href="https://tokipona.org/nimi_pu.txt"
