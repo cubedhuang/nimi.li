@@ -111,6 +111,13 @@
 					{t('sitelen seli kiwen', 'sitelen seli kiwen font')}</Link
 				>{t('.', ' is used for sitelen pona displayed on the site.')}
 			</li>
+
+			<li>
+				{t('sitelen lili lipu li', 'The')}
+				<Link href="https://github.com/ETBCOR/nasin-nanpa">
+					{t('nasin nanpa', 'nasin nanpa font')}</Link
+				>{t('.', " was used for the site's favicon.")}
+			</li>
 		</ul>
 	</div>
 
