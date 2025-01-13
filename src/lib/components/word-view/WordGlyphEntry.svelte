@@ -19,7 +19,7 @@
 </script>
 
 <div class="flex flex-col items-center" id={word.id}>
-	<button class="group contents" {onclick}>
+	<button class="group" {onclick}>
 		{#if $sitelenMode === 'pona'}
 			{#if word.representations?.ligatures?.length}
 				<p class="whitespace-nowrap font-pona text-5xl">
