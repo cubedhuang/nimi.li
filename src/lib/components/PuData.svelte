@@ -8,7 +8,7 @@
 
 	const { data, language: lang }: Props = $props();
 
-	const puData = $derived(data[lang || $language || 'en']);
+	const puData = $derived(data[lang || $language || 'en'] ?? data.en);
 </script>
 
 <ul>
