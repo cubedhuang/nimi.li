@@ -70,6 +70,10 @@ export function filter(
 			}
 		}
 
+		if (word.representations?.ucsur === search) {
+			score += 1000;
+		}
+
 		return score;
 	}
 
