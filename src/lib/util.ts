@@ -1,4 +1,4 @@
-import type { Language, LocalizedWord } from '@kulupu-linku/sona';
+import type { Language, LocalizedWord, Word } from '@kulupu-linku/sona';
 import type { Book, UsageCategory } from '@kulupu-linku/sona/utils';
 
 export const normalize = (str: string) =>
@@ -134,4 +134,12 @@ export function getWordLink(id: string, $language: string | undefined) {
 	if (!$language || $language === 'en') return `/${id}`;
 
 	return `/${id}/${$language}`;
+}
+
+export function getUcsur(word: Word) {
+	if (!word.representations?.ucsur) return '';
+
+	return String.fromCodePoint(
+		parseInt(word.representations.ucsur?.slice(2) ?? '', 16)
+	);
 }

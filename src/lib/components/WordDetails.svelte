@@ -6,7 +6,8 @@
 		categoryColors,
 		categoryTextColors,
 		getWordLink,
-		getTranslation
+		getTranslation,
+		getUcsur
 	} from '$lib/util';
 
 	import Copy from '$lib/components/Copy.svelte';
@@ -264,11 +265,7 @@
 			<p class="flex items-center gap-2">
 				{word.representations.ucsur}
 
-				<Copy
-					value={String.fromCodePoint(
-						parseInt(word.representations.ucsur?.slice(2) ?? '', 16)
-					)}
-				/>
+				<Copy value={getUcsur(word)} />
 			</p>
 		{/if}
 

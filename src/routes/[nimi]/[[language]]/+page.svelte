@@ -8,7 +8,8 @@
 		getUsageCategoryFromPercent,
 		getWordDisplayRecognition,
 		getWordLink,
-		getTranslation
+		getTranslation,
+		getUcsur
 	} from '$lib/util';
 
 	import AudioPlayer from './AudioPlayer.svelte';
@@ -445,11 +446,7 @@
 			<p class="mt-1 flex items-center gap-2">
 				{word.representations.ucsur}
 
-				<Copy
-					value={String.fromCodePoint(
-						parseInt(word.representations.ucsur?.slice(2) ?? '', 16)
-					)}
-				/>
+				<Copy value={getUcsur(word)} />
 			</p>
 		{/if}
 	</div>

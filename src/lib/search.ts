@@ -1,7 +1,7 @@
 import type { LocalizedWord } from '@kulupu-linku/sona';
 import { distance } from 'fastest-levenshtein';
 
-import { getTranslation, normalize } from './util';
+import { getTranslation, getUcsur, normalize } from './util';
 
 export function filter(
 	words: LocalizedWord[],
@@ -70,7 +70,7 @@ export function filter(
 			}
 		}
 
-		if (word.representations?.ucsur === search) {
+		if (getUcsur(word) === search) {
 			score += 1000;
 		}
 
