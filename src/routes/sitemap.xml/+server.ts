@@ -2,22 +2,31 @@ import type { LocalizedWord } from '@kulupu-linku/sona';
 import { client } from '@kulupu-linku/sona/client';
 import type { UsageCategory } from '@kulupu-linku/sona/utils';
 import { text } from '@sveltejs/kit';
+import type { CompoundData } from '$lib/types.js';
 
 export async function GET({ fetch }) {
-	const [words, languages] = [
+	const [words, languages, compounds] = [
 		await client({ fetch })
 			.v1.words.$get({ query: { lang: 'en' } })
 			.then(res => res.json()),
 		await client({ fetch })
 			.v1.languages.$get({})
-			.then(res => res.json())
+			.then(res => res.json()),
+		(await fetch('/api/nimi-ku').then(res => res.json())) as CompoundData
 	];
 
-	return text(render(Object.values(words), Object.keys(languages)), {
-		headers: {
-			'Content-Type': 'application/xml'
+	return text(
+		render(
+			Object.values(words),
+			Object.keys(languages),
+			Object.keys(compounds)
+		),
+		{
+			headers: {
+				'Content-Type': 'application/xml'
+			}
 		}
-	});
+	);
 }
 
 const priorities: Record<UsageCategory, number> = {
@@ -28,7 +37,11 @@ const priorities: Record<UsageCategory, number> = {
 	sandbox: 0.2
 };
 
-const render = (words: LocalizedWord[], languages: string[]) =>
+const render = (
+	words: LocalizedWord[],
+	languages: string[],
+	compounds: string[]
+) =>
 	`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://nimi.li/</loc><priority>1.0</priority></url>
@@ -40,6 +53,11 @@ ${words
 	.map(word => {
 		const priority = priorities[word.usage_category];
 		return `<url><loc>https://nimi.li/${word.id}</loc><priority>${priority.toFixed(1)}</priority></url>`;
+	})
+	.join('\n')}
+${compounds
+	.map(compound => {
+		return `<url><loc>https://nimi.li/ilo-ku/${compound.replaceAll(' ', '-')}</loc><priority>0.7</priority></url>`;
 	})
 	.join('\n')}
 ${languages
