@@ -48,7 +48,7 @@
 	let fetchedTranslations = $state(['en']);
 
 	async function fetchTranslation(lang: string) {
-		const words = (await fetch(`/api/linku?lang=${lang}`).then(res =>
+		const words = (await fetch(`/internal/api/linku?lang=${lang}`).then(res =>
 			res.json()
 		)) as Record<string, LocalizedWord>;
 

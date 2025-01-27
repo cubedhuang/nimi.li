@@ -245,7 +245,7 @@
 			<h3 class="mt-2 text-lg">sitelen sitelen</h3>
 
 			<img
-				src="/api/ss?word={word.word}"
+				src="/internal/api/ss?word={word.word}"
 				alt="{word.word} sitelen sitelen"
 				class="invertible h-10 w-10"
 			/>

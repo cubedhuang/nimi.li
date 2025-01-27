@@ -8,7 +8,7 @@ export async function load({ fetch, setHeaders }) {
 		client({ fetch })
 			.v1.languages.$get()
 			.then(res => res.json()),
-		fetch('/api/lipamanka').then(res => res.json()) as Promise<
+		fetch('/internal/api/lipamanka').then(res => res.json()) as Promise<
 			Record<string, string>
 		>
 	]);

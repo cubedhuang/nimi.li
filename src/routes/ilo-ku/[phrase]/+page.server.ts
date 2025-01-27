@@ -1,18 +1,21 @@
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 
-export const prerender = true;
+export const prerender = 'auto';
 
 export async function load({ params, parent }) {
-	const { phrases } = await parent();
+	if (params.phrase.includes(' ')) {
+		redirect(301, params.phrase.replaceAll(' ', '-'));
+	}
 
-	const phrase = phrases[params.phrase.replace(/-/g, ' ')];
+	const { phrases } = await parent();
+	const phrase = phrases[params.phrase.replaceAll('-', ' ')];
+
+	if (!phrase) {
+		error(404, 'Phrase not found');
+	}
 
 	const entries = Object.entries(phrases);
 	const index = entries.findIndex(([key]) => phrase.compound === key);
-
-	if (index === -1) {
-		return error(404, 'Not found');
-	}
 
 	return {
 		phrase,

@@ -12,7 +12,9 @@ export async function GET({ fetch }) {
 		await client({ fetch })
 			.v1.languages.$get({})
 			.then(res => res.json()),
-		(await fetch('/api/nimi-ku').then(res => res.json())) as CompoundData
+		(await fetch('/internal/api/nimi-ku').then(res =>
+			res.json()
+		)) as CompoundData
 	];
 
 	return text(
