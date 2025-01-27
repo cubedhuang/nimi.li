@@ -17,15 +17,23 @@
 		<div class="flex">
 			<h2 class="text-2xl">{compound.compound}</h2>
 
-			<button
-				class="interactable ml-auto p-1"
-				onclick={() => {
-					possibleCompound = null;
-				}}
-				aria-label="close popup"
-			>
-				<XMark />
-			</button>
+			<div class="ml-auto flex items-center gap-2">
+				<a
+					href="/ilo-ku/{compound.compound.replace(/ /g, '-')}"
+					class="interactable px-2 py-1"
+				>
+					more
+				</a>
+				<button
+					class="interactable p-1"
+					onclick={() => {
+						possibleCompound = null;
+					}}
+					aria-label="close popup"
+				>
+					<XMark />
+				</button>
+			</div>
 		</div>
 
 		<p class="font-pona text-4xl">

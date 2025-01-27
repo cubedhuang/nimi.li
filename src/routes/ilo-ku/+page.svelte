@@ -17,7 +17,7 @@
 	}
 
 	const compounds = $derived(
-		Object.values(data).sort(
+		Object.values(data.phrases).sort(
 			(a: Compound, b: Compound) =>
 				getCompoundRecognition(b) - getCompoundRecognition(a)
 		)

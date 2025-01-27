@@ -18,7 +18,11 @@
 	);
 </script>
 
-<Space {onclick} id={compound.compound}>
+<Space
+	{onclick}
+	id={compound.compound}
+	href="/ilo-ku/{compound.compound.replace(/ /g, '-')}"
+>
 	<div class="h-full">
 		{#if compound.glyphs?.length}
 			<div class="float-right flex flex-col items-end text-right">

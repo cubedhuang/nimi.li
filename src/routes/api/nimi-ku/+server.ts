@@ -1,3 +1,4 @@
+import { json } from '@sveltejs/kit';
 import { dev } from '$app/environment';
 import type { Compound, CompoundData } from '$lib/types';
 
@@ -50,7 +51,7 @@ function parseData(raw: string): CompoundData {
 	);
 }
 
-export async function load({ fetch, setHeaders }) {
+export async function GET({ fetch, setHeaders }) {
 	if (dev) {
 		process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 	}
@@ -82,5 +83,5 @@ export async function load({ fetch, setHeaders }) {
 
 	setHeaders({ 'Cache-Control': 's-maxage=31536000' });
 
-	return data;
+	return json(data);
 }
