@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { flyAndScale } from '$lib/transitions';
 	import FontOption from './FontOption.svelte';
+	import SystemOption from './SystemOption.svelte';
 	import ThemeOption from './ThemeOption.svelte';
 
 	let opened = $state(false);
@@ -47,8 +48,7 @@
 			class="absolute right-0 top-full z-50 mt-2 w-max rounded-lg border bg-card p-4 shadow-md"
 		>
 			<div class="flex justify-center">
-				<ThemeOption
-					value="system"
+				<SystemOption
 					class="bg-white text-gray-950 dark:bg-black dark:text-gray-50"
 				/>
 			</div>

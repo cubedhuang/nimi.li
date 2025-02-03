@@ -1,4 +1,4 @@
-import { writable, type Writable } from 'svelte/store';
+import { writable, get, type Writable } from 'svelte/store';
 
 import { browser } from '$app/environment';
 
@@ -45,7 +45,6 @@ function persisted<T>(
 }
 
 export const themes = [
-	'system',
 	'light',
 	'orange',
 	'dark',
@@ -60,9 +59,29 @@ export const themes = [
 	'indigo'
 ] as const;
 export type Theme = (typeof themes)[number];
-export const theme = persisted<Theme>('theme', 'system', value =>
+export const baseTheme = persisted<Theme>('base-theme', 'light', value =>
 	themes.includes(value)
 );
+export const darkTheme = persisted<Theme>('dark-theme', 'dark', value =>
+	themes.includes(value)
+);
+export const lightTheme = persisted<Theme>('light-theme', 'light', value =>
+	themes.includes(value)
+);
+export const systemTheme = persisted<boolean>('system-theme', true);
+
+export function isDarkTheme(theme: Theme): boolean {
+	const darkThemes: Theme[] = [
+		'dark',
+		'stone',
+		'red',
+		'emerald',
+		'dim',
+		'indigo'
+	]
+
+	return darkThemes.includes(theme);
+}
 
 export const fonts = [
 	'font-sans',
@@ -76,30 +95,90 @@ export const font = persisted<Font>('font', 'font-sans', value =>
 	fonts.includes(value)
 );
 
+function changeTheme(value: Theme) {
+	if (document.documentElement.classList.contains(value)) {
+		return;
+	}
+
+	document.documentElement.classList.add('no-transition');
+
+	for (const theme of themes) {
+		document.documentElement.classList.toggle(theme, value === theme);
+	}
+
+	// Force a reflow to make sure the transition is triggered
+	// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+	document.documentElement.offsetWidth;
+
+	document.documentElement.classList.remove('no-transition');
+}
+
 if (browser) {
-	theme.subscribe(value => {
-		if (document.documentElement.classList.contains('value')) {
-			return;
+	baseTheme.subscribe(value => {
+		if (!get(systemTheme)) {
+			changeTheme(value);
 		}
+	});
 
-		document.documentElement.classList.add('no-transition');
+	lightTheme.subscribe(value => {
+		const isDark = window.matchMedia(
+			'(prefers-color-scheme: dark)'
+		).matches;
 
-		if (value === 'system') {
-			const isDark = window.matchMedia(
-				'(prefers-color-scheme: dark)'
-			).matches;
-			value = isDark ? 'dark' : 'light';
+		if (
+			get(systemTheme) &&
+			!isDark
+		) {
+			changeTheme(value);
 		}
+	});
 
-		for (const theme of themes) {
-			document.documentElement.classList.toggle(theme, value === theme);
+	darkTheme.subscribe(value => {
+		const isDark = window.matchMedia(
+			'(prefers-color-scheme: dark)'
+		).matches;
+
+		if (
+			get(systemTheme) &&
+			isDark
+		) {
+			changeTheme(value);
 		}
+	});
 
-		// Force a reflow to make sure the transition is triggered
-		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
-		document.documentElement.offsetWidth;
+	systemTheme.subscribe(value => {
+		const isDark = window.matchMedia(
+			'(prefers-color-scheme: dark)'
+		).matches;
 
-		document.documentElement.classList.remove('no-transition');
+		if (value) {
+			// when switching to system theme, transfer last picked color from baseTheme
+			if (isDarkTheme(get(baseTheme))) {
+				darkTheme.set(get(baseTheme));
+			} else {
+				lightTheme.set(get(baseTheme));
+			}
+
+			if (isDark) {
+				changeTheme(get(darkTheme));
+			} else {
+				changeTheme(get(lightTheme));
+			}
+		} else {
+			// when switching to single theme, make sure it's one of the two chosen system themes
+			if (
+				get(baseTheme) != get(darkTheme) && 
+				get(baseTheme) != get(lightTheme)
+			) {
+				if (isDark) {
+					baseTheme.set(get(darkTheme));
+				} else {
+					baseTheme.set(get(lightTheme));
+				}
+			}
+
+			changeTheme(get(baseTheme));
+		}
 	});
 
 	font.subscribe(value => {

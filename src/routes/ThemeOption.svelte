@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { theme, type Theme } from '$lib/stores';
+	import { baseTheme, lightTheme, darkTheme, systemTheme, type Theme, isDarkTheme } from '$lib/stores';
 
 	interface Props {
 		value: Theme;
@@ -7,8 +7,11 @@
 	}
 
 	const { value, class: className = undefined }: Props = $props();
+	
+	const theme = isDarkTheme(value) ? darkTheme : lightTheme;
 
-	const selected = $derived(value === $theme);
+	const selected = $derived($systemTheme ? (value === $theme) : (value === $baseTheme));
+	console.log(value, isDarkTheme(value));
 </script>
 
 <button
@@ -18,29 +21,17 @@
 		: ''}"
 	onclick={e => {
 		e.stopPropagation();
-		$theme = value;
+
+		if ($systemTheme) {
+			$theme = value;
+		} else {
+			$baseTheme = value;
+		}
 	}}
 	ontouchstart={e => e.stopPropagation()}
 	role="option"
 	aria-selected={selected}
 	aria-label={value}
 >
-	{#if value === 'system'}
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
-			viewBox="0 0 24 24"
-			stroke-width="1.5"
-			stroke="currentColor"
-			class="size-6"
-		>
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25"
-			/>
-		</svg>
-	{:else}
-		<span aria-hidden="true"> Aa </span>
-	{/if}
+	<span aria-hidden="true"> Aa </span>
 </button>

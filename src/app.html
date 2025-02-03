@@ -33,10 +33,25 @@
 		<script>
 			// @ts-check
 			{
+				const isDark = window.matchMedia(
+					'(prefers-color-scheme: dark)'
+				).matches;
+
 				/** @type {string | null} */
 				let themeValue;
 				try {
-					let value = localStorage.getItem('nimi.li:theme');
+					/** @type {string | null} */
+					let value;
+					let systemTheme = localStorage.getItem('nimi.li:system-theme');
+					if (systemTheme == 'true') {
+						if (isDark) {
+							value = localStorage.getItem('nimi.li:dark-theme');
+						} else {
+							value = localStorage.getItem('nimi.li:light-theme');
+						}
+					} else {
+						value = localStorage.getItem('nimi.li:base-theme');
+					}
 					themeValue = value ? JSON.parse(value) : null;
 				} catch {
 					themeValue = null;
@@ -45,10 +60,6 @@
 				if (themeValue) {
 					document.documentElement.classList.add(themeValue);
 				} else {
-					const isDark = window.matchMedia(
-						'(prefers-color-scheme: dark)'
-					).matches;
-
 					document.documentElement.classList.toggle('dark', isDark);
 				}
 
