@@ -78,7 +78,7 @@ export function isDarkTheme(theme: Theme): boolean {
 		'emerald',
 		'dim',
 		'indigo'
-	]
+	];
 
 	return darkThemes.includes(theme);
 }
@@ -125,10 +125,7 @@ if (browser) {
 			'(prefers-color-scheme: dark)'
 		).matches;
 
-		if (
-			get(systemTheme) &&
-			!isDark
-		) {
+		if (get(systemTheme) && !isDark) {
 			changeTheme(value);
 		}
 	});
@@ -138,10 +135,7 @@ if (browser) {
 			'(prefers-color-scheme: dark)'
 		).matches;
 
-		if (
-			get(systemTheme) &&
-			isDark
-		) {
+		if (get(systemTheme) && isDark) {
 			changeTheme(value);
 		}
 	});
@@ -167,7 +161,7 @@ if (browser) {
 		} else {
 			// when switching to single theme, make sure it's one of the two chosen system themes
 			if (
-				get(baseTheme) != get(darkTheme) && 
+				get(baseTheme) != get(darkTheme) &&
 				get(baseTheme) != get(lightTheme)
 			) {
 				if (isDark) {

@@ -42,7 +42,9 @@
 				try {
 					/** @type {string | null} */
 					let value;
-					let systemTheme = localStorage.getItem('nimi.li:system-theme');
+					let systemTheme = localStorage.getItem(
+						'nimi.li:system-theme'
+					);
 					if (systemTheme == 'true') {
 						if (isDark) {
 							value = localStorage.getItem('nimi.li:dark-theme');

@@ -22,7 +22,7 @@
 	ontouchstart={e => e.stopPropagation()}
 	role="option"
 	aria-selected={selected}
-	aria-label={"toggle system theme"}
+	aria-label={'toggle system theme'}
 >
 	<svg
 		xmlns="http://www.w3.org/2000/svg"

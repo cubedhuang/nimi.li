@@ -1,5 +1,12 @@
 <script lang="ts">
-	import { baseTheme, lightTheme, darkTheme, systemTheme, type Theme, isDarkTheme } from '$lib/stores';
+	import {
+		baseTheme,
+		lightTheme,
+		darkTheme,
+		systemTheme,
+		type Theme,
+		isDarkTheme
+	} from '$lib/stores';
 
 	interface Props {
 		value: Theme;
@@ -7,11 +14,12 @@
 	}
 
 	const { value, class: className = undefined }: Props = $props();
-	
+
 	const theme = isDarkTheme(value) ? darkTheme : lightTheme;
 
-	const selected = $derived($systemTheme ? (value === $theme) : (value === $baseTheme));
-	console.log(value, isDarkTheme(value));
+	const selected = $derived(
+		$systemTheme ? value === $theme : value === $baseTheme
+	);
 </script>
 
 <button
