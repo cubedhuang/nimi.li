@@ -107,13 +107,7 @@ export function getShortWordEtymologies(
 }
 
 export function getWordRecognition(word: LocalizedWord) {
-	const latest = word.usage['2024-09'];
-
-	if (latest === undefined) {
-		return -1;
-	}
-
-	return Number(word.usage[latest]);
+	return word.usage['2024-09'] ?? -1;
 }
 
 export function getWordDisplayRecognition(word: LocalizedWord) {
