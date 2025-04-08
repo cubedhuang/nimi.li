@@ -30,11 +30,9 @@
 	onclick={e => {
 		e.stopPropagation();
 
-		if ($systemTheme) {
-			$theme = value;
-		} else {
-			$baseTheme = value;
-		}
+		// synchronize both stores
+		$theme = value;
+		$baseTheme = value;
 	}}
 	ontouchstart={e => e.stopPropagation()}
 	role="option"
