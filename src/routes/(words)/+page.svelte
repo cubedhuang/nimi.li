@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 
 	import type { LocalizedWord } from '@kulupu-linku/sona';
@@ -57,14 +56,11 @@
 		}
 
 		fetchedTranslations.push(lang);
-		fetchedTranslations = fetchedTranslations;
 
+		// forces invalidation
+		$language = '';
 		$language = lang;
 	}
-
-	onMount(() => {
-		fetchTranslation($language);
-	});
 
 	const words = $derived(Object.values(data.words));
 
