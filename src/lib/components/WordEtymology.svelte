@@ -17,9 +17,9 @@
 
 {#each word.etymology as { word: sourceWord, alt }, i}
 	{#if !(word.source_language === 'unknown' && sourceWord === 'unknown')}
-		{@const { definition, language } = translation.etymology[i]}
+		{@const { definition, language } = translation.etymology[i] ?? {}}
 		<p>
-			{language}
+			{language || 'unknown'}
 			{#if sourceWord}
 				&middot;
 				{sourceWord}
