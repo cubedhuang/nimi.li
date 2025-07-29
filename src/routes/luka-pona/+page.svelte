@@ -1,11 +1,10 @@
 <script lang="ts">
-	import type { LocalizedWord } from '@kulupu-linku/sona';
-
 	import type { PageData } from './$types';
 
-	import { azWordSort, categoryColors } from '$lib/util';
-	import { filter } from '$lib/search';
+	import { azWordSort, categoryColors, normalize } from '$lib/util';
+	import { scoreSearch } from '$lib/search';
 	import { autoplay, language } from '$lib/stores';
+	import type { SignData } from '$lib/types';
 
 	import ColoredCheckbox from '$lib/components/ColoredCheckbox.svelte';
 	import LukaPonaEntry from './LukaPonaEntry.svelte';
@@ -19,18 +18,40 @@
 
 	const { data }: Props = $props();
 
-	const words = $derived(data.words);
+	const signs = $derived(data.signs);
 
 	let search = $state('');
-	let selectedWord = $state<LocalizedWord | null>(null);
+	let selectedSign = $state<SignData | null>(null);
 
-	const genericFilteredWords = $derived(
-		words.filter(word => data.signs[word.id]).sort(azWordSort)
+	const genericFilteredSigns = $derived(
+		signs.sort(({ words: [a] }, { words: [b] }) => azWordSort(a, b))
 	);
 
-	const filteredWords = $derived(
-		filter(genericFilteredWords, search, $language)
-	);
+	function filter(signs: SignData[]) {
+		const q = normalize(search);
+
+		if (!q) {
+			return signs;
+		}
+
+		return signs
+			.map(
+				data =>
+					[
+						data,
+						Math.max(
+							...data.words.map(word =>
+								scoreSearch(word, q, $language)
+							)
+						)
+					] as const
+			)
+			.filter(([, score]) => score > 0)
+			.sort((a, b) => b[1] - a[1])
+			.map(([data]) => data);
+	}
+
+	const filteredSigns = $derived(filter(genericFilteredSigns));
 </script>
 
 <Meta
@@ -61,30 +82,30 @@
 </div>
 
 <p class="mt-2 text-muted">
-	{filteredWords.length} / {genericFilteredWords.length}
+	{filteredSigns.length} / {genericFilteredSigns.length}
 </p>
 
 <Search placeholder="o alasa..." bind:value={search} />
 
 <div class="mt-4 grid gap-3 grid-cols-fill-64">
-	{#each filteredWords as word (word.id)}
+	{#each filteredSigns as signData (signData.id)}
 		<LukaPonaEntry
-			word={word.id}
-			video={data.signs[word.id][0].video}
+			word={signData.words
+				.map(w => w.word)
+				.join('/')
+				.toUpperCase()}
+			video={signData.signs[0].video}
 			onclick={() => {
-				if (selectedWord?.id === word.id) selectedWord = null;
-				else selectedWord = word;
+				if (selectedSign?.id === signData.id) selectedSign = null;
+				else selectedSign = signData;
 			}}
 		/>
 	{/each}
 </div>
 
-{#if !filteredWords.length}
+{#if !filteredSigns.length}
 	<p>wile sina la, nimi li lon ala!</p>
 	<p class="text-muted">Your query didn't match any words!</p>
 {/if}
 
-<SignDetails
-	bind:word={selectedWord}
-	signs={data.signs[selectedWord?.id ?? ''] || []}
-/>
+<SignDetails bind:data={selectedSign} />

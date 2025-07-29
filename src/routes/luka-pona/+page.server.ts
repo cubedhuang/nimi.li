@@ -1,10 +1,13 @@
-import type { LocalizedSign } from '@kulupu-linku/sona';
 import { client } from '@kulupu-linku/sona/client';
+import type { SignData } from '$lib/types';
 
 export async function load({ fetch, setHeaders }) {
-	const [words, lukaPona] = await Promise.all([
+	const [words, sandbox, lukaPona] = await Promise.all([
 		client({ fetch })
 			.v1.words.$get({ query: { lang: 'en' } })
+			.then(res => res.json()),
+		client({ fetch })
+			.v1.sandbox.$get({ query: { lang: 'en' } })
 			.then(res => res.json()),
 		client({ fetch })
 			.v1.luka_pona.signs.$get({ query: { lang: 'en' } })
@@ -12,19 +15,27 @@ export async function load({ fetch, setHeaders }) {
 	]);
 
 	const lukaPonaData = Object.values(lukaPona);
-	const signs: Record<string, LocalizedSign[]> = {};
+	const signs: Record<string, SignData> = {};
 
-	for (const word of Object.keys(words)) {
-		const results = lukaPonaData.filter(sign => sign.definition === word);
-		if (results.length) {
-			signs[word] = results;
+	for (const sign of Object.values(lukaPonaData)) {
+		if (signs[sign.definition]) {
+			signs[sign.definition].signs.push(sign);
+		} else {
+			signs[sign.definition] = {
+				id: sign.definition,
+				words: sign.definition
+					.split(', ')
+					.map(w => words[w] ?? sandbox[w]),
+				signs: [sign]
+			};
 		}
 	}
 
 	setHeaders({ 'Cache-Control': 's-maxage=3600' });
 
 	return {
-		words: Object.values(words).filter(word => signs[word.word]),
-		signs
+		signs: Object.values(signs).sort((a, b) =>
+			a.words[0].id.localeCompare(b.words[0].id)
+		)
 	};
 }

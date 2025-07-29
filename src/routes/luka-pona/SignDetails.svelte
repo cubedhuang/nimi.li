@@ -1,7 +1,6 @@
 <script lang="ts">
-	import type { LocalizedSign, LocalizedWord } from '@kulupu-linku/sona';
-
 	import { language } from '$lib/stores';
+	import type { SignData } from '$lib/types';
 	import { getWordLink, getTranslation } from '$lib/util';
 
 	import Details from '$lib/components/Details.svelte';
@@ -10,16 +9,15 @@
 	import XMark from '$lib/components/icons/XMark.svelte';
 
 	interface Props {
-		word: LocalizedWord | null;
-		signs: LocalizedSign[];
+		data: SignData | null;
 	}
 
-	let { word: possibleWord = $bindable(), signs }: Props = $props();
+	let { data: possibleData = $bindable() }: Props = $props();
 </script>
 
-<Details bind:value={possibleWord} key={word => word.id} padding={false}>
-	{#snippet children(word)}
-		{@const translation = getTranslation(word, $language)}
+<Details bind:value={possibleData} key={data => data.id} padding={false}>
+	{#snippet children(data)}
+		{@const { words, signs } = data}
 
 		<video
 			src={signs[0].video.mp4}
@@ -34,19 +32,24 @@
 
 		<div class="p-6">
 			<div class="flex items-end">
-				<h2 class="text-2xl">{word.word.toUpperCase()}</h2>
+				<h2 class="text-2xl">
+					{words
+						.map(w => w.word)
+						.join('/')
+						.toUpperCase()}
+				</h2>
 
 				<div class="ml-auto flex items-center gap-2">
 					<a
-						href={getWordLink(word.id, $language)}
+						href={getWordLink(words[0].id, $language)}
 						class="interactable px-2 py-1"
 					>
 						more
 					</a>
 
-					{#if word.resources?.sona_pona}
+					{#if words[0].resources?.sona_pona}
 						<a
-							href={word.resources.sona_pona}
+							href={words[0].resources.sona_pona}
 							target="_blank"
 							rel="noreferrer noopener"
 							class="interactable p-1"
@@ -58,7 +61,7 @@
 					<button
 						class="interactable p-1"
 						onclick={() => {
-							possibleWord = null;
+							possibleData = null;
 						}}
 						aria-label="close popup"
 					>
@@ -67,9 +70,13 @@
 				</div>
 			</div>
 
-			<p class="mt-2">
-				{translation.definition}
-			</p>
+			{#each words as word (word.id)}
+				{@const translation = getTranslation(word, $language)}
+
+				<p class="mt-2">
+					{translation.definition}
+				</p>
+			{/each}
 
 			<SignsList {signs} />
 		</div>

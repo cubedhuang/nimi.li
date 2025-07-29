@@ -9,13 +9,9 @@
 	}
 
 	let { signs }: Props = $props();
-
-	const shown = $derived(
-		page.url.searchParams.has('sona') ? signs : ([] as LocalizedSign[])
-	);
 </script>
 
-{#each shown as sign}
+{#each signs as sign}
 	{@const translation = getTranslation(sign, $language)}
 	{@const parameters = [
 		translation.parameters.handshape,
