@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { page } from '$app/state';
 	import { language } from '$lib/stores';
 	import { getTranslation } from '$lib/util';
 	import type { LocalizedSign } from '@kulupu-linku/sona';
 
 	interface Props {
 		signs: LocalizedSign[];
+		language?: string;
 	}
 
-	let { signs }: Props = $props();
+	let { signs, language: lang }: Props = $props();
 </script>
 
 {#each signs as sign}
-	{@const translation = getTranslation(sign, $language)}
+	{@const translation = getTranslation(sign, lang || $language || 'en')}
 	{@const parameters = [
 		translation.parameters.handshape,
 		translation.parameters.movement,

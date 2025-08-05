@@ -477,7 +477,7 @@
 				</p>
 			{/if}
 
-			<SignsList signs={data.signs} />
+			<SignsList signs={data.signs} {language} />
 		</div>
 	{/if}
 </div>
