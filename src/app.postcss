@@ -48,18 +48,7 @@
 		@apply font-display font-normal;
 	}
 
-	@keyframes highlight-light {
-		0% {
-			outline-width: 2px;
-			outline-color: var(--accent);
-		}
-		100% {
-			outline-width: 2px;
-			outline-color: transparent;
-		}
-	}
-
-	@keyframes highlight-dark {
+	@keyframes highlight {
 		0% {
 			outline-width: 2px;
 			outline-color: var(--accent);
@@ -71,8 +60,7 @@
 	}
 
 	:target {
-		@apply darkish:[animation-name:highlight-dark];
-		animation: highlight-light 3s ease-in;
+		animation: highlight 3s ease-in;
 	}
 
 	.no-transition {
