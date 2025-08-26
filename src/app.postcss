@@ -50,25 +50,29 @@
 
 	@keyframes highlight-light {
 		0% {
-			@apply bg-blue-100;
+			outline-width: 2px;
+			outline-color: var(--accent);
 		}
 		100% {
-			@apply bg-card;
+			outline-width: 2px;
+			outline-color: transparent;
 		}
 	}
 
 	@keyframes highlight-dark {
 		0% {
-			@apply bg-slate-900;
+			outline-width: 2px;
+			outline-color: var(--accent);
 		}
 		100% {
-			@apply bg-card;
+			outline-width: 2px;
+			outline-color: transparent;
 		}
 	}
 
 	:target {
 		@apply darkish:[animation-name:highlight-dark];
-		animation: highlight-light 3s ease-out;
+		animation: highlight-light 3s ease-in;
 	}
 
 	.no-transition {
