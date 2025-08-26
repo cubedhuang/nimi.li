@@ -15,13 +15,12 @@
 	keywords={['about page', 'about']}
 />
 
-<p>
+<div class="flex items-baseline justify-between">
+	<h1 class="text-4xl">{t('sona poka', 'about')}</h1>
 	<button class="interactable px-2 py-1" onclick={() => (pona = !pona)}>
 		{t('use English', 'o toki pona')}
 	</button>
-</p>
-
-<h1>{t('sona', 'about')} &ndash; nimi.li</h1>
+</div>
 
 <div class="mt-4 grid gap-4 leading-relaxed md:grid-cols-2">
 	<div class="box">
@@ -134,10 +133,6 @@
 </div>
 
 <style lang="postcss">
-	h1 {
-		@apply mt-4 text-4xl;
-	}
-
 	h2 {
 		@apply text-xl;
 	}
