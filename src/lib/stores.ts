@@ -5,7 +5,7 @@ import { browser } from '$app/environment';
 import { usageCategories } from './util';
 import type { UsageCategory } from '@kulupu-linku/sona/utils';
 
-function persisted<T>(
+export function persisted<T>(
 	key: string,
 	initialValue: T,
 	validator?: (value: T) => boolean
@@ -47,6 +47,7 @@ function persisted<T>(
 export const themes = [
 	'light',
 	'orange',
+	'amoled',
 	'dark',
 	'stone',
 	'pink',
@@ -72,6 +73,7 @@ export const systemTheme = persisted<boolean>('system-theme', true);
 
 export function isDarkTheme(theme: Theme): boolean {
 	const darkThemes: Theme[] = [
+		'amoled',
 		'dark',
 		'stone',
 		'red',

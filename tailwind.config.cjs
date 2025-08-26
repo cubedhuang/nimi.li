@@ -52,6 +52,7 @@ module.exports = {
 				'.group:focus-visible &'
 			]);
 			addVariant('darkish', [
+				'.amoled &',
 				'.dark &',
 				'.stone &',
 				'.red &',

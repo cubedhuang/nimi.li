@@ -1,10 +1,22 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+
+	import { persisted } from '$lib/stores';
 	import { flyAndScale } from '$lib/transitions';
+
 	import FontOption from './FontOption.svelte';
 	import SystemOption from './SystemOption.svelte';
 	import ThemeOption from './ThemeOption.svelte';
 
+	const firstTime = persisted('first-time', browser);
 	let opened = $state(false);
+
+	$effect(() => {
+		if ($firstTime) {
+			opened = true;
+			$firstTime = false;
+		}
+	});
 </script>
 
 <svelte:window
@@ -47,10 +59,11 @@
 			transition:flyAndScale={{ x: 4, y: -8 }}
 			class="absolute right-0 top-full z-50 mt-2 w-max rounded-lg border bg-card p-4 shadow-md"
 		>
-			<div class="flex justify-center">
+			<div class="flex justify-between">
 				<SystemOption
 					class="bg-white text-gray-950 dark:bg-black dark:text-gray-50"
 				/>
+				<ThemeOption value="amoled" class="bg-black text-gray-50" />
 			</div>
 
 			<div class="mt-2 grid grid-cols-4 gap-2">
@@ -59,7 +72,7 @@
 					value="orange"
 					class="bg-orange-100 text-zinc-950"
 				/>
-				<ThemeOption value="dark" class="bg-black text-gray-50" />
+				<ThemeOption value="dark" class="bg-zinc-900 text-zinc-50" />
 				<ThemeOption value="stone" class="bg-stone-800 text-stone-50" />
 				<ThemeOption value="pink" class="bg-pink-100 text-pink-900" />
 				<ThemeOption value="blue" class="bg-blue-100 text-blue-900" />
