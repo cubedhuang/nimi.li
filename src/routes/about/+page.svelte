@@ -54,13 +54,9 @@
 			)}
 			<Link href="https://www.typescriptlang.org">TypeScript</Link>{t(
 				' kepeken ilo',
-				','
-			)}
-			<Link href="https://tailwindcss.com">TailwindCSS</Link>{t(
-				' kepeken ilo',
 				', and'
 			)}
-			<Link href="https://vite-pwa-org.netlify.app/">Vite PWA</Link>.
+			<Link href="https://tailwindcss.com">TailwindCSS</Link>.
 		</p>
 	</div>
 
