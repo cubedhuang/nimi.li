@@ -21,7 +21,7 @@
 	{#if $sitelenMode === 'pona'}
 		{#if word.representations?.ligatures?.length}
 			<div class="float-right ml-2 flex flex-col items-end text-right">
-				{#each word.representations.ligatures as sitelen (sitelen)}
+				{#each word.representations.ligatures as sitelen, i (i)}
 					<p class="font-pona text-4xl">{sitelen}</p>
 				{/each}
 			</div>
@@ -37,7 +37,7 @@
 	{:else if $sitelenMode === 'jelo'}
 		{#if word.representations?.sitelen_jelo}
 			<div class="float-right">
-				{#each word.representations.sitelen_jelo.slice(0, 3) as sitelen (sitelen)}
+				{#each word.representations.sitelen_jelo.slice(0, 3) as sitelen, i (i)}
 					<p class="ml-auto text-right text-3xl">
 						{sitelen}
 					</p>

@@ -67,7 +67,7 @@
 
 	<div class="mt-1 flex gap-2 text-center">
 		<div class="flex w-9 shrink-0 flex-col items-end text-right">
-			{#each word.representations?.ligatures ?? [] as sitelen (sitelen)}
+			{#each word.representations?.ligatures ?? [] as sitelen, i (i)}
 				<p class="font-pona text-4xl">{sitelen}</p>
 			{/each}
 		</div>
@@ -91,7 +91,7 @@
 		<div class="w-9 shrink-0">
 			{#if $sitelenMode === 'jelo'}
 				{#if word.representations?.sitelen_jelo}
-					{#each word.representations.sitelen_jelo.slice(0, 3) as sitelen (sitelen)}
+					{#each word.representations.sitelen_jelo.slice(0, 3) as sitelen, i (i)}
 						<p class="text-3xl">{sitelen}</p>
 					{/each}
 				{/if}
