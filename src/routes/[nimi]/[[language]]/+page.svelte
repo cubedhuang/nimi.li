@@ -130,25 +130,25 @@
 </div>
 
 {#if word.usage_category === 'obscure' || word.usage_category === 'sandbox'}
-	<div class="mt-4 -mb-2 flex items-center gap-2">
+	<div class="mt-4 -mb-2 flex items-baseline gap-2">
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 16 16"
 			fill="currentColor"
-			class="size-4 shrink-0"
+			class="size-4 shrink-0 translate-y-0.5"
 		>
 			<path
-				d="M13.488 2.513a1.75 1.75 0 0 0-2.475 0L6.75 6.774a2.75 2.75 0 0 0-.596.892l-.848 2.047a.75.75 0 0 0 .98.98l2.047-.848a2.75 2.75 0 0 0 .892-.596l4.261-4.262a1.75 1.75 0 0 0 0-2.474Z"
-			/>
-			<path
-				d="M4.75 3.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25V9A.75.75 0 0 1 14 9v2.25A2.75 2.75 0 0 1 11.25 14h-6.5A2.75 2.75 0 0 1 2 11.25v-6.5A2.75 2.75 0 0 1 4.75 2H7a.75.75 0 0 1 0 1.5H4.75Z"
+				fill-rule="evenodd"
+				d="M11 3.5v2.257c0 .597.237 1.17.659 1.591l2.733 2.733c.39.39.608.918.608 1.469a2.04 2.04 0 0 1-1.702 2.024C11.573 13.854 9.803 14 8 14s-3.573-.146-5.298-.426A2.04 2.04 0 0 1 1 11.55c0-.551.219-1.08.608-1.47l2.733-2.732A2.25 2.25 0 0 0 5 5.758V3.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11ZM6.5 5.757V3.5h3v2.257a3.75 3.75 0 0 0 1.098 2.652l.158.158a3.36 3.36 0 0 0-.075.034c-.424.2-.916.194-1.335-.016l-1.19-.595a4.943 4.943 0 0 0-2.07-.52A3.75 3.75 0 0 0 6.5 5.757Z"
+				clip-rule="evenodd"
 			/>
 		</svg>
 
 		<p>
 			{#if word.usage_category === 'sandbox'}
 				This word is in the
-				<b>sandbox</b>, so almost no speakers will understand it.
+				<b class={categoryTextColors.sandbox}>sandbox</b>, so almost no
+				speakers will understand it.
 			{:else}
 				This word is
 				<b class={categoryTextColors.obscure}>obscure</b>, so most
@@ -158,31 +158,36 @@
 	</div>
 {/if}
 
+{#if word.deprecated}
+	<div
+		class="-mb-2 flex items-baseline gap-2
+			{word.usage_category === 'obscure' || word.usage_category === 'sandbox'
+			? 'mt-3'
+			: 'mt-4'}"
+	>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 16 16"
+			fill="currentColor"
+			class="size-4 shrink-0 translate-y-0.5"
+		>
+			<path
+				fill-rule="evenodd"
+				d="M6.701 2.25c.577-1 2.02-1 2.598 0l5.196 9a1.5 1.5 0 0 1-1.299 2.25H2.804a1.5 1.5 0 0 1-1.3-2.25l5.197-9ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 1 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+				clip-rule="evenodd"
+			/>
+		</svg>
+
+		<p>
+			This word is
+			<strong>deprecated by its creator</strong>, and its use is
+			discouraged.
+		</p>
+	</div>
+{/if}
+
 <div class="mt-6 grid gap-3 sm:grid-cols-2">
 	<div class="box">
-		{#if word.deprecated}
-			<div class="mb-4 flex items-center gap-2">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 16 16"
-					fill="currentColor"
-					class="size-4 shrink-0"
-				>
-					<path
-						fill-rule="evenodd"
-						d="M6.701 2.25c.577-1 2.02-1 2.598 0l5.196 9a1.5 1.5 0 0 1-1.299 2.25H2.804a1.5 1.5 0 0 1-1.3-2.25l5.197-9ZM8 4a.75.75 0 0 1 .75.75v3a.75.75 0 1 1-1.5 0v-3A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
-						clip-rule="evenodd"
-					/>
-				</svg>
-
-				<p class="text-sm">
-					This word is
-					<strong>deprecated by its creator</strong>, and its use is
-					discouraged.
-				</p>
-			</div>
-		{/if}
-
 		<h2 class="text-lg">meaning</h2>
 		<p class="mt-1">
 			{translation.definition}
