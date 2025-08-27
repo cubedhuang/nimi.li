@@ -23,7 +23,7 @@
 </script>
 
 <button
-	class="interactable grid size-12 place-items-center text-lg transition-colors {className}
+	class="grid size-12 interactable place-items-center text-lg transition-colors {className}
 		{selected
 		? 'ring-2 ring-secondary-foreground ring-offset-2 ring-offset-card'
 		: ''}"

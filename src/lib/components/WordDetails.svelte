@@ -251,7 +251,7 @@
 			<img
 				src="/internal/api/ss?word={word.word}"
 				alt="{word.word} sitelen sitelen"
-				class="invertible h-10 w-10"
+				class="h-10 w-10 invertible"
 			/>
 		{/if}
 
@@ -274,7 +274,7 @@
 		{/if}
 
 		{#if translation.commentary}
-			{#each translation.commentary.split('\n') as line, i}
+			{#each translation.commentary.split('\n') as line, i (i)}
 				<p class="text-muted" class:mt-2={i === 0}>
 					{line}
 				</p>

@@ -9,7 +9,7 @@
 </script>
 
 <button
-	class="interactable flex items-center"
+	class="flex interactable items-center"
 	onclick={() => (checked = !checked)}
 	role="checkbox"
 	aria-checked={checked}

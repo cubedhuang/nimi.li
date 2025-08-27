@@ -11,7 +11,7 @@
 </script>
 
 <button
-	class="interactable grid size-12 place-items-center text-lg transition-colors {className}
+	class="grid size-12 interactable place-items-center text-lg transition-colors {className}
 		{selected
 		? 'ring-2 ring-secondary-foreground ring-offset-2 ring-offset-card'
 		: ''}"
@@ -22,7 +22,7 @@
 	ontouchstart={e => e.stopPropagation()}
 	role="option"
 	aria-selected={selected}
-	aria-label={'toggle system theme'}
+	aria-label="toggle system theme"
 >
 	<svg
 		xmlns="http://www.w3.org/2000/svg"

@@ -22,7 +22,7 @@
 	<button class="group" {onclick}>
 		{#if $sitelenMode === 'pona'}
 			{#if word.representations?.ligatures?.length}
-				<p class="whitespace-nowrap font-pona text-5xl">
+				<p class="font-pona text-5xl whitespace-nowrap">
 					{word.representations.ligatures.slice(0, 3).join(' ')}
 				</p>
 			{:else}
@@ -33,7 +33,7 @@
 				<img
 					src="/internal/api/ss?word={word.word}"
 					alt="{word.word} sitelen sitelen"
-					class="invertible size-12"
+					class="size-12 invertible"
 				/>
 			{:else}
 				<span class="h-12"></span>

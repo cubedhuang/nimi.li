@@ -11,7 +11,7 @@
 	let { signs, language: lang }: Props = $props();
 </script>
 
-{#each signs as sign}
+{#each signs as sign (sign.id)}
 	{@const translation = getTranslation(sign, lang || $language || 'en')}
 	{@const parameters = [
 		translation.parameters.handshape,
@@ -32,7 +32,7 @@
 			&middot; {parameters.join(' · ')}
 		</p>
 
-		{#each sign.etymology as etymology}
+		{#each sign.etymology as etymology, i (i)}
 			<p class="text-muted">
 				{etymology.language}
 				{#if etymology.sign}

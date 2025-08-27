@@ -15,7 +15,7 @@
 </script>
 
 <button
-	class="interactable relative flex justify-center overflow-visible p-1"
+	class="relative flex interactable justify-center overflow-visible p-1"
 	aria-label="copy ucsur"
 	onclick={() => {
 		navigator.clipboard.writeText(value);

@@ -178,33 +178,33 @@
 }
 
 @utility focusable {
-	@apply bg-card focus-visible:border-contrast disabled:text-muted disabled:focus-visible:border-border appearance-none overflow-hidden rounded-lg border-2 outline-hidden transition disabled:cursor-default;
+	@apply appearance-none overflow-hidden rounded-lg border-2 bg-card outline-hidden transition focus-visible:border-contrast disabled:cursor-default disabled:text-muted disabled:focus-visible:border-border;
 }
 
 @utility interactable {
-	@apply focusable focus-visible:outline-contrast hv:border-contrast disabled:hv:border-border cursor-pointer select-none;
+	@apply focusable cursor-pointer select-none focus-visible:outline-contrast hv:border-contrast disabled:hv:border-border;
 }
 
 @utility icon-interactable {
-	@apply text-muted hv:text-foreground -m-1 ml-1 p-1 transition;
+	@apply -m-1 ml-1 p-1 text-muted transition hv:text-foreground;
 }
 
 @utility box {
-	@apply bg-card rounded-lg border-2 p-4 lg:p-6;
+	@apply rounded-lg border-2 bg-card p-4 lg:p-6;
 }
 
 @utility alert {
-	@apply border-secondary-border bg-secondary text-secondary-foreground rounded-lg border-2;
+	@apply rounded-lg border-2 border-secondary-border bg-secondary text-secondary-foreground;
 }
 
 @utility link {
-	@apply text-accent hv:decoration-current rounded-sm underline decoration-transparent underline-offset-4 outline-hidden outline-offset-4 transition-colors focus-visible:outline-current;
+	@apply rounded-sm text-accent underline decoration-transparent underline-offset-4 outline-hidden outline-offset-4 transition-colors focus-visible:outline-current hv:decoration-current;
 }
 
 @utility nav-item {
-	@apply bg-card rounded-lg border-2 p-2 transition-colors sm:rounded-t-none sm:border-t-0;
+	@apply rounded-lg border-2 bg-card p-2 transition-colors sm:rounded-t-none sm:border-t-0;
 }
 
 @utility nav-item-interactive {
-	@apply nav-item focus-visible:outline-contrast hv:border-contrast outline-hidden;
+	@apply nav-item outline-hidden focus-visible:outline-contrast hv:border-contrast;
 }

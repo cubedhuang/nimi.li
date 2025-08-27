@@ -35,7 +35,7 @@
 			opened = !opened;
 		}}
 		ontouchstart={e => e.stopPropagation()}
-		class="nav-item-interactive cursor-pointer"
+		class="cursor-pointer nav-item-interactive"
 		aria-label="set color theme and font"
 	>
 		<svg
@@ -57,7 +57,7 @@
 	{#if opened}
 		<div
 			transition:flyAndScale={{ x: 4, y: -8 }}
-			class="absolute right-0 top-full z-50 mt-2 w-max rounded-lg border-2 bg-card p-4 shadow-md"
+			class="absolute top-full right-0 z-50 mt-2 w-max rounded-lg border-2 bg-card p-4 shadow-md"
 		>
 			<div class="flex justify-between">
 				<SystemOption

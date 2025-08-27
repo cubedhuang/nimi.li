@@ -49,7 +49,7 @@
 		</p>
 
 		<div class="mt-2 flex flex-col">
-			{#each Object.entries(compound.uses) as [use, count]}
+			{#each Object.entries(compound.uses) as [use, count] (use)}
 				<p>
 					{use}
 					<span class="text-muted">

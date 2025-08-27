@@ -30,7 +30,7 @@
 			</p>
 
 			{#if word.etymology}
-				<p class="line-clamp-1 break-all text-xs">
+				<p class="line-clamp-1 text-xs break-all">
 					{getShortWordEtymologies(word, $language)}
 				</p>
 			{/if}
@@ -54,7 +54,7 @@
 			{/if}
 
 			{#if word.coined_era}
-				<p class="line-clamp-1 break-all text-xs">
+				<p class="line-clamp-1 text-xs break-all">
 					{word.coined_era}
 
 					{#if word.coined_year}
@@ -67,14 +67,14 @@
 
 	<div class="mt-1 flex gap-2 text-center">
 		<div class="flex w-9 shrink-0 flex-col items-end text-right">
-			{#each word.representations?.ligatures ?? [] as sitelen}
+			{#each word.representations?.ligatures ?? [] as sitelen (sitelen)}
 				<p class="font-pona text-4xl">{sitelen}</p>
 			{/each}
 		</div>
 
 		<div class="w-full">
 			<h2
-				class="line-clamp-1 break-all text-3xl transition group-hv:text-accent"
+				class="line-clamp-1 text-3xl break-all transition group-hv:text-accent"
 			>
 				{word.word}
 			</h2>
@@ -91,7 +91,7 @@
 		<div class="w-9 shrink-0">
 			{#if $sitelenMode === 'jelo'}
 				{#if word.representations?.sitelen_jelo}
-					{#each word.representations.sitelen_jelo.slice(0, 3) as sitelen}
+					{#each word.representations.sitelen_jelo.slice(0, 3) as sitelen (sitelen)}
 						<p class="text-3xl">{sitelen}</p>
 					{/each}
 				{/if}
@@ -105,14 +105,14 @@
 				<img
 					src="/internal/api/ss?word={word.word}"
 					alt="{word.word} sitelen sitelen"
-					class="invertible ml-auto h-9 w-9"
+					class="ml-auto h-9 w-9 invertible"
 				/>
 			{/if}
 		</div>
 	</div>
 
 	<span
-		class="absolute -left-3 -top-3 rounded-full p-3 {categoryColors[
+		class="absolute -top-3 -left-3 rounded-full p-3 {categoryColors[
 			word.usage_category
 		]}"
 	></span>

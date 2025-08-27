@@ -23,19 +23,19 @@
 		{/each}
 	</div>
 {:else if $viewMode === 'glyphs'}
-	<div class="mt-4 grid gap-1 grid-cols-fill-28">
+	<div class="mt-4 grid grid-cols-fill-28 gap-1">
 		{#each words as word (word.id)}
 			<WordGlyphEntry {word} onclick={() => onselect(word)} />
 		{/each}
 	</div>
 {:else if $viewMode === 'detailed'}
-	<div class="mt-4 grid gap-2 grid-cols-fill-96">
+	<div class="mt-4 grid grid-cols-fill-96 gap-2">
 		{#each words as word (word.id)}
 			<WordSpaceDetailed {word} onclick={() => onselect(word)} />
 		{/each}
 	</div>
 {:else}
-	<div class="mt-4 grid gap-2 grid-cols-fill-64">
+	<div class="mt-4 grid grid-cols-fill-64 gap-2">
 		{#each words as word (word.id)}
 			<WordSpace {word} onclick={() => onselect(word)} />
 		{/each}

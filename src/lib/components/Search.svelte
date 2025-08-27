@@ -44,7 +44,7 @@
 
 <div
 	bind:this={div}
-	class="content full sticky -top-px z-10 -mb-2 -mt-2 box-content pb-2 pt-[9px] transition
+	class="content full sticky -top-px z-10 -mt-2 -mb-2 box-content pt-[9px] pb-2 transition
 		{!stick ? 'bg-transparent' : 'bg-card shadow-md ring-2 ring-border'}"
 >
 	<div class="flex items-center gap-1">
@@ -53,12 +53,12 @@
 			{placeholder}
 			bind:value
 			bind:this={searchBar}
-			class="focusable w-96 max-w-full cursor-auto px-4 py-2 placeholder:text-muted"
+			class="w-96 max-w-full focusable cursor-auto px-4 py-2 placeholder:text-muted"
 		/>
 
 		{#if value}
 			<button
-				class="interactable shrink-0 p-2"
+				class="shrink-0 interactable p-2"
 				onclick={() => {
 					value = '';
 					searchBar.focus();

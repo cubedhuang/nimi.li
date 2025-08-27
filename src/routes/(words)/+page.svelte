@@ -128,13 +128,13 @@
 	more!
 </p>
 
-<p class="alert mt-4 p-4 leading-relaxed">
+<p class="mt-4 alert p-4 leading-relaxed">
 	The 2025
 	<a
 		href="https://linku.la/wile"
 		target="_blank"
 		rel="noopener noreferrer"
-		class="link items-center"
+		class="items-center link"
 	>
 		Linku word usage survey<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -155,7 +155,7 @@
 		href="https://linku.la/wile-glyphs"
 		target="_blank"
 		rel="noopener noreferrer"
-		class="link items-center"
+		class="items-center link"
 	>
 		Linku <i>sitelen pona</i> glyph survey<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +176,7 @@
 </p>
 
 <div class="mt-4 flex flex-wrap gap-1">
-	{#each $categories as category}
+	{#each $categories as category (category.name)}
 		<ColoredCheckbox
 			bind:checked={category.shown}
 			label={category.name[0].toUpperCase() + category.name.slice(1)}
@@ -219,10 +219,10 @@
 						moreOptions = false;
 					});
 				}}
-				class="bg-card absolute top-full z-10 mt-2 hidden w-max flex-wrap gap-1 rounded-lg border-2 p-2 shadow-md
+				class="absolute top-full z-10 mt-2 hidden w-max flex-wrap gap-1 rounded-lg border-2 bg-card p-2 shadow-md
 					md:flex"
 			>
-				{#each books as book}
+				{#each books as book (book.name)}
 					<ColoredCheckbox
 						bind:checked={book.shown}
 						label={book.name === 'none'
@@ -238,12 +238,12 @@
 
 {#if moreOptions}
 	<div
-		class="border-contrast bg-card mt-2 flex items-start justify-between gap-2 rounded-lg border-2 p-2
+		class="mt-2 flex items-start justify-between gap-2 rounded-lg border-2 border-contrast bg-card p-2
 			md:hidden"
 		transition:slide
 	>
 		<div class="flex flex-wrap gap-1">
-			{#each books as book}
+			{#each books as book (book.name)}
 				<ColoredCheckbox
 					bind:checked={book.shown}
 					label={book.name === 'none'
@@ -258,7 +258,7 @@
 			onclick={() => {
 				moreOptions = false;
 			}}
-			class="interactable shrink-0 p-0.5"
+			class="shrink-0 interactable p-0.5"
 			aria-label="close options"
 		>
 			<svg
@@ -338,7 +338,7 @@
 	</p>
 {/if}
 
-<p class="text-muted mt-2">
+<p class="mt-2 text-muted">
 	{filteredWords.length} / {genericFilteredWords.length}
 </p>
 

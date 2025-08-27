@@ -86,9 +86,9 @@
 <div class="content" class:fullscreen={$screenWidth === 'full'}>
 	<nav class="flex justify-between pt-4 sm:pt-0">
 		<div class="hidden gap-2 sm:flex">
-			{#each routes as route}
+			{#each routes as route (route.href)}
 				{#if page.url.pathname === route.href}
-					<span class="nav-item text-muted cursor-default">
+					<span class="cursor-default nav-item text-muted">
 						{route.name}
 					</span>
 				{:else}
@@ -106,7 +106,7 @@
 					opened = !opened;
 				}}
 				ontouchstart={e => e.stopPropagation()}
-				class="nav-item-interactive cursor-pointer"
+				class="cursor-pointer nav-item-interactive"
 				aria-label="open navigation"
 			>
 				<svg
@@ -126,11 +126,11 @@
 			{#if opened}
 				<div
 					transition:flyAndScale={{ x: -2, y: -4, duration: 300 }}
-					class="divide-border bg-card absolute top-full z-50 mt-2 flex flex-col divide-y-2 rounded-lg border-2 shadow-md"
+					class="absolute top-full z-50 mt-2 flex flex-col divide-y-2 divide-border rounded-lg border-2 bg-card shadow-md"
 				>
-					{#each routes as route}
+					{#each routes as route (route.href)}
 						{#if page.url.pathname === route.href}
-							<span class="text-muted cursor-default p-2">
+							<span class="cursor-default p-2 text-muted">
 								{route.name}
 							</span>
 						{:else}
@@ -176,7 +176,7 @@
 			{/if}
 
 			<button
-				class="nav-item-interactive cursor-pointer max-lg:hidden"
+				class="cursor-pointer nav-item-interactive max-lg:hidden"
 				onclick={() => {
 					if ($screenWidth === 'full') {
 						$screenWidth = 'large';
@@ -238,7 +238,7 @@
 	}
 
 	:global(#nprogress .bar) {
-		@apply bg-accent fixed top-0 left-0 z-50 h-0.5 w-full;
+		@apply fixed top-0 left-0 z-50 h-0.5 w-full bg-accent;
 	}
 
 	:global(#nprogress .peg) {

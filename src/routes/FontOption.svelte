@@ -12,7 +12,7 @@
 </script>
 
 <button
-	class="interactable max-w-full px-4 py-1 transition-colors {value}
+	class="max-w-full interactable px-4 py-1 transition-colors {value}
 		{selected
 		? 'ring-2 ring-secondary-foreground ring-offset-2 ring-offset-card'
 		: ''}"

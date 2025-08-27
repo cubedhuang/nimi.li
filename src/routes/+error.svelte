@@ -10,7 +10,7 @@
 </svelte:head>
 
 <div class="py-24">
-	<h1 class="text-5xl text-orange-500 darkish:text-orange-400 sm:text-6xl">
+	<h1 class="text-5xl text-orange-500 sm:text-6xl darkish:text-orange-400">
 		pakala nanpa {page.status}!
 	</h1>
 
@@ -26,11 +26,11 @@
 		<h2 class="mt-6 text-2xl">ken la sina wile e lipu ni:</h2>
 
 		<ul class="mt-2 flex flex-wrap gap-1">
-			{#each page.error?.closest as word}
+			{#each page.error?.closest as word (word)}
 				<li>
 					<a
 						href={getWordLink(word, $language)}
-						class="interactable inline-block px-2 py-1"
+						class="inline-block interactable px-2 py-1"
 					>
 						{word}
 					</a>
@@ -40,7 +40,7 @@
 	{/if}
 
 	<p class="mt-6">
-		<a href="/" class="interactable inline-block px-2 py-1">
+		<a href="/" class="inline-block interactable px-2 py-1">
 			o tawa lipu suli
 		</a>
 	</p>

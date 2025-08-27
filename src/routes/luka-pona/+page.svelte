@@ -81,13 +81,13 @@
 	/>
 </div>
 
-<p class="text-muted mt-2">
+<p class="mt-2 text-muted">
 	{filteredSigns.length} / {genericFilteredSigns.length}
 </p>
 
 <Search placeholder="o alasa..." bind:value={search} />
 
-<div class="grid-cols-fill-64 mt-4 grid gap-2">
+<div class="mt-4 grid grid-cols-fill-64 gap-2">
 	{#each filteredSigns as signData (signData.id)}
 		<LukaPonaEntry
 			word={signData.words

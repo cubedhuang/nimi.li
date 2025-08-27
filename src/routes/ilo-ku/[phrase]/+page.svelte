@@ -93,7 +93,7 @@
 	</div>
 </div>
 
-<div class="box mt-6">
+<div class="mt-6 box">
 	<h2 class="text-lg">see also</h2>
 
 	<p class="mt-1">
@@ -106,7 +106,7 @@
 	<h2 class="mt-4 text-lg">ku translations</h2>
 
 	<div class="mt-1 flex flex-col">
-		{#each Object.entries(phrase.uses) as [use, count]}
+		{#each Object.entries(phrase.uses) as [use, count] (use)}
 			<p>
 				{use}
 				<span class="text-muted">

@@ -12,7 +12,7 @@
 </script>
 
 <ul>
-	{#each puData.split('\n') as line}
+	{#each puData.split('\n') as line, i (i)}
 		{@const partOfSpeech = line.split(' ')[0]}
 		{@const definition = line.slice(partOfSpeech.length + 1)}
 

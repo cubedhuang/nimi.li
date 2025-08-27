@@ -81,7 +81,7 @@
 	>. Click on an expression to see more!
 </p>
 
-<blockquote class="alert my-4 p-4 leading-relaxed">
+<blockquote class="my-4 alert p-4 leading-relaxed">
 	<p>
 		<strong>Warning!</strong>
 		There are no hard-set compound phrases in Toki Pona. This is by design! Part
@@ -102,7 +102,7 @@
 
 <Search placeholder="o alasa..." bind:value={search} />
 
-<div class="mt-4 grid gap-2 grid-cols-fill-64">
+<div class="mt-4 grid grid-cols-fill-64 gap-2">
 	{#each filteredCompounds as compound (compound.compound)}
 		<CompoundSpace
 			{compound}

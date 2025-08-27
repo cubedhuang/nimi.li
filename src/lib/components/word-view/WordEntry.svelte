@@ -32,7 +32,7 @@
 			<img
 				src="/internal/api/ss?word={word.word}"
 				alt="{word.word} sitelen sitelen"
-				class="invertible my-0.5 h-6 w-6 shrink-0"
+				class="my-0.5 h-6 w-6 shrink-0 invertible"
 			/>
 		{:else}
 			<span class="w-6 shrink-0"></span>
@@ -53,7 +53,7 @@
 		<span class="w-6 shrink-0"></span>
 	{/if}
 
-	<span class="ml-0.5 mt-0.5">
+	<span class="mt-0.5 ml-0.5">
 		<button {onclick} class="font-bold transition hv:text-accent">
 			{word.word}
 		</button>

@@ -20,9 +20,9 @@
 	<select
 		bind:value
 		onchange={() => onchange?.(value as T)}
-		class="interactable max-w-full appearance-none text-ellipsis py-0.5 pl-2 pr-10"
+		class="max-w-full interactable appearance-none py-0.5 pr-10 pl-2 text-ellipsis"
 	>
-		{#each options as option}
+		{#each options as option (option.value)}
 			<option value={option.value} selected={option.value === value}>
 				{option.label}
 			</option>
@@ -34,7 +34,7 @@
 		fill="none"
 		viewBox="0 0 20 20"
 		aria-hidden="true"
-		class="pointer-events-none absolute right-2 top-1/2 size-6 -translate-y-1/2 select-none text-muted"
+		class="pointer-events-none absolute top-1/2 right-2 size-6 -translate-y-1/2 text-muted select-none"
 	>
 		<path
 			stroke="currentColor"

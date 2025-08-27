@@ -284,7 +284,7 @@
 					{@const dates = Object.keys(word.usage).sort()}
 
 					<div
-						class="bg-card absolute top-full left-1/2 flex w-max -translate-x-1/2 gap-4 rounded-lg border-2 p-4 shadow-md"
+						class="absolute top-full left-1/2 flex w-max -translate-x-1/2 gap-4 rounded-lg border-2 bg-card p-4 shadow-md"
 						transition:flyAndScale|local={{ y: -4 }}
 						use:outclick
 						onoutclick={() => {
@@ -303,7 +303,7 @@
 								<b class={categoryTextColors[usageCategory]}>
 									{usage}%
 								</b>
-								<span class="text-muted text-xs">{date}</span>
+								<span class="text-xs text-muted">{date}</span>
 							</span>
 						{/each}
 					</div>
@@ -339,7 +339,7 @@
 		{#if word.audio.length}
 			<h2 class="mt-4 text-lg">listen</h2>
 
-			{#each word.audio as audio}
+			{#each word.audio as audio (audio.link)}
 				<p class="mt-1">
 					<AudioPlayer {audio} />
 				</p>
@@ -356,7 +356,7 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label="source"
-						class="text-muted hv:text-foreground transition"
+						class="text-muted transition hv:text-foreground"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -379,7 +379,7 @@
 				{/if}
 			</div>
 
-			{#each word.author_verbatim.split('\n') as line}
+			{#each word.author_verbatim.split('\n') as line, i (i)}
 				<p class="mt-1">
 					{line}
 				</p>
@@ -388,7 +388,7 @@
 
 		{#if translation.commentary}
 			<h2 class="mt-4 text-lg">commentary</h2>
-			{#each translation.commentary.split('\n') as line}
+			{#each translation.commentary.split('\n') as line, i (i)}
 				<p class="mt-1">
 					{line}
 				</p>
@@ -403,7 +403,7 @@
 		{#if word.representations?.ligatures?.length}
 			<h2 class="text-lg">sitelen pona</h2>
 
-			<span class="font-pona mt-1 text-7xl">
+			<span class="mt-1 font-pona text-7xl">
 				{word.representations.ligatures.join(' ')}
 			</span>
 
@@ -420,7 +420,7 @@
 			<img
 				src="/internal/api/ss?word={word.word}"
 				alt="{word.word} sitelen sitelen"
-				class="invertible mt-1 h-16 w-16"
+				class="mt-1 h-16 w-16 invertible"
 			/>
 		{/if}
 
@@ -464,7 +464,7 @@
 				<p class="mt-2">
 					<video
 						src={data.signs[0].video.mp4}
-						class="bg-secondary aspect-video w-full max-w-sm rounded-lg"
+						class="aspect-video w-full max-w-sm rounded-lg bg-secondary"
 						autoplay
 						loop
 						muted

@@ -9,7 +9,7 @@
 
 <svelte:element
 	this={props.href ? 'a' : 'button'}
-	class="interactable relative overflow-hidden p-4 text-left transition hover:scale-[1.02]"
+	class="relative interactable overflow-hidden p-4 text-left transition hover:scale-[1.02]"
 	{...props}
 	onclick={(e: Parameters<MouseEventHandler<HTMLAnchorElement>>[0]) => {
 		e.preventDefault();
