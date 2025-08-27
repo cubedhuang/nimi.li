@@ -22,20 +22,20 @@
 	</button>
 </div>
 
-<div class="mt-4 grid gap-3 leading-relaxed md:grid-cols-2">
+<div class="mt-4 grid gap-2 leading-relaxed md:grid-cols-2">
 	<div class="box">
 		<h2>{t('mi', 'me')}</h2>
 
 		<p>
 			{t('mi', "Hi! I'm")}
 			<Link href="https://github.com/cubedhuang/">ilo Tani</Link>{t(
-				' li pali e ni. jan',
+				' li pali e lipu ni. jan',
 				', and I made this project. Thanks to'
 			)}
 			<Link href="https://github.com/woflydev/">woflydev</Link>
 			{t(
 				'li ken e ni: sina awen e lipu lon ilo sina. sina wile pona e lipu ni la, o kepeken ilo',
-				'for making this a Progressive Web Application. This is an'
+				'for helping make this a Progressive Web Application. This is an'
 			)}
 			<Link href="https://github.com/cubedhuang/sona-nimi"
 				>{t('GitHub', 'open source project on GitHub')}</Link
@@ -108,7 +108,7 @@
 			</li>
 
 			<li>
-				{t('sitelen lili lipu li', 'The')}
+				{t('sitelen kijetesantakalu lipu li kepeken', 'The')}
 				<Link href="https://github.com/ETBCOR/nasin-nanpa">
 					{t('nasin nanpa', 'nasin nanpa font')}</Link
 				>{t('.', " was used for the site's favicon.")}

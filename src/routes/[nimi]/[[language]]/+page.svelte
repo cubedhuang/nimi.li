@@ -186,7 +186,7 @@
 	</div>
 {/if}
 
-<div class="mt-6 grid gap-3 sm:grid-cols-2">
+<div class="mt-6 grid gap-2 sm:grid-cols-2">
 	<div class="box">
 		<h2 class="text-lg">meaning</h2>
 		<p class="mt-1">
