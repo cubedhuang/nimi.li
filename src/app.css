@@ -1,8 +1,8 @@
-@import 'tailwindcss/base';
+@tailwind base;
 @import './fonts.css';
 @import './themes.css';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
 	html {
@@ -124,34 +124,34 @@
 	}
 
 	.focusable {
-		@apply bg-card focus-visible:border-contrast disabled:text-muted disabled:focus-visible:border-border appearance-none overflow-hidden rounded-lg border-2 transition outline-none disabled:cursor-default;
+		@apply appearance-none overflow-hidden rounded-lg border-2 bg-card outline-none transition focus-visible:border-contrast disabled:cursor-default disabled:text-muted disabled:focus-visible:border-border;
 	}
 
 	.interactable {
-		@apply focusable focus-visible:outline-contrast hv:border-contrast disabled:hv:border-border cursor-pointer select-none;
+		@apply focusable cursor-pointer select-none focus-visible:outline-contrast hv:border-contrast disabled:hv:border-border;
 	}
 
 	.icon-interactable {
-		@apply text-muted hv:text-foreground -m-1 ml-1 p-1 transition;
+		@apply -m-1 ml-1 p-1 text-muted transition hv:text-foreground;
 	}
 
 	.box {
-		@apply bg-card rounded-lg border-2 p-4 lg:p-6;
+		@apply rounded-lg border-2 bg-card p-4 lg:p-6;
 	}
 
 	.alert {
-		@apply border-secondary-border bg-secondary text-secondary-foreground rounded-lg border-2;
+		@apply rounded-lg border-2 border-secondary-border bg-secondary text-secondary-foreground;
 	}
 
 	.link {
-		@apply text-accent hv:decoration-current rounded underline decoration-transparent underline-offset-4 outline-offset-4 transition-colors outline-none focus-visible:outline-current;
+		@apply rounded text-accent underline decoration-transparent underline-offset-4 outline-none outline-offset-4 transition-colors focus-visible:outline-current hv:decoration-current;
 	}
 
 	.nav-item {
-		@apply bg-card rounded-lg border-2 p-2 transition-colors sm:rounded-t-none sm:border-t-0;
+		@apply rounded-lg border-2 bg-card p-2 transition-colors sm:rounded-t-none sm:border-t-0;
 	}
 
 	.nav-item-interactive {
-		@apply nav-item focus-visible:outline-contrast hv:border-contrast outline-none;
+		@apply nav-item outline-none focus-visible:outline-contrast hv:border-contrast;
 	}
 }
