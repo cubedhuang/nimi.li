@@ -45,7 +45,7 @@
 <div
 	bind:this={div}
 	class="content full sticky -top-px z-10 -mt-2 -mb-2 box-content pt-[9px] pb-2 transition
-		{!stick ? 'bg-transparent' : 'bg-card shadow-md ring-2 ring-border'}"
+		{!stick ? 'bg-transparent' : 'bg-background shadow-md ring-2 ring-border'}"
 >
 	<div class="flex items-center gap-1">
 		<input
