@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../app.css';
+	import '../styles/app.css';
 
 	import { onMount, type Snippet } from 'svelte';
 
@@ -231,6 +231,8 @@
 </div>
 
 <style lang="postcss">
+	@reference '../styles/app.css';
+
 	:global(#nprogress) {
 		pointer-events: none;
 	}
@@ -243,8 +245,8 @@
 		@apply absolute right-0 block h-full w-24 opacity-100;
 
 		box-shadow:
-			0 0 theme(width.2) theme(colors.accent),
-			0 0 theme(width.1) theme(colors.accent);
+			0 0 --spacing(2) --var(--color-accent),
+			0 0 --spacing(1) --var(--color-accent);
 		transform: rotate(3deg) translate(0px, -4px);
 	}
 </style>

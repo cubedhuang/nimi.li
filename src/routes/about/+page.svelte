@@ -129,6 +129,8 @@
 </div>
 
 <style lang="postcss">
+	@reference '../../styles/app.css';
+
 	h2 {
 		@apply text-xl;
 	}
@@ -138,6 +140,6 @@
 	}
 
 	ul {
-		@apply ml-4 mt-2 list-disc;
+		@apply mt-2 ml-4 list-disc;
 	}
 </style>

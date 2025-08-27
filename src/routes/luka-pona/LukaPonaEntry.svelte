@@ -68,7 +68,7 @@
 		e.preventDefault();
 		onclick?.();
 	}}
-	class="group text-left outline-none focus-visible:outline-contrast"
+	class="group focus-visible:outline-contrast text-left outline-hidden"
 	id={word}
 	onmouseenter={handleEnter}
 	onmouseleave={handleLeave}
@@ -81,13 +81,13 @@
 		<canvas
 			aria-hidden="true"
 			bind:this={canvas}
-			class="aspect-video w-full rounded-lg bg-secondary"
+			class="bg-secondary aspect-video w-full rounded-lg"
 		></canvas>
 
 		<img
 			src={video.gif}
 			alt="{word} luka pona"
-			class="absolute left-0 top-0 z-10 aspect-video w-full rounded-lg bg-secondary"
+			class="bg-secondary absolute top-0 left-0 z-10 aspect-video w-full rounded-lg"
 			class:opacity-0={!$autoplay}
 			loading="lazy"
 			bind:this={img}
@@ -95,7 +95,7 @@
 		/>
 	</div>
 
-	<b class="mt-1 block transition group-hover:text-accent">
+	<b class="group-hover:text-accent mt-1 block transition">
 		{word}
 	</b>
 </a>

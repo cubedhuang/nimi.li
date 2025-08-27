@@ -65,6 +65,8 @@
 </div>
 
 <style lang="postcss">
+	@reference '../../styles/app.css';
+
 	:global(.lipamanka p:not(:last-child)) {
 		@apply mb-2;
 	}

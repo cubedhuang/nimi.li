@@ -1,0 +1,210 @@
+@import 'tailwindcss';
+
+@import './fonts.css' layer(base);
+@import './themes.css' layer(base);
+
+@theme {
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-accent: var(--accent);
+	--color-muted: var(--muted);
+
+	--color-border: var(--border);
+	--color-contrast: var(--contrast);
+
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-secondary-border: var(--secondary-border);
+
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+
+	--font-sans: 'Inter', sans-serif;
+	--font-serif: 'SourceSerif', serif;
+	--font-mono: 'IBM Plex Mono', monospace;
+	--font-dyslexic: 'OpenDyslexic', sans-serif;
+	--font-atkinson: 'AtkinsonHyperlegible', sans-serif;
+	--font-pona: 'ssk', sans-serif;
+	--font-display: 'SFRounded', sans-serif;
+}
+
+@custom-variant hv {
+	&:hover,
+	&:focus-visible {
+		@slot;
+	}
+}
+
+@custom-variant group-hv {
+	.group:hover &,
+	.group:focus-visible & {
+		@slot;
+	}
+}
+
+@custom-variant darkish {
+	.amoled &,
+	.dark &,
+	.stone &,
+	.red &,
+	.emerald &,
+	.dim &,
+	.indigo & {
+		@slot;
+	}
+}
+
+@utility grid-cols-fill-* {
+	grid-template-columns: repeat(
+		auto-fill,
+		minmax(min(100%, --spacing(--value(integer))), 1fr)
+	);
+}
+
+@layer base {
+	html {
+		scroll-padding-top: --spacing(16);
+		scroll-behavior: smooth;
+		scrollbar-gutter: stable;
+
+		--scrollbar-bg: var(--background);
+		--scrollbar-thumb: var(--muted);
+	}
+
+	html,
+	body {
+		@apply bg-background text-foreground;
+
+		overscroll-behavior-y: none;
+	}
+
+	* {
+		@apply border-border;
+
+		scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
+		scrollbar-width: thin;
+	}
+
+	::-webkit-scrollbar {
+		width: 4px;
+	}
+
+	::-webkit-scrollbar-track {
+		background: var(--scrollbar-bg);
+	}
+
+	::-webkit-scrollbar-thumb {
+		background-color: var(--scrollbar-thumb);
+	}
+
+	:is(h1, h2, h3) {
+		@apply font-bold;
+	}
+
+	.font-sans :is(h1, h2, h3) {
+		@apply font-display font-normal;
+	}
+
+	@keyframes highlight {
+		0% {
+			outline-width: 2px;
+			outline-color: var(--accent);
+		}
+		100% {
+			outline-width: 2px;
+			outline-color: transparent;
+		}
+	}
+
+	:target {
+		animation: highlight 3s ease-in;
+	}
+
+	.no-transition {
+		transition: none !important;
+	}
+
+	.no-transition * {
+		transition: none !important;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		* {
+			transition: none !important;
+			animation-delay: 0ms !important;
+			animation-duration: 1ms !important;
+		}
+	}
+}
+
+@layer components {
+	.content {
+		--content-padding: --spacing(4);
+		--content-margin: minmax(var(--content-padding), 1fr);
+		--content-width: minmax(0, calc(var(--breakpoint-lg)));
+
+		display: grid;
+		grid-template-columns:
+			[full-start] var(--content-margin)
+			[main-start] var(--content-width)
+			[main-end] var(--content-margin) [full-end];
+
+		@media (min-width: --theme(--breakpoint-sm)) {
+			--content-padding: --spacing(8);
+		}
+
+		@media (min-width: --theme(--breakpoint-lg)) {
+			--content-padding: --spacing(12);
+		}
+
+		.fullscreen &,
+		&.fullscreen {
+			--content-margin: var(--content-padding);
+			--content-width: 1fr;
+		}
+
+		& > * {
+			grid-column: main;
+		}
+
+		& > .full {
+			grid-column: full;
+		}
+	}
+}
+
+@utility invertible {
+	@apply invert-(--invert,0);
+}
+
+@utility focusable {
+	@apply bg-card focus-visible:border-contrast disabled:text-muted disabled:focus-visible:border-border appearance-none overflow-hidden rounded-lg border-2 outline-hidden transition disabled:cursor-default;
+}
+
+@utility interactable {
+	@apply focusable focus-visible:outline-contrast hv:border-contrast disabled:hv:border-border cursor-pointer select-none;
+}
+
+@utility icon-interactable {
+	@apply text-muted hv:text-foreground -m-1 ml-1 p-1 transition;
+}
+
+@utility box {
+	@apply bg-card rounded-lg border-2 p-4 lg:p-6;
+}
+
+@utility alert {
+	@apply border-secondary-border bg-secondary text-secondary-foreground rounded-lg border-2;
+}
+
+@utility link {
+	@apply text-accent hv:decoration-current rounded-sm underline decoration-transparent underline-offset-4 outline-hidden outline-offset-4 transition-colors focus-visible:outline-current;
+}
+
+@utility nav-item {
+	@apply bg-card rounded-lg border-2 p-2 transition-colors sm:rounded-t-none sm:border-t-0;
+}
+
+@utility nav-item-interactive {
+	@apply nav-item focus-visible:outline-contrast hv:border-contrast outline-hidden;
+}
