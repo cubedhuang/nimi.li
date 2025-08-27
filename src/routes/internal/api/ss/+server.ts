@@ -32,7 +32,7 @@ export async function GET({ fetch, setHeaders, url }) {
 		'Content-Type': 'image/png'
 	});
 
-	return new Response(pngBuffer);
+	return new Response(Uint8Array.from(pngBuffer));
 }
 
 async function removeWhiteBackground(jpegData: jpeg.BufferLike) {
