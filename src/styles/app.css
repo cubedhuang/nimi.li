@@ -178,15 +178,15 @@
 }
 
 @utility focusable {
-	@apply appearance-none overflow-hidden rounded-lg border-2 bg-card outline-hidden transition focus-visible:border-contrast disabled:cursor-default disabled:text-muted disabled:focus-visible:border-border;
+	@apply appearance-none overflow-hidden rounded-lg border-2 bg-card outline-hidden outline-2 outline-offset-2 transition focus-visible:border-contrast disabled:cursor-default disabled:text-muted disabled:focus-visible:border-border;
 }
 
 @utility interactable {
-	@apply focusable cursor-pointer select-none focus-visible:outline-contrast hv:border-contrast disabled:hv:border-border;
+	@apply focusable cursor-pointer outline-accent select-none focus-visible:outline-solid hv:border-contrast disabled:hv:border-border;
 }
 
 @utility icon-interactable {
-	@apply -m-1 ml-1 p-1 text-muted transition hv:text-foreground;
+	@apply -m-1 ml-1 cursor-pointer p-1 text-muted transition hv:text-foreground;
 }
 
 @utility box {
@@ -198,7 +198,7 @@
 }
 
 @utility link {
-	@apply rounded-sm text-accent underline decoration-transparent underline-offset-4 outline-hidden outline-offset-4 transition-colors focus-visible:outline-current hv:decoration-current;
+	@apply rounded-sm text-accent underline decoration-transparent underline-offset-4 outline-hidden outline-2 outline-offset-4 outline-accent transition-colors focus-visible:outline-solid hv:decoration-current;
 }
 
 @utility nav-item {
@@ -206,5 +206,5 @@
 }
 
 @utility nav-item-interactive {
-	@apply nav-item outline-hidden focus-visible:outline-contrast hv:border-contrast;
+	@apply nav-item outline-hidden outline-2 outline-offset-2 outline-accent focus-visible:outline-solid hv:border-contrast;
 }
