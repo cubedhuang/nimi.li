@@ -374,7 +374,7 @@
 				{/if}
 			</div>
 
-			{#each word.author_verbatim.split('\n') as line, i}
+			{#each word.author_verbatim.split('\n') as line}
 				<p class="mt-1">
 					{line}
 				</p>
@@ -383,7 +383,7 @@
 
 		{#if translation.commentary}
 			<h2 class="mt-4 text-lg">commentary</h2>
-			{#each translation.commentary.split('\n') as line, i}
+			{#each translation.commentary.split('\n') as line}
 				<p class="mt-1">
 					{line}
 				</p>
