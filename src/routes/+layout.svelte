@@ -1,5 +1,5 @@
 <script lang="ts">
-	import '../app.postcss';
+	import '../styles/app.css';
 
 	import { onMount, type Snippet } from 'svelte';
 
@@ -88,7 +88,7 @@
 		<div class="hidden gap-2 sm:flex">
 			{#each routes as route}
 				{#if page.url.pathname === route.href}
-					<span class="nav-item cursor-default text-muted">
+					<span class="nav-item text-muted cursor-default">
 						{route.name}
 					</span>
 				{:else}
@@ -126,11 +126,11 @@
 			{#if opened}
 				<div
 					transition:flyAndScale={{ x: -2, y: -4, duration: 300 }}
-					class="absolute top-full z-50 mt-2 flex flex-col divide-y-2 divide-border rounded-lg border-2 bg-card shadow-md"
+					class="divide-border bg-card absolute top-full z-50 mt-2 flex flex-col divide-y-2 rounded-lg border-2 shadow-md"
 				>
 					{#each routes as route}
 						{#if page.url.pathname === route.href}
-							<span class="cursor-default p-2 text-muted">
+							<span class="text-muted cursor-default p-2">
 								{route.name}
 							</span>
 						{:else}
@@ -225,26 +225,28 @@
 		</div>
 	</nav>
 
-	<main class="content full pb-24 pt-4 sm:pt-8">
+	<main class="content full pt-4 pb-24 sm:pt-8">
 		{@render children()}
 	</main>
 </div>
 
 <style lang="postcss">
+	@reference '../styles/app.css';
+
 	:global(#nprogress) {
 		pointer-events: none;
 	}
 
 	:global(#nprogress .bar) {
-		@apply fixed left-0 top-0 z-50 h-0.5 w-full bg-accent;
+		@apply bg-accent fixed top-0 left-0 z-50 h-0.5 w-full;
 	}
 
 	:global(#nprogress .peg) {
 		@apply absolute right-0 block h-full w-24 opacity-100;
 
 		box-shadow:
-			0 0 theme(width.2) theme(colors.accent),
-			0 0 theme(width.1) theme(colors.accent);
+			0 0 --spacing(2) --var(--color-accent),
+			0 0 --spacing(1) --var(--color-accent);
 		transform: rotate(3deg) translate(0px, -4px);
 	}
 </style>

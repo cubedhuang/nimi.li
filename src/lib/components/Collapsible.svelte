@@ -21,7 +21,7 @@
 
 {#if expandable}
 	<button
-		class="rounded text-muted underline decoration-transparent underline-offset-2 outline-none outline-offset-4 transition focus-visible:outline-contrast hv:decoration-current"
+		class="text-muted focus-visible:outline-contrast hv:decoration-current rounded-sm underline decoration-transparent underline-offset-2 outline-hidden outline-offset-4 transition"
 		class:block={expanded}
 		onclick={() => {
 			expanded = !expanded;

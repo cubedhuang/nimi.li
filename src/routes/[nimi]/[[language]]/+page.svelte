@@ -29,7 +29,7 @@
 	const language = $derived(page.params.language);
 	const word = $derived(data.word);
 
-	const translation = $derived(getTranslation(word, language));
+	const translation = $derived(getTranslation(word, language ?? 'en'));
 
 	let showHistory = $state(false);
 </script>
@@ -130,7 +130,7 @@
 </div>
 
 {#if word.usage_category === 'obscure' || word.usage_category === 'sandbox'}
-	<div class="-mb-2 mt-4 flex items-center gap-2">
+	<div class="mt-4 -mb-2 flex items-center gap-2">
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 16 16"
@@ -206,7 +206,7 @@
 		{/if}
 
 		{#if word.pu_verbatim?.en}
-			<h2 class="mb-1 mt-4 flex items-center text-lg">
+			<h2 class="mt-4 mb-1 flex items-center text-lg">
 				pu verbatim
 				<a
 					class="icon-interactable"
@@ -223,7 +223,7 @@
 		{/if}
 
 		{#if word.ku_data}
-			<h2 class="mb-1 mt-4 flex items-center text-lg">
+			<h2 class="mt-4 mb-1 flex items-center text-lg">
 				ku translations
 				<a
 					class="icon-interactable"
@@ -279,7 +279,7 @@
 					{@const dates = Object.keys(word.usage).sort()}
 
 					<div
-						class="absolute left-1/2 top-full flex w-max -translate-x-1/2 gap-4 rounded-lg border-2 bg-card p-4 shadow-md"
+						class="bg-card absolute top-full left-1/2 flex w-max -translate-x-1/2 gap-4 rounded-lg border-2 p-4 shadow-md"
 						transition:flyAndScale|local={{ y: -4 }}
 						use:outclick
 						onoutclick={() => {
@@ -298,7 +298,7 @@
 								<b class={categoryTextColors[usageCategory]}>
 									{usage}%
 								</b>
-								<span class="text-xs text-muted">{date}</span>
+								<span class="text-muted text-xs">{date}</span>
 							</span>
 						{/each}
 					</div>
@@ -351,7 +351,7 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label="source"
-						class="text-muted transition hv:text-foreground"
+						class="text-muted hv:text-foreground transition"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -398,7 +398,7 @@
 		{#if word.representations?.ligatures?.length}
 			<h2 class="text-lg">sitelen pona</h2>
 
-			<span class="mt-1 font-pona text-7xl">
+			<span class="font-pona mt-1 text-7xl">
 				{word.representations.ligatures.join(' ')}
 			</span>
 
@@ -459,7 +459,7 @@
 				<p class="mt-2">
 					<video
 						src={data.signs[0].video.mp4}
-						class="aspect-video w-full max-w-sm rounded-lg bg-secondary"
+						class="bg-secondary aspect-video w-full max-w-sm rounded-lg"
 						autoplay
 						loop
 						muted

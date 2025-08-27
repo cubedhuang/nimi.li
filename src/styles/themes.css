@@ -1,0 +1,255 @@
+@layer base {
+	html {
+		color-scheme: light;
+
+		--background: var(--color-gray-50);
+		--foreground: var(--color-gray-950);
+		--accent: var(--color-blue-600);
+		--muted: var(--color-gray-500);
+
+		--border: var(--color-gray-200);
+		--contrast: var(--color-gray-400);
+
+		--secondary: var(--color-blue-50);
+		--secondary-foreground: var(--color-blue-900);
+		--secondary-border: var(--color-blue-100);
+
+		--card: var(--color-white);
+		--card-foreground: var(--color-gray-950);
+	}
+
+	html.amoled {
+		color-scheme: dark;
+		--invert: 1;
+
+		--background: var(--color-black);
+		--foreground: var(--color-gray-50);
+		--accent: var(--color-blue-400);
+		--muted: var(--color-gray-400);
+
+		--border: var(--color-gray-800);
+		--contrast: var(--color-gray-700);
+
+		--secondary: var(--color-gray-900);
+		--secondary-foreground: var(--color-gray-50);
+		--secondary-border: var(--color-gray-800);
+
+		--card: var(--color-black);
+		--card-foreground: var(--color-gray-50);
+	}
+
+	html.dark {
+		color-scheme: dark;
+		--invert: 1;
+
+		--background: var(--color-black);
+		--foreground: var(--color-zinc-50);
+		--accent: var(--color-blue-400);
+		--muted: var(--color-zinc-400);
+
+		--border: var(--color-zinc-800);
+		--contrast: var(--color-zinc-700);
+
+		--secondary: var(--color-zinc-800);
+		--secondary-foreground: var(--color-zinc-50);
+		--secondary-border: var(--color-zinc-700);
+
+		--card: var(--color-zinc-900);
+		--card-foreground: var(--color-zinc-50);
+	}
+
+	html.stone {
+		color-scheme: dark;
+		--invert: 1;
+
+		--background: var(--color-stone-900);
+		--foreground: var(--color-stone-50);
+		--accent: var(--color-orange-400);
+		--muted: var(--color-stone-400);
+
+		--border: var(--color-stone-700);
+		--contrast: var(--color-stone-600);
+
+		--secondary: var(--color-stone-700);
+		--secondary-foreground: var(--color-stone-50);
+		--secondary-border: var(--color-stone-600);
+
+		--card: var(--color-stone-800);
+		--card-foreground: var(--color-stone-50);
+	}
+
+	html.orange {
+		color-scheme: light;
+
+		--background: var(--color-orange-100);
+		--foreground: var(--color-orange-950);
+		--accent: var(--color-orange-600);
+		--muted: var(--color-zinc-500);
+
+		--border: var(--color-orange-200);
+		--contrast: var(--color-orange-400);
+
+		--secondary: var(--color-orange-50);
+		--secondary-foreground: var(--color-zinc-900);
+		--secondary-border: var(--color-orange-200);
+
+		--card: var(--color-orange-50);
+		--card-foreground: var(--color-zinc-950);
+	}
+
+	html.pink {
+		color-scheme: light;
+
+		--background: var(--color-pink-100);
+		--foreground: var(--color-pink-900);
+		--accent: var(--color-pink-500);
+		--muted: var(--color-pink-400);
+
+		--border: var(--color-pink-200);
+		--contrast: var(--color-pink-400);
+
+		--secondary: var(--color-pink-50);
+		--secondary-foreground: var(--color-pink-900);
+		--secondary-border: var(--color-pink-200);
+
+		--card: var(--color-pink-50);
+		--card-foreground: var(--color-pink-900);
+	}
+
+	html.purple {
+		color-scheme: light;
+
+		--background: var(--color-purple-100);
+		--foreground: var(--color-purple-900);
+		--accent: var(--color-pink-500);
+		--muted: var(--color-purple-400);
+
+		--border: var(--color-purple-200);
+		--contrast: var(--color-purple-400);
+
+		--secondary: var(--color-purple-50);
+		--secondary-foreground: var(--color-purple-900);
+		--secondary-border: var(--color-purple-200);
+
+		--card: var(--color-purple-50);
+		--card-foreground: var(--color-purple-900);
+	}
+
+	html.blue {
+		color-scheme: light;
+
+		--background: var(--color-blue-100);
+		--foreground: var(--color-blue-900);
+		--accent: var(--color-pink-500);
+		--muted: var(--color-blue-400);
+
+		--border: var(--color-blue-200);
+		--contrast: var(--color-blue-400);
+
+		--secondary: var(--color-blue-50);
+		--secondary-foreground: var(--color-blue-900);
+		--secondary-border: var(--color-blue-200);
+
+		--card: var(--color-blue-50);
+		--card-foreground: var(--color-blue-900);
+	}
+
+	html.green {
+		color-scheme: light;
+
+		--background: var(--color-green-100);
+		--foreground: var(--color-green-900);
+		--accent: var(--color-sky-500);
+		--muted: var(--color-green-500);
+
+		--border: var(--color-green-200);
+		--contrast: var(--color-green-400);
+
+		--secondary: var(--color-green-50);
+		--secondary-foreground: var(--color-green-900);
+		--secondary-border: var(--color-green-200);
+
+		--card: var(--color-green-50);
+		--card-foreground: var(--color-green-900);
+	}
+
+	html.red {
+		color-scheme: dark;
+		--invert: 1;
+
+		--background: #250001;
+		--foreground: var(--color-red-100);
+		--accent: var(--color-yellow-400);
+		--muted: var(--color-red-400);
+
+		--border: var(--color-red-900);
+		--contrast: var(--color-red-800);
+
+		--secondary: var(--color-red-900);
+		--secondary-foreground: var(--color-red-100);
+		--secondary-border: var(--color-red-700);
+
+		--card: var(--color-red-950);
+		--card-foreground: var(--color-red-100);
+	}
+
+	html.emerald {
+		color-scheme: dark;
+		--invert: 1;
+
+		--background: #001a11;
+		--foreground: var(--color-emerald-100);
+		--accent: var(--color-yellow-400);
+		--muted: var(--color-emerald-400);
+
+		--border: var(--color-emerald-900);
+		--contrast: var(--color-emerald-800);
+
+		--secondary: var(--color-emerald-900);
+		--secondary-foreground: var(--color-emerald-100);
+		--secondary-border: var(--color-emerald-800);
+
+		--card: var(--color-emerald-950);
+		--card-foreground: var(--color-emerald-100);
+	}
+
+	html.dim {
+		color-scheme: dark;
+		--invert: 1;
+
+		--background: var(--color-gray-900);
+		--foreground: var(--color-gray-50);
+		--accent: var(--color-blue-400);
+		--muted: var(--color-gray-400);
+
+		--border: var(--color-gray-700);
+		--contrast: var(--color-gray-600);
+
+		--secondary: var(--color-gray-700);
+		--secondary-foreground: var(--color-gray-50);
+		--secondary-border: var(--color-gray-600);
+
+		--card: var(--color-gray-800);
+		--card-foreground: var(--color-gray-50);
+	}
+
+	html.indigo {
+		color-scheme: dark;
+		--invert: 1;
+
+		--background: #0c0432;
+		--foreground: var(--color-indigo-100);
+		--accent: var(--color-yellow-300);
+		--muted: var(--color-indigo-400);
+
+		--border: var(--color-indigo-900);
+		--contrast: var(--color-indigo-800);
+
+		--secondary: var(--color-indigo-900);
+		--secondary-foreground: var(--color-indigo-100);
+		--secondary-border: var(--color-indigo-800);
+
+		--card: var(--color-indigo-950);
+		--card-foreground: var(--color-indigo-100);
+	}
+}
