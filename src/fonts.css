@@ -1,4 +1,4 @@
-@import 'plex-mono.postcss';
+@import './plex-mono.css';
 
 @layer base {
 	@font-face {
