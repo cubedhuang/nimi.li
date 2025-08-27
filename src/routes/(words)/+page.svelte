@@ -219,7 +219,7 @@
 						moreOptions = false;
 					});
 				}}
-				class="absolute top-full z-10 mt-2 hidden w-max flex-wrap gap-1 rounded-lg border bg-card p-2 shadow-md
+				class="absolute top-full z-10 mt-2 hidden w-max flex-wrap gap-1 rounded-lg border-2 bg-card p-2 shadow-md
 					sm:gap-x-2 sm:gap-y-1 md:flex"
 			>
 				{#each books as book}
@@ -238,7 +238,7 @@
 
 {#if moreOptions}
 	<div
-		class="mt-2 flex items-start justify-between gap-2 rounded-lg border border-contrast bg-card p-2
+		class="mt-2 flex items-start justify-between gap-2 rounded-lg border-2 border-contrast bg-card p-2
 			md:hidden"
 		transition:slide
 	>

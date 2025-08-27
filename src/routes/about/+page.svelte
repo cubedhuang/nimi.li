@@ -22,7 +22,7 @@
 	</button>
 </div>
 
-<div class="mt-4 grid gap-4 leading-relaxed md:grid-cols-2">
+<div class="mt-4 grid gap-3 leading-relaxed md:grid-cols-2">
 	<div class="box">
 		<h2>{t('mi', 'me')}</h2>
 

@@ -57,7 +57,7 @@
 	{#if opened}
 		<div
 			transition:flyAndScale={{ x: 4, y: -8 }}
-			class="absolute right-0 top-full z-50 mt-2 w-max rounded-lg border bg-card p-4 shadow-md"
+			class="absolute right-0 top-full z-50 mt-2 w-max rounded-lg border-2 bg-card p-4 shadow-md"
 		>
 			<div class="flex justify-between">
 				<SystemOption

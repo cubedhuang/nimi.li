@@ -124,7 +124,7 @@
 	}
 
 	.focusable {
-		@apply appearance-none overflow-hidden rounded-lg border bg-card outline-none transition focus-visible:border-contrast disabled:cursor-default disabled:text-muted disabled:focus-visible:border-border;
+		@apply appearance-none overflow-hidden rounded-lg border-2 bg-card outline-none transition focus-visible:border-contrast disabled:cursor-default disabled:text-muted disabled:focus-visible:border-border;
 	}
 
 	.interactable {
@@ -136,11 +136,11 @@
 	}
 
 	.box {
-		@apply rounded-lg border bg-card p-4 lg:p-6;
+		@apply rounded-lg border-2 bg-card p-4 lg:p-6;
 	}
 
 	.alert {
-		@apply rounded-lg border bg-secondary text-secondary-foreground;
+		@apply rounded-lg border-2 border-secondary-border bg-secondary text-secondary-foreground;
 	}
 
 	.link {
@@ -148,7 +148,7 @@
 	}
 
 	.nav-item {
-		@apply rounded-lg border bg-card p-2 transition-colors sm:rounded-t-none sm:border-t-0;
+		@apply rounded-lg border-2 bg-card p-2 transition-colors sm:rounded-t-none sm:border-t-0;
 	}
 
 	.nav-item-interactive {

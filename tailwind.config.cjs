@@ -21,7 +21,8 @@ module.exports = {
 				muted: 'var(--muted)',
 				secondary: {
 					DEFAULT: 'var(--secondary)',
-					foreground: 'var(--secondary-foreground)'
+					foreground: 'var(--secondary-foreground)',
+					border: 'var(--secondary-border)'
 				},
 				card: {
 					DEFAULT: 'var(--card)',

@@ -102,7 +102,7 @@
 
 <Search placeholder="o alasa..." bind:value={search} />
 
-<div class="mt-4 grid gap-3 grid-cols-fill-64">
+<div class="mt-4 grid gap-2 grid-cols-fill-64">
 	{#each filteredCompounds as compound (compound.compound)}
 		<CompoundSpace
 			{compound}

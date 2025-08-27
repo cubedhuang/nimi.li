@@ -158,7 +158,7 @@
 	</div>
 {/if}
 
-<div class="mt-6 grid gap-4 sm:grid-cols-2">
+<div class="mt-6 grid gap-3 sm:grid-cols-2">
 	<div class="box">
 		{#if word.deprecated}
 			<div class="mb-4 flex items-center gap-2">
@@ -279,7 +279,7 @@
 					{@const dates = Object.keys(word.usage).sort()}
 
 					<div
-						class="absolute left-1/2 top-full flex w-max -translate-x-1/2 gap-4 rounded-lg border bg-card p-4 shadow-md"
+						class="absolute left-1/2 top-full flex w-max -translate-x-1/2 gap-4 rounded-lg border-2 bg-card p-4 shadow-md"
 						transition:flyAndScale|local={{ y: -4 }}
 						use:outclick
 						onoutclick={() => {
