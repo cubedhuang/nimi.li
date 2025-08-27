@@ -175,7 +175,7 @@
 	community's usage of words. Please take the survey to help improve the dictionary!
 </p>
 
-<div class="mt-4 flex flex-wrap gap-1 sm:gap-x-2 sm:gap-y-1">
+<div class="mt-4 flex flex-wrap gap-1">
 	{#each $categories as category}
 		<ColoredCheckbox
 			bind:checked={category.shown}
@@ -219,8 +219,8 @@
 						moreOptions = false;
 					});
 				}}
-				class="absolute top-full z-10 mt-2 hidden w-max flex-wrap gap-1 rounded-lg border-2 bg-card p-2 shadow-md
-					sm:gap-x-2 sm:gap-y-1 md:flex"
+				class="bg-card absolute top-full z-10 mt-2 hidden w-max flex-wrap gap-1 rounded-lg border-2 p-2 shadow-md
+					md:flex"
 			>
 				{#each books as book}
 					<ColoredCheckbox
@@ -238,11 +238,11 @@
 
 {#if moreOptions}
 	<div
-		class="mt-2 flex items-start justify-between gap-2 rounded-lg border-2 border-contrast bg-card p-2
+		class="border-contrast bg-card mt-2 flex items-start justify-between gap-2 rounded-lg border-2 p-2
 			md:hidden"
 		transition:slide
 	>
-		<div class="flex flex-wrap gap-1 sm:gap-x-2 sm:gap-y-1">
+		<div class="flex flex-wrap gap-1">
 			{#each books as book}
 				<ColoredCheckbox
 					bind:checked={book.shown}
@@ -279,7 +279,7 @@
 	</div>
 {/if}
 
-<div class="mt-2 flex flex-wrap gap-1 sm:gap-x-2 sm:gap-y-1">
+<div class="mt-2 flex flex-wrap gap-1">
 	<Select
 		name="View"
 		options={[
@@ -338,7 +338,7 @@
 	</p>
 {/if}
 
-<p class="mt-2 text-muted">
+<p class="text-muted mt-2">
 	{filteredWords.length} / {genericFilteredWords.length}
 </p>
 

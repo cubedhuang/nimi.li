@@ -90,7 +90,7 @@
 	will not help you speak the language.
 </p>
 
-<div class="mt-4 flex flex-wrap gap-1 sm:gap-x-2 sm:gap-y-1">
+<div class="mt-4 flex flex-wrap gap-1">
 	<Select
 		name="View"
 		options={[
@@ -148,7 +148,7 @@
 	</p>
 {/if}
 
-<p class="mt-2 text-muted">
+<p class="text-muted mt-2">
 	{filteredWords.length} / {words.length}
 </p>
 

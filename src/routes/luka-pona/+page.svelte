@@ -73,7 +73,7 @@
 	it!
 </p>
 
-<div class="mt-4 flex flex-wrap gap-1 sm:gap-x-2 sm:gap-y-1">
+<div class="mt-4 flex flex-wrap gap-1">
 	<ColoredCheckbox
 		bind:checked={$autoplay}
 		label="Play Videos Automatically"
@@ -81,13 +81,13 @@
 	/>
 </div>
 
-<p class="mt-2 text-muted">
+<p class="text-muted mt-2">
 	{filteredSigns.length} / {genericFilteredSigns.length}
 </p>
 
 <Search placeholder="o alasa..." bind:value={search} />
 
-<div class="mt-4 grid gap-2 grid-cols-fill-64">
+<div class="grid-cols-fill-64 mt-4 grid gap-2">
 	{#each filteredSigns as signData (signData.id)}
 		<LukaPonaEntry
 			word={signData.words
