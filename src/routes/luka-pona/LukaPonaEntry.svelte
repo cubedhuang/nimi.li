@@ -1,19 +1,25 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { SignVideo } from '@kulupu-linku/sona';
 
 	import { browser } from '$app/environment';
 
 	import { autoplay, language } from '$lib/stores';
+	import type { SignData } from '$lib/types';
 	import { getWordLink } from '$lib/util';
 
 	interface Props {
-		word: string;
-		video: SignVideo;
+		signData: SignData;
 		onclick?: () => void;
 	}
 
-	const { word, video, onclick }: Props = $props();
+	const { signData, onclick }: Props = $props();
+
+	const displayWord = $derived(
+		signData.words
+			.map(w => w.word)
+			.join('/')
+			.toUpperCase()
+	);
 
 	let img: HTMLImageElement;
 	let canvas: HTMLCanvasElement;
@@ -63,13 +69,12 @@
 </script>
 
 <a
-	href={getWordLink(word, $language)}
+	href={getWordLink(signData.words[0].id, $language)}
 	onclick={e => {
 		e.preventDefault();
 		onclick?.();
 	}}
 	class="group text-left outline-hidden focus-visible:outline-contrast"
-	id={word}
 	onmouseenter={handleEnter}
 	onmouseleave={handleLeave}
 	onfocus={handleEnter}
@@ -85,8 +90,8 @@
 		></canvas>
 
 		<img
-			src={video.gif}
-			alt="{word} luka pona"
+			src={signData.signs[0].video.gif}
+			alt="{displayWord} luka pona"
 			class="absolute top-0 left-0 z-10 aspect-video w-full rounded-lg bg-secondary"
 			class:opacity-0={!$autoplay}
 			loading="lazy"
@@ -96,6 +101,6 @@
 	</div>
 
 	<b class="mt-1 block transition group-hover:text-accent">
-		{word}
+		{displayWord}
 	</b>
 </a>

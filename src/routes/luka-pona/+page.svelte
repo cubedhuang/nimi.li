@@ -90,11 +90,7 @@
 <div class="mt-4 grid grid-cols-fill-64 gap-2">
 	{#each filteredSigns as signData (signData.id)}
 		<LukaPonaEntry
-			word={signData.words
-				.map(w => w.word)
-				.join('/')
-				.toUpperCase()}
-			video={signData.signs[0].video}
+			{signData}
 			onclick={() => {
 				if (selectedSign?.id === signData.id) selectedSign = null;
 				else selectedSign = signData;
