@@ -44,8 +44,10 @@
 
 <div
 	bind:this={div}
-	class="content full sticky -top-px z-10 -mt-2 -mb-2 box-content pt-[9px] pb-2 transition
-		{!stick ? 'bg-transparent' : 'bg-background shadow-md ring-2 ring-border'}"
+	class="content full sticky -top-px z-10 -mt-2 -mb-2 box-content border-b-2 pt-[9px] pb-1.5
+		{!stick
+		? 'border-transparent bg-transparent'
+		: 'border-border bg-background shadow-md'}"
 >
 	<div class="flex items-center gap-1">
 		<input
