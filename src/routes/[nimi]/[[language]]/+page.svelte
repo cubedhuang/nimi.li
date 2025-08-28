@@ -258,7 +258,13 @@
 				<span class="text-muted">usage</span>
 			</p>
 
-			<div class="relative flex items-center">
+			<div
+				class="relative flex items-center"
+				use:outclick
+				onoutclick={() => {
+					showHistory = false;
+				}}
+			>
 				{#if Object.keys(word.usage).length}
 					<button
 						class="icon-interactable"
@@ -285,14 +291,7 @@
 
 					<div
 						class="absolute top-full left-1/2 flex w-max -translate-x-1/2 gap-4 rounded-lg border-2 bg-card p-4 shadow-md"
-						transition:flyAndScale|local={{ y: -4 }}
-						use:outclick
-						onoutclick={() => {
-							// delay to make clicking on the button also close
-							requestAnimationFrame(() => {
-								showHistory = false;
-							});
-						}}
+						transition:flyAndScale={{ y: -4 }}
 					>
 						{#each dates as date (date)}
 							{@const usage = Number(word.usage[date])}

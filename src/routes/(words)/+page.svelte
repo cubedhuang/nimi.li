@@ -128,53 +128,6 @@
 	more!
 </p>
 
-<p class="mt-4 alert p-4 leading-relaxed">
-	The 2025
-	<a
-		href="https://linku.la/wile"
-		target="_blank"
-		rel="noopener noreferrer"
-		class="items-center link"
-	>
-		Linku word usage survey<svg
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 16 16"
-			fill="currentColor"
-			class="ml-1 inline-block size-4 -translate-y-0.5"
-		>
-			<path
-				d="M6.22 8.72a.75.75 0 0 0 1.06 1.06l5.22-5.22v1.69a.75.75 0 0 0 1.5 0v-3.5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0 0 1.5h1.69L6.22 8.72Z"
-			/>
-			<path
-				d="M3.5 6.75c0-.69.56-1.25 1.25-1.25H7A.75.75 0 0 0 7 4H4.75A2.75 2.75 0 0 0 2 6.75v4.5A2.75 2.75 0 0 0 4.75 14h4.5A2.75 2.75 0 0 0 12 11.25V9a.75.75 0 0 0-1.5 0v2.25c0 .69-.56 1.25-1.25 1.25h-4.5c-.69 0-1.25-.56-1.25-1.25v-4.5Z"
-			/>
-		</svg>
-	</a>
-	and the new
-	<a
-		href="https://linku.la/wile-glyphs"
-		target="_blank"
-		rel="noopener noreferrer"
-		class="items-center link"
-	>
-		Linku <i>sitelen pona</i> glyph survey<svg
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 16 16"
-			fill="currentColor"
-			class="ml-1 inline-block size-4 -translate-y-0.5"
-		>
-			<path
-				d="M6.22 8.72a.75.75 0 0 0 1.06 1.06l5.22-5.22v1.69a.75.75 0 0 0 1.5 0v-3.5a.75.75 0 0 0-.75-.75h-3.5a.75.75 0 0 0 0 1.5h1.69L6.22 8.72Z"
-			/>
-			<path
-				d="M3.5 6.75c0-.69.56-1.25 1.25-1.25H7A.75.75 0 0 0 7 4H4.75A2.75 2.75 0 0 0 2 6.75v4.5A2.75 2.75 0 0 0 4.75 14h4.5A2.75 2.75 0 0 0 12 11.25V9a.75.75 0 0 0-1.5 0v2.25c0 .69-.56 1.25-1.25 1.25h-4.5c-.69 0-1.25-.56-1.25-1.25v-4.5Z"
-			/>
-		</svg>
-	</a>
-	are now open! <strong>nimi.li</strong> relies on kulupu Linku to describe the
-	community's usage of words. Please take the survey to help improve the dictionary!
-</p>
-
 <div class="mt-4 flex flex-wrap gap-1">
 	{#each $categories as category (category.name)}
 		<ColoredCheckbox
@@ -184,7 +137,13 @@
 		/>
 	{/each}
 
-	<div class="relative flex justify-center">
+	<div
+		class="relative flex justify-center"
+		use:outclick
+		onoutclick={() => {
+			moreOptions = false;
+		}}
+	>
 		<button
 			onclick={() => {
 				moreOptions = !moreOptions;
@@ -211,14 +170,7 @@
 
 		{#if moreOptions}
 			<div
-				transition:flyAndScale|local={{ y: -4 }}
-				use:outclick
-				onoutclick={() => {
-					// delay to make clicking on the button also close
-					requestAnimationFrame(() => {
-						moreOptions = false;
-					});
-				}}
+				transition:flyAndScale={{ y: -4 }}
 				class="absolute top-full z-10 mt-2 hidden w-max flex-wrap gap-1 rounded-lg border-2 bg-card p-2 shadow-md
 					md:flex"
 			>

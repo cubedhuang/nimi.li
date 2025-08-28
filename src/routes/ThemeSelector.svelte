@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 
+	import { outclick } from '$lib/actions/outclick';
 	import { persisted } from '$lib/stores';
 	import { flyAndScale } from '$lib/transitions';
 
@@ -19,22 +20,11 @@
 	});
 </script>
 
-<svelte:window
-	onclick={() => {
-		opened = false;
-	}}
-	ontouchstart={() => {
-		opened = false;
-	}}
-/>
-
-<div class="relative">
+<div class="relative" use:outclick onoutclick={() => (opened = false)}>
 	<button
-		onclick={e => {
-			e.stopPropagation();
+		onclick={() => {
 			opened = !opened;
 		}}
-		ontouchstart={e => e.stopPropagation()}
 		class="cursor-pointer nav-item-interactive"
 		aria-label="set color theme and font"
 	>

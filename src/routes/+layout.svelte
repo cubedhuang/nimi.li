@@ -9,9 +9,11 @@
 	import { dev } from '$app/environment';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 
+	import { outclick } from '$lib/actions/outclick';
 	import { screenWidth } from '$lib/stores';
 	import { flyAndScale } from '$lib/transitions';
 
+	import SurveyBanner from './SurveyBanner.svelte';
 	import ThemeSelector from './ThemeSelector.svelte';
 
 	interface Props {
@@ -74,16 +76,9 @@
 	});
 </script>
 
-<svelte:window
-	onclick={() => {
-		opened = false;
-	}}
-	ontouchstart={() => {
-		opened = false;
-	}}
-/>
-
 <div class="content" class:fullscreen={$screenWidth === 'full'}>
+	<SurveyBanner />
+
 	<nav class="flex justify-between pt-4 sm:pt-0">
 		<div class="hidden gap-2 sm:flex">
 			{#each routes as route (route.href)}
@@ -99,13 +94,17 @@
 			{/each}
 		</div>
 
-		<div class="relative sm:hidden">
+		<div
+			class="relative sm:hidden"
+			use:outclick
+			onoutclick={() => {
+				opened = false;
+			}}
+		>
 			<button
-				onclick={e => {
-					e.stopPropagation();
+				onclick={() => {
 					opened = !opened;
 				}}
-				ontouchstart={e => e.stopPropagation()}
 				class="cursor-pointer nav-item-interactive"
 				aria-label="open navigation"
 			>
