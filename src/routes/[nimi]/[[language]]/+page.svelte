@@ -43,10 +43,10 @@
 	keywords={[word.word]}
 />
 
-<div class="flex flex-wrap items-center gap-2">
+<div class="flex flex-wrap items-center gap-1">
 	<h1 class="mr-auto text-4xl">{word.word}</h1>
 
-	<div class="flex gap-2">
+	<div class="flex gap-1">
 		{#if word.resources?.sona_pona}
 			<a
 				href={word.resources.sona_pona}

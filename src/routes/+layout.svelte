@@ -80,7 +80,7 @@
 	<SurveyBanner />
 
 	<nav class="flex justify-between pt-4 sm:pt-0">
-		<div class="hidden gap-2 sm:flex">
+		<div class="hidden gap-1 sm:flex">
 			{#each routes as route (route.href)}
 				{#if page.url.pathname === route.href}
 					<span class="cursor-default nav-item text-muted">
@@ -146,7 +146,7 @@
 			{/if}
 		</div>
 
-		<div class="flex gap-2">
+		<div class="flex gap-1">
 			{#if deferredPrompt}
 				<button
 					onclick={() => {

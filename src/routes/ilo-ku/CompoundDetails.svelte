@@ -17,7 +17,7 @@
 		<div class="flex">
 			<h2 class="text-2xl">{compound.compound}</h2>
 
-			<div class="ml-auto flex items-center gap-2">
+			<div class="ml-auto flex items-center gap-1">
 				<a
 					href="/ilo-ku/{compound.compound.replace(/ /g, '-')}"
 					class="interactable px-2 py-1"

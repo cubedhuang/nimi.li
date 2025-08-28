@@ -128,52 +128,73 @@
 	more!
 </p>
 
-<div class="mt-4 flex flex-wrap gap-1">
-	{#each $categories as category (category.name)}
-		<ColoredCheckbox
-			bind:checked={category.shown}
-			label={category.name[0].toUpperCase() + category.name.slice(1)}
-			color={categoryColors[category.name]}
-		/>
-	{/each}
+<div
+	use:outclick
+	onoutclick={() => {
+		moreOptions = false;
+	}}
+>
+	<div class="mt-4 flex flex-wrap gap-1">
+		{#each $categories as category (category.name)}
+			<ColoredCheckbox
+				bind:checked={category.shown}
+				label={category.name[0].toUpperCase() + category.name.slice(1)}
+				color={categoryColors[category.name]}
+			/>
+		{/each}
 
-	<div
-		class="relative flex justify-center"
-		use:outclick
-		onoutclick={() => {
-			moreOptions = false;
-		}}
-	>
-		<button
-			onclick={() => {
-				moreOptions = !moreOptions;
-			}}
-			class="interactable p-0.5 md:block"
-			class:hidden={moreOptions}
-			aria-label="more options"
+		<div class="relative flex justify-center">
+			<button
+				onclick={() => {
+					moreOptions = !moreOptions;
+				}}
+				class="interactable p-0.5 md:block"
+				class:hidden={moreOptions}
+				aria-label="more options"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="h-6 w-6"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+					/>
+				</svg>
+			</button>
+
+			{#if moreOptions}
+				<div
+					transition:flyAndScale={{ y: -4 }}
+					class="absolute top-full z-10 mt-2 hidden w-max flex-wrap gap-1 rounded-lg border-2 bg-card p-2 shadow-md
+						md:flex"
+				>
+					{#each books as book (book.name)}
+						<ColoredCheckbox
+							bind:checked={book.shown}
+							label={book.name === 'none'
+								? 'no book'
+								: `nimi ${book.name}`}
+							color={bookColors[book.name]}
+						/>
+					{/each}
+				</div>
+			{/if}
+		</div>
+	</div>
+
+	{#if moreOptions}
+		<div
+			class="mt-2 flex items-start justify-between gap-1 rounded-lg border-2 border-contrast bg-card p-2
+				md:hidden"
+			transition:slide
 		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="1.5"
-				stroke="currentColor"
-				class="h-6 w-6"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-				/>
-			</svg>
-		</button>
-
-		{#if moreOptions}
-			<div
-				transition:flyAndScale={{ y: -4 }}
-				class="absolute top-full z-10 mt-2 hidden w-max flex-wrap gap-1 rounded-lg border-2 bg-card p-2 shadow-md
-					md:flex"
-			>
+			<div class="flex flex-wrap gap-1">
 				{#each books as book (book.name)}
 					<ColoredCheckbox
 						bind:checked={book.shown}
@@ -184,52 +205,32 @@
 					/>
 				{/each}
 			</div>
-		{/if}
-	</div>
-</div>
 
-{#if moreOptions}
-	<div
-		class="mt-2 flex items-start justify-between gap-2 rounded-lg border-2 border-contrast bg-card p-2
-			md:hidden"
-		transition:slide
-	>
-		<div class="flex flex-wrap gap-1">
-			{#each books as book (book.name)}
-				<ColoredCheckbox
-					bind:checked={book.shown}
-					label={book.name === 'none'
-						? 'no book'
-						: `nimi ${book.name}`}
-					color={bookColors[book.name]}
-				/>
-			{/each}
-		</div>
-
-		<button
-			onclick={() => {
-				moreOptions = false;
-			}}
-			class="shrink-0 interactable p-0.5"
-			aria-label="close options"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke-width="1.5"
-				stroke="currentColor"
-				class="h-6 w-6"
+			<button
+				onclick={() => {
+					moreOptions = false;
+				}}
+				class="shrink-0 interactable p-0.5"
+				aria-label="close options"
 			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					d="M6 18L18 6M6 6l12 12"
-				/>
-			</svg>
-		</button>
-	</div>
-{/if}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke-width="1.5"
+					stroke="currentColor"
+					class="h-6 w-6"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						d="M6 18L18 6M6 6l12 12"
+					/>
+				</svg>
+			</button>
+		</div>
+	{/if}
+</div>
 
 <div class="mt-2 flex flex-wrap gap-1">
 	<Select

@@ -56,37 +56,53 @@
 				<ThemeOption value="amoled" class="bg-black text-gray-50" />
 			</div>
 
-			<div class="mt-2 grid grid-cols-4 gap-2">
-				<ThemeOption value="light" class="bg-white text-gray-950" />
-				<ThemeOption
-					value="orange"
-					class="bg-orange-100 text-zinc-950"
-				/>
-				<ThemeOption value="dark" class="bg-zinc-900 text-zinc-50" />
-				<ThemeOption value="stone" class="bg-stone-800 text-stone-50" />
-				<ThemeOption value="pink" class="bg-pink-100 text-pink-900" />
-				<ThemeOption value="blue" class="bg-blue-100 text-blue-900" />
-				<ThemeOption value="red" class="bg-red-950 text-red-100" />
-				<ThemeOption value="dim" class="bg-gray-800 text-gray-50" />
-				<ThemeOption
-					value="green"
-					class="bg-green-100 text-green-900"
-				/>
-				<ThemeOption
-					value="purple"
-					class="bg-purple-100 text-purple-900"
-				/>
-				<ThemeOption
-					value="emerald"
-					class="bg-emerald-950 text-emerald-100"
-				/>
-				<ThemeOption
-					value="indigo"
-					class="bg-indigo-950 text-indigo-100"
-				/>
+			<div class="mt-2 grid grid-cols-2 gap-2">
+				<div class="grid grid-cols-2 gap-1">
+					<ThemeOption value="light" class="bg-white text-gray-950" />
+					<ThemeOption
+						value="orange"
+						class="bg-orange-100 text-zinc-950"
+					/>
+					<ThemeOption
+						value="pink"
+						class="bg-pink-100 text-pink-900"
+					/>
+					<ThemeOption
+						value="blue"
+						class="bg-blue-100 text-blue-900"
+					/>
+					<ThemeOption
+						value="green"
+						class="bg-green-100 text-green-900"
+					/>
+					<ThemeOption
+						value="purple"
+						class="bg-purple-100 text-purple-900"
+					/>
+				</div>
+				<div class="grid grid-cols-2 gap-1">
+					<ThemeOption
+						value="dark"
+						class="bg-zinc-900 text-zinc-50"
+					/>
+					<ThemeOption
+						value="stone"
+						class="bg-stone-800 text-stone-50"
+					/>
+					<ThemeOption value="red" class="bg-red-950 text-red-100" />
+					<ThemeOption value="dim" class="bg-gray-800 text-gray-50" />
+					<ThemeOption
+						value="emerald"
+						class="bg-emerald-950 text-emerald-100"
+					/>
+					<ThemeOption
+						value="indigo"
+						class="bg-indigo-950 text-indigo-100"
+					/>
+				</div>
 			</div>
 
-			<div class="mt-3 grid gap-2">
+			<div class="mt-2 grid gap-1">
 				<FontOption value="font-sans" name="Inter" />
 				<FontOption
 					value="font-atkinson"

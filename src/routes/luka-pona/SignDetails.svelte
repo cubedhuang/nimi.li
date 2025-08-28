@@ -39,7 +39,7 @@
 						.toUpperCase()}
 				</h2>
 
-				<div class="ml-auto flex items-center gap-2">
+				<div class="ml-auto flex items-center gap-1">
 					<a
 						href={getWordLink(words[0].id, $language)}
 						class="interactable px-2 py-1"

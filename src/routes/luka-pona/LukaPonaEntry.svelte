@@ -74,7 +74,7 @@
 		e.preventDefault();
 		onclick?.();
 	}}
-	class="group text-left outline-hidden focus-visible:outline-contrast"
+	class="group text-left outline-hidden focus-visible:outline-accent"
 	onmouseenter={handleEnter}
 	onmouseleave={handleLeave}
 	onfocus={handleEnter}

@@ -50,7 +50,7 @@
 		<div class="flex items-end">
 			<h2 class="text-2xl">{word.word}</h2>
 
-			<div class="ml-auto flex items-center gap-2">
+			<div class="ml-auto flex items-center gap-1">
 				<a
 					href={getWordLink(word.id, $language)}
 					class="interactable px-2 py-1"
