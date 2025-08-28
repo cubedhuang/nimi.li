@@ -90,7 +90,7 @@
 				<FontOption value="font-sans" name="Inter" />
 				<FontOption
 					value="font-atkinson"
-					name="Atkinson Hyperlegible"
+					name="Atkinson Hyperlegible Next"
 				/>
 				<FontOption value="font-serif" name="Source Serif" />
 				<FontOption value="font-mono" name="IBM Plex Mono" />
