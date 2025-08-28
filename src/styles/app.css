@@ -108,10 +108,12 @@
 	@keyframes highlight {
 		0% {
 			outline-width: 2px;
+			outline-style: solid;
 			outline-color: var(--accent);
 		}
 		100% {
 			outline-width: 2px;
+			outline-style: solid;
 			outline-color: transparent;
 		}
 	}
