@@ -17,14 +17,14 @@
 		class="full flex justify-between gap-2 border-b-2 border-secondary-border bg-secondary px-4 py-4 pt-5 text-sm text-secondary-foreground sm:px-8"
 	>
 		<p>
-			The 2025
+			The 2025 Linku
 			<a
 				href="https://linku.la/wile"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="items-center link"
 			>
-				Linku word usage survey<svg
+				word usage survey<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 16 16"
 					fill="currentColor"
@@ -38,14 +38,14 @@
 					/>
 				</svg>
 			</a>
-			and the new
+			and new
 			<a
 				href="https://linku.la/wile-glyphs"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="items-center link"
 			>
-				Linku <i>sitelen pona</i> glyph survey<svg
+				<i>sitelen pona</i> glyph survey<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 16 16"
 					fill="currentColor"
@@ -59,9 +59,8 @@
 					/>
 				</svg>
 			</a>
-			are now open! <strong>nimi.li</strong> relies on kulupu Linku to describe
-			the community's usage of words. Please take the surveys to help improve
-			the dictionary!
+			are open! <strong>nimi.li</strong> relies on this data to accurately
+			describe word usage. Please take the surveys to help improve the dictionary!
 		</p>
 
 		<div
