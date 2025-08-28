@@ -60,7 +60,7 @@
 				</svg>
 			</a>
 			are now open! <strong>nimi.li</strong> relies on kulupu Linku to describe
-			the community's usage of words. Please take the survey to help improve
+			the community's usage of words. Please take the surveys to help improve
 			the dictionary!
 		</p>
 
