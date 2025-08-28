@@ -27,7 +27,7 @@
 		{selected
 		? 'ring-2 ring-secondary-foreground ring-offset-2 ring-offset-card'
 		: ''}"
-	onclick={e => {
+	onclick={() => {
 		// synchronize both stores
 		$theme = value;
 		$baseTheme = value;

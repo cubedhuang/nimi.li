@@ -15,7 +15,7 @@
 		{selected
 		? 'ring-2 ring-secondary-foreground ring-offset-2 ring-offset-card'
 		: ''}"
-	onclick={e => {
+	onclick={() => {
 		$systemTheme = !$systemTheme;
 	}}
 	role="option"
