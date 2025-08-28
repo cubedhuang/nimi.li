@@ -201,9 +201,11 @@ export const categories = persisted(
 		value.length === usageCategories.length - 1
 );
 
-export const sortingMethod = persisted<
-	'alphabetical' | 'recognition' | 'combined'
->('sortingMethod', 'combined');
+export type SortingMethod = 'alphabetical' | 'recognition' | 'combined';
+export const sortingMethod = persisted<SortingMethod>(
+	'sortingMethod',
+	'combined'
+);
 
 export const language = persisted(
 	'language',
@@ -211,16 +213,13 @@ export const language = persisted(
 	(lang) => lang !== 'eng' // removes Definition Rework language
 );
 
-export const sitelenMode = persisted<'pona' | 'sitelen' | 'jelo' | 'emosi'>(
-	'sitelenMode',
-	'pona'
-);
+export type SitelenMode = 'pona' | 'sitelen' | 'jelo' | 'emosi';
+export const sitelenMode = persisted<SitelenMode>('sitelenMode', 'pona');
 
-export const viewMode = persisted<'normal' | 'detailed' | 'compact' | 'glyphs'>(
-	'viewMode',
-	'normal'
-);
+export type ViewMode = 'normal' | 'detailed' | 'compact' | 'glyphs';
+export const viewMode = persisted<ViewMode>('viewMode', 'normal');
 
-export const screenWidth = persisted<'full' | 'large'>('screenWidth', 'large');
+export type ScreenWidth = 'full' | 'large';
+export const screenWidth = persisted<ScreenWidth>('screenWidth', 'large');
 
 export const autoplay = persisted('autoplay', false);
