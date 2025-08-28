@@ -12,9 +12,9 @@
 </script>
 
 <button
-	class="max-w-full interactable px-4 py-1 transition-colors {value}
+	class="max-w-full interactable py-1 transition-colors {value}
 		{selected
-		? 'ring-2 ring-secondary-foreground ring-offset-2 ring-offset-card'
+		? 'ring-2 ring-secondary-foreground ring-offset-1 ring-offset-card'
 		: ''}"
 	onclick={() => {
 		$font = value;
