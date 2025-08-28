@@ -12,7 +12,7 @@
 	let { compound: possibleCompound = $bindable() }: Props = $props();
 </script>
 
-<Details bind:value={possibleCompound} key={compound => compound.compound}>
+<Details bind:value={possibleCompound} key={(compound) => compound.compound}>
 	{#snippet children(compound)}
 		<div class="flex">
 			<h2 class="text-2xl">{compound.compound}</h2>

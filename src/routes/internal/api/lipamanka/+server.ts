@@ -2,7 +2,7 @@ import { error, json } from '@sveltejs/kit';
 
 export async function GET({ fetch, setHeaders }) {
 	const rawText = await fetch('https://lipamanka.gay/essays/dictionary')
-		.then(res => res.text())
+		.then((res) => res.text())
 		.catch(() => '');
 
 	if (!rawText) {

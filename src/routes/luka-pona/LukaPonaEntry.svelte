@@ -16,7 +16,7 @@
 
 	const displayWord = $derived(
 		signData.words
-			.map(w => w.word)
+			.map((w) => w.word)
 			.join('/')
 			.toUpperCase()
 	);
@@ -26,7 +26,7 @@
 	let ctx: CanvasRenderingContext2D | null = null;
 
 	if (browser) {
-		autoplay.subscribe(value => {
+		autoplay.subscribe((value) => {
 			if (img && value) {
 				img.setAttribute('src', img.src);
 			}
@@ -70,7 +70,7 @@
 
 <a
 	href={getWordLink(signData.words[0].id, $language)}
-	onclick={e => {
+	onclick={(e) => {
 		e.preventDefault();
 		onclick?.();
 	}}

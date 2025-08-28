@@ -19,7 +19,7 @@
 			: `https://lipamanka.gay/essays/dictionary#${word.word}`
 	);
 
-	const fixLinks: Action<HTMLDivElement> = node => {
+	const fixLinks: Action<HTMLDivElement> = (node) => {
 		const update = () => {
 			for (const a of node.getElementsByTagName('a')) {
 				const href = a.getAttribute('href');

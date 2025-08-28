@@ -43,7 +43,7 @@
 	const audioUrl = $derived(possibleWord?.audio[0]?.link);
 </script>
 
-<Details bind:value={possibleWord} key={word => word.id}>
+<Details bind:value={possibleWord} key={(word) => word.id}>
 	{#snippet children(word)}
 		{@const translation = getTranslation(word, $language)}
 

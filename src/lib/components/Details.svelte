@@ -21,7 +21,7 @@
 </script>
 
 <svelte:window
-	onkeydown={e => {
+	onkeydown={(e) => {
 		if (e.key === 'Escape') value = null;
 	}}
 />

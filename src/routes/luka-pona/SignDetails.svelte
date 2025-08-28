@@ -15,7 +15,7 @@
 	let { data: possibleData = $bindable() }: Props = $props();
 </script>
 
-<Details bind:value={possibleData} key={data => data.id} padding={false}>
+<Details bind:value={possibleData} key={(data) => data.id} padding={false}>
 	{#snippet children(data)}
 		{@const { words, signs } = data}
 
@@ -34,7 +34,7 @@
 			<div class="flex items-end">
 				<h2 class="text-2xl">
 					{words
-						.map(w => w.word)
+						.map((w) => w.word)
 						.join('/')
 						.toUpperCase()}
 				</h2>

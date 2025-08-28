@@ -8,7 +8,7 @@ declare const self: ServiceWorkerGlobalScope;
 const CACHE = `cache-${version}`;
 const ASSETS = [...build, ...files];
 
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
 	async function addFilesToCache() {
 		const cache = await caches.open(CACHE);
 		await cache.addAll(ASSETS);
@@ -17,19 +17,19 @@ self.addEventListener('install', event => {
 	event.waitUntil(addFilesToCache());
 });
 
-self.addEventListener('activate', event => {
+self.addEventListener('activate', (event) => {
 	async function deleteOldCaches() {
 		const keys = await caches.keys();
 
-		const old = keys.filter(key => key !== CACHE);
+		const old = keys.filter((key) => key !== CACHE);
 
-		await Promise.all(old.map(key => caches.delete(key)));
+		await Promise.all(old.map((key) => caches.delete(key)));
 	}
 
 	event.waitUntil(deleteOldCaches());
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', (event) => {
 	if (event.request.method !== 'GET') return;
 
 	async function respond() {

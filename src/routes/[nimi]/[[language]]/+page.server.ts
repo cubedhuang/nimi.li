@@ -16,8 +16,8 @@ export async function load({ fetch, params, setHeaders }) {
 			.v1.luka_pona.signs.$get({
 				query: { lang: params.language ?? 'en' }
 			})
-			.then(res => res.json()),
-		fetch('/internal/api/lipamanka').then(res => res.json()) as Promise<
+			.then((res) => res.json()),
+		fetch('/internal/api/lipamanka').then((res) => res.json()) as Promise<
 			Record<string, string>
 		>
 	]);
@@ -34,7 +34,7 @@ export async function load({ fetch, params, setHeaders }) {
 	if (!word) {
 		const sandbox = await client({ fetch })
 			.v1.sandbox.$get({ query: {} })
-			.then(res => res.json());
+			.then((res) => res.json());
 
 		const sandboxWords = Object.values(sandbox);
 		const sandboxWord = sandbox[params.nimi];
@@ -89,7 +89,7 @@ export async function load({ fetch, params, setHeaders }) {
 	return {
 		word,
 		signs: Object.values(lukaPona).filter(
-			word => params.nimi === word.definition
+			(word) => params.nimi === word.definition
 		),
 		lipamanka: lipamanka[params.nimi],
 		next:

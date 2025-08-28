@@ -8,11 +8,11 @@ export async function GET({ fetch }) {
 	const [words, languages, compounds] = [
 		await client({ fetch })
 			.v1.words.$get({ query: { lang: 'en' } })
-			.then(res => res.json()),
+			.then((res) => res.json()),
 		await client({ fetch })
 			.v1.languages.$get({})
-			.then(res => res.json()),
-		(await fetch('/internal/api/nimi-ku').then(res =>
+			.then((res) => res.json()),
+		(await fetch('/internal/api/nimi-ku').then((res) =>
 			res.json()
 		)) as CompoundData
 	];
@@ -52,20 +52,20 @@ const render = (
 <url><loc>https://nimi.li/sandbox</loc><priority>0.9</priority></url>
 <url><loc>https://nimi.li/about</loc><priority>0.9</priority></url>
 ${words
-	.map(word => {
+	.map((word) => {
 		const priority = priorities[word.usage_category];
 		return `<url><loc>https://nimi.li/${word.id}</loc><priority>${priority.toFixed(1)}</priority></url>`;
 	})
 	.join('\n')}
 ${compounds
-	.map(compound => {
+	.map((compound) => {
 		return `<url><loc>https://nimi.li/ilo-ku/${compound.replaceAll(' ', '-')}</loc><priority>0.7</priority></url>`;
 	})
 	.join('\n')}
 ${languages
-	.flatMap(lang => {
+	.flatMap((lang) => {
 		if (lang === 'en') return [];
-		return words.map(word => {
+		return words.map((word) => {
 			const priority = priorities[word.usage_category] / 10;
 			return `<url><loc>https://nimi.li/${word.id}/${lang}</loc><priority>${priority.toFixed(2)}</priority></url>`;
 		});

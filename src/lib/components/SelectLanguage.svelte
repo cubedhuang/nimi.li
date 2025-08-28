@@ -16,7 +16,7 @@
 
 <Select
 	name="Language"
-	options={sortLanguages(languages).map(language => {
+	options={sortLanguages(languages).map((language) => {
 		return {
 			label: language.name.endonym ?? language.name.en,
 			value: language.id

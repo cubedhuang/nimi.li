@@ -36,11 +36,11 @@
 
 		return signs
 			.map(
-				data =>
+				(data) =>
 					[
 						data,
 						Math.max(
-							...data.words.map(word =>
+							...data.words.map((word) =>
 								scoreSearch(word, q, $language)
 							)
 						)

@@ -9,6 +9,6 @@ export async function GET({ fetch, url, setHeaders }) {
 	return json(
 		await client({ fetch })
 			.v1.sandbox.$get({ query: { lang } })
-			.then(res => res.json())
+			.then((res) => res.json())
 	);
 }

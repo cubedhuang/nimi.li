@@ -10,11 +10,11 @@ function parseData(raw: string): CompoundData {
 	const regex = /^(.+?): \["?(.+?)"?\]/gm;
 
 	return Object.fromEntries(
-		[...raw.matchAll(regex)].map(match => {
+		[...raw.matchAll(regex)].map((match) => {
 			const [, compound, rawUses] = match;
 
 			const uses = Object.fromEntries(
-				rawUses.split(', ').map(rawUse => {
+				rawUses.split(', ').map((rawUse) => {
 					const parts = rawUse.split(' ');
 					const end = parts.pop() ?? '';
 					const count = parseInt(
@@ -32,12 +32,12 @@ function parseData(raw: string): CompoundData {
 				const regex = new RegExp(
 					`^${compound
 						.split(' ')
-						.map(w => `${w}[0-9]?`)
+						.map((w) => `${w}[0-9]?`)
 						.join('[-\\^\\*]')}$`,
 					'g'
 				);
 
-				matches = glyphs.filter(glyph => glyph.match(regex));
+				matches = glyphs.filter((glyph) => glyph.match(regex));
 			} else {
 				matches = [compound];
 			}
@@ -63,8 +63,8 @@ export async function GET({ fetch, setHeaders }) {
 	];
 
 	const datas = await Promise.all(
-		pages.map(page => fetch(page).then(res => res.text()))
-	).then(rawDatas => rawDatas.map(parseData));
+		pages.map((page) => fetch(page).then((res) => res.text()))
+	).then((rawDatas) => rawDatas.map(parseData));
 
 	const data: CompoundData = datas.reduce((acc, data) => {
 		for (const [compound, compoundData] of Object.entries(data)) {

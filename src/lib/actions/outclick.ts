@@ -4,7 +4,7 @@ export const outclick: Action<
 	HTMLElement,
 	undefined,
 	{ onoutclick: () => void }
-> = node => {
+> = (node) => {
 	const handleClick = (event: MouseEvent | TouchEvent) => {
 		if (!node.contains(event.target as Node)) {
 			node.dispatchEvent(new CustomEvent('outclick'));

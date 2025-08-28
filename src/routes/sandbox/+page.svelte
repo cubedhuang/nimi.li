@@ -27,7 +27,7 @@
 
 	async function fetchTranslation(lang: string) {
 		const words = (await fetch(`/internal/api/sandbox?lang=${lang}`).then(
-			res => res.json()
+			(res) => res.json()
 		)) as Record<string, LocalizedWord>;
 
 		for (const word of Object.values(words)) {
@@ -54,7 +54,7 @@
 		$language !== 'en' &&
 			fetchedTranslations.includes($language) &&
 			sortedWords.some(
-				word =>
+				(word) =>
 					!word.translations[$language]?.definition ||
 					word.translations[$language].definition ===
 						word.translations.en.definition
@@ -113,7 +113,7 @@
 
 	<SelectLanguage
 		languages={data.languages}
-		onchange={lang => {
+		onchange={(lang) => {
 			if (fetchedTranslations.includes(lang)) {
 				$language = lang;
 			} else {
@@ -156,7 +156,7 @@
 
 <WordView
 	words={filteredWords}
-	onselect={word => {
+	onselect={(word) => {
 		if (selectedWord?.id === word.id) selectedWord = null;
 		else selectedWord = word;
 	}}
@@ -164,9 +164,9 @@
 
 <WordDetails
 	bind:word={selectedWord}
-	onrefer={referred => {
-		if (!filteredWords.some(word => word.word === referred)) {
-			if (!words.some(word => word.word === referred)) {
+	onrefer={(referred) => {
+		if (!filteredWords.some((word) => word.word === referred)) {
+			if (!words.some((word) => word.word === referred)) {
 				goto(`/${referred}`);
 			} else {
 				search = '';

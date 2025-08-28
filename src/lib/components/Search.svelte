@@ -28,7 +28,7 @@
 </script>
 
 <svelte:window
-	onkeydown={e => {
+	onkeydown={(e) => {
 		if (e.ctrlKey || e.metaKey || e.altKey) {
 			return;
 		}

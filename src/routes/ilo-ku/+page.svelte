@@ -31,11 +31,11 @@
 	const filteredCompounds = $derived(
 		compounds
 			.filter(
-				compound =>
+				(compound) =>
 					compound.compound.includes(fixedSearch) ||
 					distance(compound.compound, fixedSearch) <= 2 ||
 					Object.keys(compound.uses).some(
-						use =>
+						(use) =>
 							use.includes(fixedSearch) ||
 							distance(use, fixedSearch) <= 2
 					)
@@ -46,10 +46,10 @@
 				if (b.compound === fixedSearch) return 1;
 				if (Object.keys(a.uses).includes(fixedSearch)) return -1;
 				if (Object.keys(b.uses).includes(fixedSearch)) return 1;
-				const aContains = Object.keys(a.uses).some(use =>
+				const aContains = Object.keys(a.uses).some((use) =>
 					use.includes(fixedSearch)
 				);
-				const bContains = Object.keys(b.uses).some(use =>
+				const bContains = Object.keys(b.uses).some((use) =>
 					use.includes(fixedSearch)
 				);
 				if (aContains && bContains) return 0;

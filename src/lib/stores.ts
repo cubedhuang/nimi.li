@@ -60,13 +60,13 @@ export const themes = [
 	'indigo'
 ] as const;
 export type Theme = (typeof themes)[number];
-export const baseTheme = persisted<Theme>('base-theme', 'light', value =>
+export const baseTheme = persisted<Theme>('base-theme', 'light', (value) =>
 	themes.includes(value)
 );
-export const darkTheme = persisted<Theme>('dark-theme', 'dark', value =>
+export const darkTheme = persisted<Theme>('dark-theme', 'dark', (value) =>
 	themes.includes(value)
 );
-export const lightTheme = persisted<Theme>('light-theme', 'light', value =>
+export const lightTheme = persisted<Theme>('light-theme', 'light', (value) =>
 	themes.includes(value)
 );
 export const systemTheme = persisted<boolean>('system-theme', true);
@@ -93,7 +93,7 @@ export const fonts = [
 	'font-atkinson'
 ] as const;
 export type Font = (typeof fonts)[number];
-export const font = persisted<Font>('font', 'font-sans', value =>
+export const font = persisted<Font>('font', 'font-sans', (value) =>
 	fonts.includes(value)
 );
 
@@ -116,13 +116,13 @@ function changeTheme(value: Theme) {
 }
 
 if (browser) {
-	baseTheme.subscribe(value => {
+	baseTheme.subscribe((value) => {
 		if (!get(systemTheme)) {
 			changeTheme(value);
 		}
 	});
 
-	lightTheme.subscribe(value => {
+	lightTheme.subscribe((value) => {
 		const isDark = window.matchMedia(
 			'(prefers-color-scheme: dark)'
 		).matches;
@@ -132,7 +132,7 @@ if (browser) {
 		}
 	});
 
-	darkTheme.subscribe(value => {
+	darkTheme.subscribe((value) => {
 		const isDark = window.matchMedia(
 			'(prefers-color-scheme: dark)'
 		).matches;
@@ -142,7 +142,7 @@ if (browser) {
 		}
 	});
 
-	systemTheme.subscribe(value => {
+	systemTheme.subscribe((value) => {
 		const isDark = window.matchMedia(
 			'(prefers-color-scheme: dark)'
 		).matches;
@@ -177,7 +177,7 @@ if (browser) {
 		}
 	});
 
-	font.subscribe(value => {
+	font.subscribe((value) => {
 		if (document.documentElement.classList.contains('value')) {
 			return;
 		}
@@ -191,12 +191,12 @@ if (browser) {
 export const categories = persisted(
 	'categories',
 	usageCategories
-		.filter(u => u !== 'sandbox')
-		.map(category => ({
+		.filter((u) => u !== 'sandbox')
+		.map((category) => ({
 			name: category as UsageCategory,
 			shown: ['core', 'common'].includes(category)
 		})),
-	value =>
+	(value) =>
 		value.some(({ shown }) => shown) &&
 		value.length === usageCategories.length - 1
 );
@@ -208,7 +208,7 @@ export const sortingMethod = persisted<
 export const language = persisted(
 	'language',
 	'en',
-	lang => lang !== 'eng' // removes Definition Rework language
+	(lang) => lang !== 'eng' // removes Definition Rework language
 );
 
 export const sitelenMode = persisted<'pona' | 'sitelen' | 'jelo' | 'emosi'>(

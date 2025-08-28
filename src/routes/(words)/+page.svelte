@@ -38,7 +38,7 @@
 	let selectedWord = $state<LocalizedWord | null>(null);
 
 	let books = $state(
-		Object.keys(bookColors).map(book => ({
+		Object.keys(bookColors).map((book) => ({
 			name: book as Book,
 			shown: true
 		}))
@@ -48,7 +48,7 @@
 
 	async function fetchTranslation(lang: string) {
 		const words = (await fetch(`/internal/api/linku?lang=${lang}`).then(
-			res => res.json()
+			(res) => res.json()
 		)) as Record<string, LocalizedWord>;
 
 		for (const word of Object.values(words)) {
@@ -66,12 +66,12 @@
 
 	const shownCategories = $derived(
 		$categories
-			.filter(category => category.shown)
-			.map(category => category.name)
+			.filter((category) => category.shown)
+			.map((category) => category.name)
 	);
 
 	const shownBooks = $derived(
-		books.filter(book => book.shown).map(book => book.name)
+		books.filter((book) => book.shown).map((book) => book.name)
 	);
 
 	const genericSorter = $derived(
@@ -101,7 +101,7 @@
 		$language !== 'en' &&
 			fetchedTranslations.includes($language) &&
 			genericFilteredWords.some(
-				word =>
+				(word) =>
 					!word.translations[$language]?.definition ||
 					word.translations[$language].definition ===
 						word.translations.en.definition
@@ -255,7 +255,7 @@
 
 	<SelectLanguage
 		languages={data.languages}
-		onchange={lang => {
+		onchange={(lang) => {
 			if (fetchedTranslations.includes(lang)) {
 				$language = lang;
 			} else {
@@ -298,7 +298,7 @@
 
 <WordView
 	words={filteredWords}
-	onselect={word => {
+	onselect={(word) => {
 		if (selectedWord?.id === word.id) selectedWord = null;
 		else selectedWord = word;
 	}}
@@ -307,17 +307,17 @@
 <WordDetails
 	bind:word={selectedWord}
 	lipamanka={data.lipamanka[selectedWord?.id ?? '']}
-	onrefer={referred => {
-		if (!filteredWords.some(word => word.word === referred)) {
+	onrefer={(referred) => {
+		if (!filteredWords.some((word) => word.word === referred)) {
 			search = '';
 
-			$categories = $categories.map(category => ({
+			$categories = $categories.map((category) => ({
 				...category,
 				shown:
 					category.shown ||
 					category.name === data.words[referred].usage_category
 			}));
-			books = books.map(book => ({
+			books = books.map((book) => ({
 				...book,
 				shown: book.shown || book.name === data.words[referred].book
 			}));

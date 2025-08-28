@@ -15,7 +15,7 @@ export function filter(
 	}
 
 	return words
-		.map(word => [word, scoreSearch(word, search, $language)] as const)
+		.map((word) => [word, scoreSearch(word, search, $language)] as const)
 		.filter(([, score]) => score > 0)
 		.sort((a, b) => b[1] - a[1])
 		.map(([word]) => word);

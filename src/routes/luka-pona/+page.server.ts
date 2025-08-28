@@ -5,13 +5,13 @@ export async function load({ fetch, setHeaders }) {
 	const [words, sandbox, lukaPona] = await Promise.all([
 		client({ fetch })
 			.v1.words.$get({ query: { lang: 'en' } })
-			.then(res => res.json()),
+			.then((res) => res.json()),
 		client({ fetch })
 			.v1.sandbox.$get({ query: { lang: 'en' } })
-			.then(res => res.json()),
+			.then((res) => res.json()),
 		client({ fetch })
 			.v1.luka_pona.signs.$get({ query: { lang: 'en' } })
-			.then(res => res.json())
+			.then((res) => res.json())
 	]);
 
 	const lukaPonaData = Object.values(lukaPona);
@@ -25,7 +25,7 @@ export async function load({ fetch, setHeaders }) {
 				id: sign.definition,
 				words: sign.definition
 					.split(', ')
-					.map(w => words[w] ?? sandbox[w]),
+					.map((w) => words[w] ?? sandbox[w]),
 				signs: [sign]
 			};
 		}

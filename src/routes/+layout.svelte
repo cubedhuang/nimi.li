@@ -58,7 +58,7 @@
 	let deferredPrompt = $state<Event & any>();
 
 	onMount(() => {
-		window.addEventListener('beforeinstallprompt', e => {
+		window.addEventListener('beforeinstallprompt', (e) => {
 			e.preventDefault();
 			deferredPrompt = e;
 		});
