@@ -28,13 +28,10 @@
 		? 'ring-2 ring-secondary-foreground ring-offset-2 ring-offset-card'
 		: ''}"
 	onclick={e => {
-		e.stopPropagation();
-
 		// synchronize both stores
 		$theme = value;
 		$baseTheme = value;
 	}}
-	ontouchstart={e => e.stopPropagation()}
 	role="option"
 	aria-selected={selected}
 	aria-label={value}

@@ -136,8 +136,7 @@
 							<a
 								href={route.href}
 								class="p-2"
-								onclick={e => e.stopPropagation()}
-								ontouchstart={e => e.stopPropagation()}
+								onclick={() => (opened = false)}
 							>
 								{route.name}
 							</a>

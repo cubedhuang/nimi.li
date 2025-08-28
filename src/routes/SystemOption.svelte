@@ -16,10 +16,8 @@
 		? 'ring-2 ring-secondary-foreground ring-offset-2 ring-offset-card'
 		: ''}"
 	onclick={e => {
-		e.stopPropagation();
 		$systemTheme = !$systemTheme;
 	}}
-	ontouchstart={e => e.stopPropagation()}
 	role="option"
 	aria-selected={selected}
 	aria-label="toggle system theme"
