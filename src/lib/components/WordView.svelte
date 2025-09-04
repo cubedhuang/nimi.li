@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Language, LocalizedWord } from '@kulupu-linku/sona';
 
+	import { filter } from '$lib/search';
 	import {
 		language,
 		sitelenMode,
@@ -21,7 +22,6 @@
 	import WordSpace from './word-view/WordSpace.svelte';
 	import WordSpaceDetailed from './word-view/WordSpaceDetailed.svelte';
 	import Search from './Search.svelte';
-	import { filter } from '$lib/search';
 	import WordDetails from './WordDetails.svelte';
 
 	interface Props {
@@ -31,6 +31,7 @@
 		languages: Record<string, Language>;
 		sortingMethod?: SortingMethod;
 		revealWord: (word: string) => void;
+		isSandbox?: boolean;
 	}
 
 	let {
@@ -39,7 +40,8 @@
 		lipamanka,
 		languages,
 		sortingMethod = $bindable('alphabetical'),
-		revealWord
+		revealWord,
+		isSandbox
 	}: Props = $props();
 
 	let selectedWord = $state<LocalizedWord | null>(null);
@@ -60,20 +62,20 @@
 	let fetchedTranslations = $state(['en']);
 
 	async function fetchTranslation(lang: string) {
-		console.log('fetching', lang);
+		const url = isSandbox
+			? `/internal/api/sandbox?lang=${lang}`
+			: `/internal/api/linku?lang=${lang}`;
 
-		const newWords = (await fetch(`/internal/api/linku?lang=${lang}`).then(
-			(res) => res.json()
-		)) as Record<string, LocalizedWord>;
+		const newWords = (await fetch(url).then((res) => res.json())) as Record<
+			string,
+			LocalizedWord
+		>;
 
 		for (const word of words) {
-			word.translations[lang] = newWords[word.id].translations[lang];
+			word.translations[lang] = newWords[word.id]?.translations[lang];
 		}
 
 		fetchedTranslations.push(lang);
-
-		// forces invalidation
-		$language = '';
 		$language = lang;
 	}
 
@@ -108,22 +110,26 @@
 			{ label: 'Glyph View', value: 'glyphs' }
 		]}
 		bind:value={$viewMode}
+		class="w-40 shrink-0"
 	/>
 
 	<Select
 		name="Sorting Method"
 		options={[
-			{ label: 'Sort A-Z by Usage', value: 'combined' },
-			{ label: 'Sort by Usage', value: 'recognition' },
-			{ label: 'Sort Alphabetically', value: 'alphabetical' }
-		]}
+			!isSandbox
+				? { label: 'Sort A-Z by Usage', value: 'combined' }
+				: null,
+			{ label: 'Sort Alphabetically', value: 'alphabetical' },
+			{ label: 'Sort by Usage', value: 'recognition' }
+		].filter((o) => o !== null)}
 		bind:value={sortingMethod}
+		class="w-48 shrink-0"
 	/>
 
 	<SelectLanguage
 		{languages}
 		onchange={(lang) => {
-			$language = lang;
+			fetchTranslation(lang);
 		}}
 	/>
 
@@ -136,6 +142,7 @@
 			{ label: 'sitelen Emosi', value: 'emosi' }
 		]}
 		bind:value={$sitelenMode}
+		class="w-40 shrink-0"
 	/>
 </div>
 
@@ -184,7 +191,7 @@
 	</div>
 {/if}
 
-{#if !words.length}
+{#if !filteredWords.length}
 	<p>wile sina la, nimi li lon ala!</p>
 	<p class="text-muted">Your query didn't match any words!</p>
 {/if}

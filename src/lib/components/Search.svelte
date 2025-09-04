@@ -36,7 +36,10 @@
 		if (searchBar === document.activeElement && e.key === 'Escape') {
 			value = '';
 			searchBar.blur();
-		} else if (/^[a-z]$/i.test(e.key)) {
+		} else if (
+			/^[a-z]$/i.test(e.key) &&
+			document.activeElement === document.body
+		) {
 			searchBar.focus();
 		}
 	}}

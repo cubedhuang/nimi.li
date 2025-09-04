@@ -39,7 +39,7 @@ export function flyAndScale(
 	};
 
 	return {
-		duration: params.duration ?? 200,
+		duration: params.duration ?? 150,
 		delay: 0,
 		css: (t) => {
 			const y = scaleConversion(t, [0, 1], [params.y ?? 5, 0]);

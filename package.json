@@ -14,6 +14,7 @@
 	},
 	"dependencies": {
 		"@kulupu-linku/sona": "0.3.7",
+		"bits-ui": "^2.9.4",
 		"fastest-levenshtein": "^1.0.16",
 		"jpeg-js": "^0.4.4",
 		"nprogress": "^0.2.0",

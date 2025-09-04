@@ -42,6 +42,12 @@
 	}
 }
 
+@custom-variant light {
+	.light & {
+		@slot;
+	}
+}
+
 @custom-variant darkish {
 	.amoled &,
 	.dark &,
