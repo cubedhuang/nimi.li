@@ -100,7 +100,7 @@
 	const filteredWords = $derived(filter(sortedWords, search, $language));
 </script>
 
-<div class="mt-2 flex flex-wrap gap-1">
+<div class="flex flex-wrap gap-1">
 	<Select
 		name="View"
 		options={[

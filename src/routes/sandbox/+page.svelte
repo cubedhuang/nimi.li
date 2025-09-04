@@ -25,7 +25,7 @@
 	of Toki Pona. Many are one-off jokes, created and abandoned immediately.
 </p>
 
-<p class="mt-4 alert p-4 leading-relaxed">
+<p class="my-4 alert p-4 leading-relaxed">
 	<strong>Warning!</strong>
 	If you are a learner, <em>stick to the main dictionary</em>. These words
 	will not help you speak the language.

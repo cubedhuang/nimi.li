@@ -66,6 +66,7 @@
 	onoutclick={() => {
 		moreOptions = false;
 	}}
+	class="mb-2"
 >
 	<div class="mt-4 flex flex-wrap gap-1">
 		{#each $categories as category (category.name)}
@@ -123,7 +124,7 @@
 
 	{#if moreOptions}
 		<div
-			class="mt-2 flex items-start justify-between gap-1 rounded-lg border-2 border-contrast bg-card p-2
+			class="mt-2 flex items-start justify-between gap-1 rounded-lg border-2 bg-card p-2
 				md:hidden"
 			transition:slide
 		>
