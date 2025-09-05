@@ -1,5 +1,7 @@
 import type { Action } from 'svelte/action';
 
+const events = ['click', 'mousedown', 'touchstart'] as const;
+
 export const outclick: Action<
 	HTMLElement,
 	undefined,
@@ -11,13 +13,15 @@ export const outclick: Action<
 		}
 	};
 
-	document.addEventListener('click', handleClick, true);
-	document.addEventListener('touchstart', handleClick, true);
+	for (const event of events) {
+		document.addEventListener(event, handleClick, true);
+	}
 
 	return {
 		destroy() {
-			document.removeEventListener('click', handleClick, true);
-			document.removeEventListener('touchstart', handleClick, true);
+			for (const event of events) {
+				document.removeEventListener(event, handleClick, true);
+			}
 		}
 	};
 };

@@ -75,6 +75,10 @@
 		@apply leading-relaxed;
 	}
 
+	:global(.lipamanka .link img) {
+		@apply inline-block;
+	}
+
 	:global(.lipamanka button) {
 		@apply my-2 w-fit px-2 py-1;
 	}

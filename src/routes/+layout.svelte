@@ -124,7 +124,7 @@
 
 			{#if opened}
 				<div
-					transition:flyAndScale={{ x: -2, y: -4, duration: 300 }}
+					transition:flyAndScale={{ x: -2, y: -4 }}
 					class="absolute top-full z-50 mt-2 flex flex-col divide-y-2 divide-border rounded-lg border-2 bg-card shadow-md"
 				>
 					{#each routes as route (route.href)}

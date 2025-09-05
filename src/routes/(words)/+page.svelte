@@ -5,29 +5,12 @@
 	import type { Book } from '@kulupu-linku/sona/utils';
 
 	import { outclick } from '$lib/actions/outclick';
-	import {
-		azWordSort,
-		bookColors,
-		categoryColors,
-		combinedWordSort,
-		recognitionWordSort
-	} from '$lib/util';
-	import { filter } from '$lib/search';
-	import {
-		categories,
-		language,
-		sitelenMode,
-		sortingMethod,
-		viewMode
-	} from '$lib/stores';
+	import { bookColors, categoryColors } from '$lib/util';
+	import { categories, sortingMethod } from '$lib/stores';
 	import { flyAndScale } from '$lib/transitions';
 
 	import ColoredCheckbox from '$lib/components/ColoredCheckbox.svelte';
 	import Meta from '$lib/components/Meta.svelte';
-	import Search from '$lib/components/Search.svelte';
-	import Select from '$lib/components/Select.svelte';
-	import SelectLanguage from '$lib/components/SelectLanguage.svelte';
-	import WordDetails from '$lib/components/WordDetails.svelte';
 	import WordView from '$lib/components/WordView.svelte';
 
 	const { data } = $props();
@@ -35,7 +18,6 @@
 	let moreOptions = $state(false);
 
 	let search = $state('');
-	let selectedWord = $state<LocalizedWord | null>(null);
 
 	let books = $state(
 		Object.keys(bookColors).map((book) => ({
@@ -43,24 +25,6 @@
 			shown: true
 		}))
 	);
-
-	let fetchedTranslations = $state(['en']);
-
-	async function fetchTranslation(lang: string) {
-		const words = (await fetch(`/internal/api/linku?lang=${lang}`).then(
-			(res) => res.json()
-		)) as Record<string, LocalizedWord>;
-
-		for (const word of Object.values(words)) {
-			data.words[word.id].translations[lang] = word.translations[lang];
-		}
-
-		fetchedTranslations.push(lang);
-
-		// forces invalidation
-		$language = '';
-		$language = lang;
-	}
 
 	const words = $derived(Object.values(data.words));
 
@@ -74,14 +38,6 @@
 		books.filter((book) => book.shown).map((book) => book.name)
 	);
 
-	const genericSorter = $derived(
-		$sortingMethod === 'alphabetical'
-			? azWordSort
-			: $sortingMethod === 'recognition'
-				? recognitionWordSort
-				: combinedWordSort
-	);
-
 	function genericFilter(word: LocalizedWord) {
 		return (
 			shownCategories.includes(word.usage_category) &&
@@ -89,30 +45,7 @@
 		);
 	}
 
-	const genericFilteredWords = $derived(
-		words.filter(genericFilter).sort(genericSorter)
-	);
-
-	const filteredWords = $derived(
-		filter(genericFilteredWords, search, $language)
-	);
-
-	const missingDefinitions = $derived(
-		$language !== 'en' &&
-			fetchedTranslations.includes($language) &&
-			genericFilteredWords.some(
-				(word) =>
-					!word.translations[$language]?.definition ||
-					word.translations[$language].definition ===
-						word.translations.en.definition
-			)
-	);
-
-	$effect(() => {
-		if (!fetchedTranslations.includes($language)) {
-			fetchTranslation($language);
-		}
-	});
+	const genericFilteredWords = $derived(words.filter(genericFilter));
 </script>
 
 <Meta
@@ -133,6 +66,7 @@
 	onoutclick={() => {
 		moreOptions = false;
 	}}
+	class="mb-2"
 >
 	<div class="mt-4 flex flex-wrap gap-1">
 		{#each $categories as category (category.name)}
@@ -190,7 +124,7 @@
 
 	{#if moreOptions}
 		<div
-			class="mt-2 flex items-start justify-between gap-1 rounded-lg border-2 border-contrast bg-card p-2
+			class="mt-2 flex items-start justify-between gap-1 rounded-lg border-2 bg-card p-2
 				md:hidden"
 			transition:slide
 		>
@@ -232,96 +166,22 @@
 	{/if}
 </div>
 
-<div class="mt-2 flex flex-wrap gap-1">
-	<Select
-		name="View"
-		options={[
-			{ label: 'Normal View', value: 'normal' },
-			{ label: 'Detailed View', value: 'detailed' },
-			{ label: 'List View', value: 'compact' },
-			{ label: 'Glyph View', value: 'glyphs' }
-		]}
-		bind:value={$viewMode}
-	/>
-
-	<Select
-		name="Sorting Method"
-		options={[
-			{ label: 'Sort A-Z by Usage', value: 'combined' },
-			{ label: 'Sort by Usage', value: 'recognition' },
-			{ label: 'Sort Alphabetically', value: 'alphabetical' }
-		]}
-		bind:value={$sortingMethod}
-	/>
-
-	<SelectLanguage
-		languages={data.languages}
-		onchange={(lang) => {
-			if (fetchedTranslations.includes(lang)) {
-				$language = lang;
-			} else {
-				fetchTranslation(lang);
-			}
-		}}
-	/>
-
-	<Select
-		name="sitelen type"
-		options={[
-			{ label: 'sitelen pona', value: 'pona' },
-			{ label: 'sitelen sitelen', value: 'sitelen' },
-			{ label: 'sitelen jelo', value: 'jelo' },
-			{ label: 'sitelen Emosi', value: 'emosi' }
-		]}
-		bind:value={$sitelenMode}
-	/>
-</div>
-
-{#if missingDefinitions}
-	<p class="mt-2">
-		<strong>o sona a!</strong>
-		{data.languages[$language].name.tok ??
-			data.languages[$language].name.en}
-		la sona pi nimi ale li lon ala. toki Inli li lon nimi ni.
-	</p>
-	<p>
-		<strong>Warning!</strong>
-		Some words are missing {data.languages[$language].name.en} translations.
-		These are replaced with English translations.
-	</p>
-{/if}
-
-<p class="mt-2 text-muted">
-	{filteredWords.length} / {genericFilteredWords.length}
-</p>
-
-<Search placeholder="o alasa..." bind:value={search} />
-
 <WordView
-	words={filteredWords}
-	onselect={(word) => {
-		if (selectedWord?.id === word.id) selectedWord = null;
-		else selectedWord = word;
-	}}
-/>
-
-<WordDetails
-	bind:word={selectedWord}
-	lipamanka={data.lipamanka[selectedWord?.id ?? '']}
-	onrefer={(referred) => {
-		if (!filteredWords.some((word) => word.word === referred)) {
-			search = '';
-
-			$categories = $categories.map((category) => ({
-				...category,
-				shown:
-					category.shown ||
-					category.name === data.words[referred].usage_category
-			}));
-			books = books.map((book) => ({
-				...book,
-				shown: book.shown || book.name === data.words[referred].book
-			}));
-		}
+	bind:search
+	words={genericFilteredWords}
+	lipamanka={data.lipamanka}
+	languages={data.languages}
+	bind:sortingMethod={$sortingMethod}
+	revealWord={(referred) => {
+		$categories = $categories.map((category) => ({
+			...category,
+			shown:
+				category.shown ||
+				category.name === data.words[referred].usage_category
+		}));
+		books = books.map((book) => ({
+			...book,
+			shown: book.shown || book.name === data.words[referred].book
+		}));
 	}}
 />
