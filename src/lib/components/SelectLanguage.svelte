@@ -99,10 +99,13 @@
 		<div
 			{...props}
 			transition:flyAndScale={{ y: -8 }}
-			class="absolute top-full left-0 z-50 mt-1 h-80 w-full overflow-auto rounded-md border-2 bg-card text-card-foreground shadow-md"
+			class="absolute top-full left-0 z-50 mt-1 h-80 w-full rounded-md border-2 bg-card text-card-foreground shadow-md"
 		>
-			<Command.Root shouldFilter={false}>
-				<div class="sticky top-0 z-10 border-b-2 bg-card p-1">
+			<Command.Root
+				shouldFilter={false}
+				class="flex h-full flex-col overflow-hidden"
+			>
+				<div class="shrink-0 border-b-2 bg-card p-1">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 16 16"
@@ -122,12 +125,12 @@
 					/>
 				</div>
 
-				<Command.List>
-					<Command.Empty class="p-1.5 pl-7 text-muted">
+				<Command.List class="flex-1 overflow-y-auto">
+					<Command.Empty class="py-0.5 pl-7 text-muted">
 						No language found.
 					</Command.Empty>
 
-					<Command.Group class="flex h-full flex-col gap-1 p-1">
+					<Command.Group class="flex flex-col gap-1 p-1">
 						{#each shownLanguages as option (option.id)}
 							<Command.Item
 								class="group w-full cursor-pointer select-none"
