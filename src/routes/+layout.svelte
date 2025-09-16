@@ -13,7 +13,7 @@
 	import { screenWidth } from '$lib/stores';
 	import { flyAndScale } from '$lib/transitions';
 
-	import SurveyBanner from './SurveyBanner.svelte';
+	// import SurveyBanner from './SurveyBanner.svelte';
 	import ThemeSelector from './ThemeSelector.svelte';
 
 	interface Props {
@@ -77,7 +77,7 @@
 </script>
 
 <div class="content" class:fullscreen={$screenWidth === 'full'}>
-	<SurveyBanner />
+	<!-- <SurveyBanner /> -->
 
 	<nav class="flex justify-between pt-4 sm:pt-0">
 		<div class="hidden gap-1 sm:flex">
