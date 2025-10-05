@@ -275,7 +275,7 @@
 
 		{#if translation.commentary}
 			{#each translation.commentary.split('\n') as line, i (i)}
-				<p class="text-muted" class:mt-2={i === 0}>
+				<p class="text-muted {i === 0 ? 'mt-2' : 'mt-1'}">
 					{line}
 				</p>
 			{/each}
