@@ -2,14 +2,15 @@ import type { LocalizedWord } from '@kulupu-linku/sona';
 import { client } from '@kulupu-linku/sona/client';
 import type { UsageCategory } from '@kulupu-linku/sona/utils';
 import { text } from '@sveltejs/kit';
+import { PUBLIC_BASE_URL } from '$env/static/public';
 import type { CompoundData } from '$lib/types.js';
 
 export async function GET({ fetch }) {
 	const [words, languages, compounds] = [
-		await client({ fetch })
+		await client({ fetch, baseUrl: PUBLIC_BASE_URL })
 			.v1.words.$get({ query: { lang: 'en' } })
 			.then((res) => res.json()),
-		await client({ fetch })
+		await client({ fetch, baseUrl: PUBLIC_BASE_URL })
 			.v1.languages.$get({})
 			.then((res) => res.json()),
 		(await fetch('/internal/api/nimi-ku').then((res) =>

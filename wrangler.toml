@@ -6,7 +6,9 @@ compatibility_date = "2022-12-14"
 [vars]
 NODE_VERSION = "20"
 PNPM_VERSION = "9"
+PUBLIC_BASE_URL = "https://sona-api.theonlytails.workers.dev/"
 
 [env.production.vars]
 NODE_VERSION = "20"
 PNPM_VERSION = "9"
+PUBLIC_BASE_URL = "https://sona-api.theonlytails.workers.dev/"

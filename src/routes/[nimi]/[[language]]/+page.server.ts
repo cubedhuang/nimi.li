@@ -1,5 +1,6 @@
 import { client } from '@kulupu-linku/sona/client';
 import { error, redirect } from '@sveltejs/kit';
+import { PUBLIC_BASE_URL } from '$env/static/public';
 import { combinedWordSort } from '$lib/util';
 import { distance } from 'fastest-levenshtein';
 
@@ -9,10 +10,10 @@ export async function load({ fetch, params, setHeaders }) {
 	}
 
 	const [data, lukaPona, lipamanka] = await Promise.all([
-		client({ fetch }).v1.words.$get({
+		client({ fetch, baseUrl: PUBLIC_BASE_URL }).v1.words.$get({
 			query: { lang: params.language ?? 'en' }
 		}),
-		client({ fetch })
+		client({ fetch, baseUrl: PUBLIC_BASE_URL })
 			.v1.luka_pona.signs.$get({
 				query: { lang: params.language ?? 'en' }
 			})

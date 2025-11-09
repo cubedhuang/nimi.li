@@ -1,15 +1,16 @@
 import { client } from '@kulupu-linku/sona/client';
+import { PUBLIC_BASE_URL } from '$env/static/public';
 import type { SignData } from '$lib/types';
 
 export async function load({ fetch, setHeaders }) {
 	const [words, sandbox, lukaPona] = await Promise.all([
-		client({ fetch })
+		client({ fetch, baseUrl: PUBLIC_BASE_URL })
 			.v1.words.$get({ query: { lang: 'en' } })
 			.then((res) => res.json()),
-		client({ fetch })
+		client({ fetch, baseUrl: PUBLIC_BASE_URL })
 			.v1.sandbox.$get({ query: { lang: 'en' } })
 			.then((res) => res.json()),
-		client({ fetch })
+		client({ fetch, baseUrl: PUBLIC_BASE_URL })
 			.v1.luka_pona.signs.$get({ query: { lang: 'en' } })
 			.then((res) => res.json())
 	]);
