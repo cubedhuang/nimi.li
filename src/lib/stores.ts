@@ -97,22 +97,38 @@ export const font = persisted<Font>('font', 'font-sans', (value) =>
 	fonts.includes(value)
 );
 
+function viewTransition(fn: () => void) {
+	if (
+		document.startViewTransition as
+			| undefined
+			| typeof document.startViewTransition
+	) {
+		document.startViewTransition(() => {
+			fn();
+		});
+	} else {
+		fn();
+	}
+}
+
 function changeTheme(value: Theme) {
 	if (document.documentElement.classList.contains(value)) {
 		return;
 	}
 
-	document.documentElement.classList.add('no-transition');
+	viewTransition(() => {
+		document.documentElement.classList.add('no-transition');
 
-	for (const theme of themes) {
-		document.documentElement.classList.toggle(theme, value === theme);
-	}
+		for (const theme of themes) {
+			document.documentElement.classList.toggle(theme, value === theme);
+		}
 
-	// Force a reflow to make sure the transition is triggered
-	// eslint-disable-next-line @typescript-eslint/no-unused-expressions
-	document.documentElement.offsetWidth;
+		// Force a reflow to make sure no element-specific transitions are triggered
+		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+		document.documentElement.offsetWidth;
 
-	document.documentElement.classList.remove('no-transition');
+		document.documentElement.classList.remove('no-transition');
+	});
 }
 
 if (browser) {

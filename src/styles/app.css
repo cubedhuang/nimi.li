@@ -128,6 +128,23 @@
 		animation: highlight 3s ease-in;
 	}
 
+	::view-transition-old(root) {
+		animation-delay: 500ms;
+	}
+	::view-transition-new(root) {
+		animation: 500ms circle-in;
+	}
+
+	@keyframes circle-in {
+		from {
+			clip-path: circle(0% at 100% 0%);
+		}
+
+		to {
+			clip-path: circle(hypot(100vmax, 100vmin) at 100% 0%);
+		}
+	}
+
 	.no-transition {
 		transition: none !important;
 	}
