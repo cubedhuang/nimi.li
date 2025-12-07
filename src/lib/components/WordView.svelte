@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { tick } from 'svelte';
 	import type { Language, LocalizedWord } from '@kulupu-linku/sona';
 
+	import { focusFirstElement } from '$lib/actions/focusFirstElement';
 	import { filter } from '$lib/search';
 	import {
 		language,
@@ -200,10 +202,22 @@
 	bind:word={selectedWord}
 	lipamanka={lipamanka?.[selectedWord?.id ?? '']}
 	onrefer={(referred) => {
-		if (!filteredWords.some((word) => word.word === referred)) {
+		if (!filteredWords.some((word) => word.id === referred)) {
 			search = '';
 
 			revealWord(referred);
+		}
+	}}
+	onclose={async (id) => {
+		console.log(id);
+		if (!filteredWords.some((word) => word.id === id)) {
+			search = '';
+			revealWord(id);
+			await tick();
+		}
+		let element = document.getElementById(id);
+		if (element) {
+			focusFirstElement(element);
 		}
 	}}
 />

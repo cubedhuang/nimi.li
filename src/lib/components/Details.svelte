@@ -3,11 +3,13 @@
 
 	import type { Snippet } from 'svelte';
 
+	import { focusFirstElement } from '$lib/actions/focusFirstElement';
 	import { flyAndScale } from '$lib/transitions';
 
 	interface Props {
 		value: T | null;
 		key: (value: T) => string;
+		onclose?: (previous: $state.Snapshot<T>) => void;
 		padding?: boolean;
 		children: Snippet<[T]>;
 	}
@@ -15,16 +17,21 @@
 	let {
 		value = $bindable(),
 		key,
+		onclose,
 		padding = true,
 		children
 	}: Props = $props();
 
-	function focusFirstElement(node: HTMLElement) {
-		const focusable = node.querySelector<HTMLElement>(
-			'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-		);
-		focusable?.focus();
-	}
+	let previous: $state.Snapshot<T> | null = null;
+	$effect(() => {
+		const current = $state.snapshot(value);
+		if (!previous) {
+			previous = current;
+		} else {
+			onclose?.(previous);
+			previous = current;
+		}
+	});
 </script>
 
 <svelte:window

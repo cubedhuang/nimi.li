@@ -1,8 +1,5 @@
 <script lang="ts">
-	import type {
-		HTMLAnchorAttributes,
-		MouseEventHandler
-	} from 'svelte/elements';
+	import type { HTMLAnchorAttributes } from 'svelte/elements';
 
 	const {
 		children,

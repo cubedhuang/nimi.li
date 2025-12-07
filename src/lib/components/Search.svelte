@@ -37,9 +37,12 @@
 			value = '';
 			searchBar.blur();
 		} else if (
-			/^[a-z]$/i.test(e.key) &&
-			document.activeElement === document.body
+			e.key === '/' ||
+			(/^[a-z]$/i.test(e.key) && document.activeElement === document.body)
 		) {
+			if (e.key === '/') {
+				e.preventDefault();
+			}
 			searchBar.focus();
 		}
 	}}

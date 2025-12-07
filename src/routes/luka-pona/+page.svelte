@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { tick } from 'svelte';
 	import type { PageData } from './$types';
 
+	import { focusFirstElement } from '$lib/actions/focusFirstElement';
 	import { azWordSort, categoryColors, normalize } from '$lib/util';
 	import { scoreSearch } from '$lib/search';
 	import { autoplay, language } from '$lib/stores';
@@ -104,4 +106,16 @@
 	<p class="text-muted">Your query didn't match any words!</p>
 {/if}
 
-<SignDetails bind:data={selectedSign} />
+<SignDetails
+	bind:data={selectedSign}
+	onclose={async (id) => {
+		if (!filteredSigns.some((sign) => sign.id === id)) {
+			search = '';
+			await tick();
+		}
+		let element = document.getElementById(id);
+		if (element) {
+			focusFirstElement(element);
+		}
+	}}
+/>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { distance } from 'fastest-levenshtein';
 
+	import { focusFirstElement } from '$lib/actions/focusFirstElement';
 	import type { Compound } from '$lib/types';
 	import { normalize } from '$lib/util';
 
@@ -9,6 +10,7 @@
 	import Link from '$lib/components/Link.svelte';
 	import Search from '$lib/components/Search.svelte';
 	import Meta from '$lib/components/Meta.svelte';
+	import { tick } from 'svelte';
 
 	const { data } = $props();
 
@@ -115,4 +117,16 @@
 	{/each}
 </div>
 
-<CompoundDetails bind:compound={selectedCompound} />
+<CompoundDetails
+	bind:compound={selectedCompound}
+	onclose={async (compound) => {
+		if (!filteredCompounds.some((c) => c.compound === compound)) {
+			search = '';
+			await tick();
+		}
+		const element = document.getElementById(compound.replace(/ /g, '-'));
+		if (element) {
+			focusFirstElement(element);
+		}
+	}}
+/>

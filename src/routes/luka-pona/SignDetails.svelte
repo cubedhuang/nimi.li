@@ -10,12 +10,18 @@
 
 	interface Props {
 		data: SignData | null;
+		onclose: (word: string) => void;
 	}
 
-	let { data: possibleData = $bindable() }: Props = $props();
+	let { data: possibleData = $bindable(), onclose }: Props = $props();
 </script>
 
-<Details bind:value={possibleData} key={(data) => data.id} padding={false}>
+<Details
+	bind:value={possibleData}
+	key={(data) => data.id}
+	onclose={(data) => onclose(data.id)}
+	padding={false}
+>
 	{#snippet children(data)}
 		{@const { words, signs } = data}
 

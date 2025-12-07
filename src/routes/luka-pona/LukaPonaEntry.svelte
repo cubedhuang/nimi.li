@@ -69,12 +69,13 @@
 </script>
 
 <a
+	id={signData.id}
 	href={getWordLink(signData.words[0].id, $language)}
 	onclick={(e) => {
 		e.preventDefault();
 		onclick?.();
 	}}
-	class="group text-left outline-hidden focus-visible:outline-accent"
+	class="group rounded-md text-left outline-offset-2 outline-accent focus-visible:outline-2"
 	onmouseenter={handleEnter}
 	onmouseleave={handleLeave}
 	onfocus={handleEnter}

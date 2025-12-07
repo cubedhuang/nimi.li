@@ -7,12 +7,17 @@
 
 	interface Props {
 		compound: Compound | null;
+		onclose: (id: string) => void;
 	}
 
-	let { compound: possibleCompound = $bindable() }: Props = $props();
+	let { compound: possibleCompound = $bindable(), onclose }: Props = $props();
 </script>
 
-<Details bind:value={possibleCompound} key={(compound) => compound.compound}>
+<Details
+	bind:value={possibleCompound}
+	key={(compound) => compound.compound}
+	onclose={(data) => onclose(data.compound)}
+>
 	{#snippet children(compound)}
 		<div class="flex">
 			<h2 class="text-2xl">{compound.compound}</h2>

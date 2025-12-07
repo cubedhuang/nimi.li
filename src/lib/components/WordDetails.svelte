@@ -26,12 +26,14 @@
 		word: LocalizedWord | null;
 		lipamanka?: string;
 		onrefer: (word: string) => void;
+		onclose: (word: string) => void;
 	}
 
 	let {
 		word: possibleWord = $bindable(),
 		lipamanka,
-		onrefer
+		onrefer,
+		onclose
 	}: Props = $props();
 
 	let audio = $state<HTMLAudioElement | undefined>();
@@ -43,7 +45,11 @@
 	const audioUrl = $derived(possibleWord?.audio[0]?.link);
 </script>
 
-<Details bind:value={possibleWord} key={(word) => word.id}>
+<Details
+	bind:value={possibleWord}
+	key={(word) => word.id}
+	onclose={(word) => onclose(word.id)}
+>
 	{#snippet children(word)}
 		{@const translation = getTranslation(word, $language)}
 
