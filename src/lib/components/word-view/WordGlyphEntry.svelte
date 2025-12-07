@@ -4,7 +4,8 @@
 	import {
 		categoryTextColors,
 		getWordDisplayRecognition,
-		getTranslation
+		getTranslation,
+		getWordLink
 	} from '$lib/util';
 	import { language, sitelenMode } from '$lib/stores';
 
@@ -19,7 +20,16 @@
 </script>
 
 <div class="flex flex-col items-center" id={word.id}>
-	<button class="group" {onclick}>
+	<a
+		href={getWordLink(word.id, $language)}
+		onclick={(e) => {
+			e.preventDefault();
+			if (onclick) {
+				onclick();
+			}
+		}}
+		class="group text-center"
+	>
 		{#if $sitelenMode === 'pona'}
 			{#if word.representations?.ligatures?.length}
 				<p class="font-pona text-5xl whitespace-nowrap">
@@ -57,7 +67,7 @@
 		<b class="transition group-hv:text-accent">
 			{word.word}
 		</b>
-	</button>
+	</a>
 
 	<span class="text-xs text-muted">
 		<span class={categoryTextColors[word.usage_category]}>

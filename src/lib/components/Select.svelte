@@ -31,11 +31,11 @@
 		{name}
 	>
 		<Select.Trigger
-			class="flex w-full interactable items-center px-2 py-0.5 text-ellipsis"
+			class="flex w-full interactable items-center gap-2 px-2 py-0.5 text-ellipsis"
 			aria-label={name}
 		>
 			<span
-				class="flex-1 shrink-1 text-left overflow-ellipsis whitespace-nowrap"
+				class="flex-1 overflow-hidden text-left overflow-ellipsis whitespace-nowrap"
 			>
 				{options.find((option) => option.value === value)?.label || ''}
 			</span>
@@ -74,7 +74,7 @@
 										selected
 									})}
 										<span
-											class="relative flex items-center rounded-md px-2 py-0.5 pl-6
+											class="relative flex items-center rounded-md px-2 py-1 pl-6 leading-tight
 												{highlighted
 												? 'bg-background text-accent light:bg-secondary darkish:bg-secondary'
 												: ''}"

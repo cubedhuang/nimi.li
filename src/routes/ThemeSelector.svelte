@@ -109,6 +109,7 @@
 					name="Atkinson Hyperlegible Next"
 				/>
 				<FontOption value="font-serif" name="Source Serif" />
+				<FontOption value="font-iosevka" name="Iosevka Aile" />
 				<FontOption value="font-mono" name="IBM Plex Mono" />
 				<FontOption value="font-dyslexic" name="OpenDyslexic" />
 			</div>

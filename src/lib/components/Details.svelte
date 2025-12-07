@@ -18,6 +18,13 @@
 		padding = true,
 		children
 	}: Props = $props();
+
+	function focusFirstElement(node: HTMLElement) {
+		const focusable = node.querySelector<HTMLElement>(
+			'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+		);
+		focusable?.focus();
+	}
 </script>
 
 <svelte:window
@@ -33,6 +40,7 @@
 	>
 		{#key key(value)}
 			<div
+				use:focusFirstElement
 				transition:flyAndScale={{ y: 16, start: 0.975 }}
 				class="absolute right-0 bottom-0 left-0 max-h-[75vh] overflow-y-auto border-t-2 bg-card shadow-md
 					md:right-4 md:bottom-4 md:left-auto md:max-h-[min(40rem,100vh-2rem)] md:w-144 md:rounded-lg md:border-2"

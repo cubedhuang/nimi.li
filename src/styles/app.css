@@ -22,6 +22,7 @@
 	--font-sans: 'Inter', sans-serif;
 	--font-serif: 'SourceSerif', serif;
 	--font-mono: 'IBM Plex Mono', monospace;
+	--font-iosevka: 'Iosevka Aile', monospace;
 	--font-dyslexic: 'OpenDyslexic', sans-serif;
 	--font-atkinson: 'Atkinson Hyperlegible Next', sans-serif;
 	--font-pona: 'ssk', sans-serif;
@@ -159,6 +160,22 @@
 			animation-delay: 0ms !important;
 			animation-duration: 1ms !important;
 		}
+	}
+
+	.font-iosevka {
+		/* @apply tracking-tighter; */
+		letter-spacing: -0.05em;
+	}
+
+	.font-sans,
+	.font-serif,
+	.font-mono,
+	.font-iosevka,
+	.font-dyslexic,
+	.font-atkinson,
+	.font-pona,
+	.font-display {
+		letter-spacing: normal;
 	}
 }
 

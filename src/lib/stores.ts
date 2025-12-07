@@ -88,6 +88,7 @@ export function isDarkTheme(theme: Theme): boolean {
 export const fonts = [
 	'font-sans',
 	'font-serif',
+	'font-iosevka',
 	'font-mono',
 	'font-dyslexic',
 	'font-atkinson'

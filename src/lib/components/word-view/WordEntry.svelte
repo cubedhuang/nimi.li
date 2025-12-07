@@ -4,7 +4,8 @@
 	import {
 		categoryTextColors,
 		getWordDisplayRecognition,
-		getTranslation
+		getTranslation,
+		getWordLink
 	} from '$lib/util';
 	import { language, sitelenMode } from '$lib/stores';
 
@@ -54,9 +55,18 @@
 	{/if}
 
 	<span class="mt-0.5 ml-0.5">
-		<button {onclick} class="font-bold transition hv:text-accent">
+		<a
+			href={getWordLink(word.id, $language)}
+			onclick={(e) => {
+				e.preventDefault();
+				if (onclick) {
+					onclick();
+				}
+			}}
+			class="font-bold transition hv:text-accent"
+		>
 			{word.word}
-		</button>
+		</a>
 
 		<span class="text-xs text-muted">
 			<span class={categoryTextColors[word.usage_category]}>

@@ -56,12 +56,12 @@
 <div class="relative w-92">
 	<Popover.Root bind:open>
 		<Popover.Trigger
-			class="flex w-full interactable items-center px-2 py-0.5 text-ellipsis"
+			class="flex w-full interactable items-center gap-2 px-2 py-0.5 text-ellipsis"
 			aria-label="Select Language"
 			bind:ref={triggerRef}
 		>
 			<span
-				class="flex-1 shrink-1 text-left overflow-ellipsis whitespace-nowrap"
+				class="flex-1 overflow-hidden text-left overflow-ellipsis whitespace-nowrap"
 			>
 				{languages[$language].name.endonym ??
 					languages[$language].name.en}
@@ -141,8 +141,9 @@
 					>
 						{@const isSelected = $language === option.id}
 						<span
-							class="relative flex items-center rounded-md px-2 py-0.5 pl-6
-										group-data-selected:bg-background group-data-selected:text-accent light:group-data-selected:bg-secondary darkish:group-data-selected:bg-secondary"
+							class="relative flex items-center rounded-md px-2 py-1 pl-6 leading-tight
+								group-data-selected:bg-background group-data-selected:text-accent
+								light:group-data-selected:bg-secondary darkish:group-data-selected:bg-secondary"
 						>
 							{#if isSelected}
 								<svg
