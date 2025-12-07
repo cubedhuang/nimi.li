@@ -25,12 +25,10 @@
 	let previous: $state.Snapshot<T> | null = null;
 	$effect(() => {
 		const current = $state.snapshot(value);
-		if (!previous) {
-			previous = current;
-		} else {
+		if (previous && !current) {
 			onclose?.(previous);
-			previous = current;
 		}
+		previous = current;
 	});
 </script>
 
