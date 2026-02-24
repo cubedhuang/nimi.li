@@ -107,7 +107,7 @@ export function getShortWordEtymologies(
 }
 
 export function getWordRecognition(word: LocalizedWord) {
-	return word.usage['2024-09'] ?? -1;
+	return word.usage['2025-09'] ?? -1;
 }
 
 export function getWordDisplayRecognition(word: LocalizedWord) {
