@@ -1,13 +1,9 @@
-import type { LocalizedWord } from '@kulupu-linku/sona';
+import type { Word } from '@kulupu-linku/sona';
 import { distance } from 'fastest-levenshtein';
 
-import { getTranslation, getUcsur, normalize } from './util';
+import { getUcsur, normalize } from './util';
 
-export function filter(
-	words: LocalizedWord[],
-	search: string,
-	$language: string
-) {
+export function filter(words: Word[], search: string) {
 	search = normalize(search);
 
 	if (!search) {
@@ -15,7 +11,7 @@ export function filter(
 	}
 
 	return words
-		.map((word) => [word, scoreSearch(word, search, $language)] as const)
+		.map((word) => [word, scoreSearch(word, search)] as const)
 		.filter(([, score]) => score > 0)
 		.sort((a, b) => b[1] - a[1])
 		.map(([word]) => word);
@@ -54,23 +50,14 @@ export function scoreMatch(
 	return 1 - distanceScore;
 }
 
-export function scoreSearch(
-	word: LocalizedWord,
-	search: string,
-	$language: string
-) {
-	const translation = getTranslation(word, $language);
+export function scoreSearch(word: Word, search: string) {
+	const translation = word.translations;
 
 	let score =
 		scoreMatch(word.word, search) * 500 +
 		scoreMatch(translation.definition, search) * 50 +
 		scoreMatch(word.source_language, search) * 20 +
-		scoreMatch(word.creator, search) * 20;
-
-	const pu = word.pu_verbatim?.[$language as 'en'] ?? word.pu_verbatim?.en;
-	if (pu) {
-		score += scoreMatch(pu, search) * 50;
-	}
+		scoreMatch(word.author, search) * 20;
 
 	if (word.ku_data) {
 		score += scoreMatch(Object.keys(word.ku_data), search) * 10;
@@ -78,8 +65,7 @@ export function scoreSearch(
 
 	if (translation.etymology) {
 		for (const etymology of translation.etymology) {
-			score += scoreMatch(etymology.language, search) * 10;
-			score += scoreMatch(etymology.definition, search) * 10;
+			score += scoreMatch(etymology, search) * 20;
 		}
 	}
 

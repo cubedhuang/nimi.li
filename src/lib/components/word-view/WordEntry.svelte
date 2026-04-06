@@ -1,22 +1,16 @@
 <script lang="ts">
-	import type { LocalizedWord } from '@kulupu-linku/sona';
+	import type { Word } from '@kulupu-linku/sona';
 
-	import {
-		categoryTextColors,
-		getWordDisplayRecognition,
-		getTranslation,
-		getWordLink
-	} from '$lib/util';
-	import { language, sitelenMode } from '$lib/stores';
+	import { categoryTextColors, getWordDisplayRecognition } from '$lib/util';
+	import { sitelenMode } from '$lib/stores';
+	import { resolve } from '$app/paths';
 
 	interface Props {
-		word: LocalizedWord;
+		word: Word;
 		onclick?: () => void;
 	}
 
 	const { word, onclick }: Props = $props();
-
-	const translation = $derived(getTranslation(word, $language));
 </script>
 
 <p class="flex gap-1" id={word.id}>
@@ -56,7 +50,7 @@
 
 	<span class="mt-0.5 ml-0.5">
 		<a
-			href={getWordLink(word.id, $language)}
+			href={resolve(`/${word.id}`)}
 			onclick={(e) => {
 				e.preventDefault();
 				if (onclick) {
@@ -78,6 +72,6 @@
 			{/if}
 		</span>
 
-		{translation.definition}
+		{word.translations.definition}
 	</span>
 </p>

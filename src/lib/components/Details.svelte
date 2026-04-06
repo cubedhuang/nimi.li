@@ -1,6 +1,4 @@
 <script lang="ts" generics="T">
-	/* eslint no-undef: off */
-
 	import type { Snippet } from 'svelte';
 
 	import { focusFirstElement } from '$lib/actions/focusFirstElement';
@@ -9,7 +7,7 @@
 	interface Props {
 		value: T | null;
 		key: (value: T) => string;
-		onclose?: (previous: $state.Snapshot<T>) => void;
+		onclose?: (previous: ReturnType<typeof $state.snapshot<T>>) => void;
 		padding?: boolean;
 		children: Snippet<[T]>;
 	}
@@ -22,7 +20,7 @@
 		children
 	}: Props = $props();
 
-	let previous: $state.Snapshot<T> | null = null;
+	let previous: ReturnType<typeof $state.snapshot<T>> | null = null;
 	$effect(() => {
 		const current = $state.snapshot(value);
 		if (previous && !current) {
@@ -48,7 +46,7 @@
 				use:focusFirstElement
 				transition:flyAndScale={{ y: 16, start: 0.975 }}
 				class="absolute right-0 bottom-0 left-0 max-h-[75vh] overflow-y-auto border-t-2 bg-card shadow-md
-					md:right-4 md:bottom-4 md:left-auto md:max-h-[min(40rem,100vh-2rem)] md:w-144 md:rounded-lg md:border-2"
+					md:right-4 md:bottom-4 md:left-auto md:max-h-[min(40rem,100vh-2rem)] md:w-xl md:rounded-lg md:border-2"
 				class:p-6={padding}
 			>
 				{@render children(value)}

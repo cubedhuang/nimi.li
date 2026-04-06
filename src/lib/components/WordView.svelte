@@ -1,15 +1,10 @@
 <script lang="ts">
 	import { tick } from 'svelte';
-	import type { Language, LocalizedWord } from '@kulupu-linku/sona';
+	import type { Language, Word } from '@kulupu-linku/sona';
 
 	import { focusFirstElement } from '$lib/actions/focusFirstElement';
 	import { filter } from '$lib/search';
-	import {
-		language,
-		sitelenMode,
-		type SortingMethod,
-		viewMode
-	} from '$lib/stores';
+	import { sitelenMode, type SortingMethod, viewMode } from '$lib/stores';
 	import {
 		azWordSort,
 		recognitionWordSort,
@@ -28,8 +23,9 @@
 
 	interface Props {
 		search?: string;
-		words: LocalizedWord[];
+		words: Word[];
 		lipamanka?: Record<string, string>;
+		lang: string;
 		languages: Record<string, Language>;
 		sortingMethod?: SortingMethod;
 		revealWord: (word: string) => void;
@@ -40,15 +36,16 @@
 		search = $bindable(''),
 		words = $bindable(),
 		lipamanka,
+		lang,
 		languages,
 		sortingMethod = $bindable('alphabetical'),
 		revealWord,
 		isSandbox
 	}: Props = $props();
 
-	let selectedWord = $state<LocalizedWord | null>(null);
+	let selectedWord = $state<Word | null>(null);
 
-	function selectWord(word: LocalizedWord) {
+	function selectWord(word: Word) {
 		if (selectedWord?.id === word.id) selectedWord = null;
 		else selectedWord = word;
 	}
@@ -61,45 +58,47 @@
 				: combinedWordSort
 	);
 
-	let fetchedTranslations = $state(['en']);
+	// TODO: new localization system
 
-	async function fetchTranslation(lang: string) {
-		const url = isSandbox
-			? `/internal/api/sandbox?lang=${lang}`
-			: `/internal/api/linku?lang=${lang}`;
+	// let fetchedTranslations = $state(['en']);
 
-		const newWords = (await fetch(url).then((res) => res.json())) as Record<
-			string,
-			LocalizedWord
-		>;
+	// async function fetchTranslation(lang: string) {
+	// 	const url = isSandbox
+	// 		? `/internal/api/sandbox?lang=${lang}`
+	// 		: `/internal/api/linku?lang=${lang}`;
 
-		for (const word of words) {
-			word.translations[lang] = newWords[word.id]?.translations[lang];
-		}
+	// 	const newWords = (await fetch(url).then((res) => res.json())) as Record<
+	// 		string,
+	// 		Word
+	// 	>;
 
-		fetchedTranslations.push(lang);
-		$language = lang;
-	}
+	// 	for (const word of words) {
+	// 		word.translations[lang] = newWords[word.id]?.translations[lang];
+	// 	}
 
-	$effect(() => {
-		if (!fetchedTranslations.includes($language)) {
-			fetchTranslation($language);
-		}
-	});
+	// 	fetchedTranslations.push(lang);
+	// 	$language = lang;
+	// }
 
-	const missingDefinitions = $derived(
-		$language !== 'en' &&
-			fetchedTranslations.includes($language) &&
-			words.some(
-				(word) =>
-					!word.translations[$language]?.definition ||
-					word.translations[$language].definition ===
-						word.translations.en.definition
-			)
-	);
+	// $effect(() => {
+	// 	if (!fetchedTranslations.includes($language)) {
+	// 		fetchTranslation($language);
+	// 	}
+	// });
+
+	// const missingDefinitions = $derived(
+	// 	$language !== 'en' &&
+	// 		fetchedTranslations.includes($language) &&
+	// 		words.some(
+	// 			(word) =>
+	// 				!word.translations[$language]?.definition ||
+	// 				word.translations[$language].definition ===
+	// 					word.translations.en.definition
+	// 		)
+	// );
 
 	const sortedWords = $derived(words.toSorted(genericSorter));
-	const filteredWords = $derived(filter(sortedWords, search, $language));
+	const filteredWords = $derived(filter(sortedWords, search));
 </script>
 
 <div class="flex flex-wrap gap-1">
@@ -128,12 +127,7 @@
 		class="w-48 shrink-0"
 	/>
 
-	<SelectLanguage
-		{languages}
-		onchange={(lang) => {
-			fetchTranslation(lang);
-		}}
-	/>
+	<SelectLanguage {lang} {languages} />
 
 	<Select
 		name="sitelen type"
@@ -148,7 +142,7 @@
 	/>
 </div>
 
-{#if missingDefinitions}
+<!-- {#if missingDefinitions}
 	<p class="mt-2">
 		<strong>o sona a!</strong>
 		{languages[$language].name.tok ?? languages[$language].name.en}
@@ -159,7 +153,7 @@
 		Some words are missing {languages[$language].name.en} translations. These
 		are replaced with English translations.
 	</p>
-{/if}
+{/if} -->
 
 <p class="mt-2 text-muted">
 	{filteredWords.length} / {words.length}

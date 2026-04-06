@@ -1,23 +1,22 @@
 <script lang="ts">
-	import type { LocalizedWord } from '@kulupu-linku/sona';
+	import type { Word } from '@kulupu-linku/sona';
 
-	import { categoryColors, getTranslation, getWordLink } from '$lib/util';
-	import { language, sitelenMode } from '$lib/stores';
+	import { categoryColors } from '$lib/util';
+	import { sitelenMode } from '$lib/stores';
 
 	import Space from '$lib/components/Space.svelte';
 	import WordUsageSummary from '../WordUsageSummary.svelte';
+	import { resolve } from '$app/paths';
 
 	interface Props {
-		word: LocalizedWord;
+		word: Word;
 		onclick?: () => void;
 	}
 
 	const { word, onclick }: Props = $props();
-
-	const translation = $derived(getTranslation(word, $language));
 </script>
 
-<Space href={getWordLink(word.id, $language)} {onclick} id={word.id}>
+<Space href={resolve(`/${word.id}`)} {onclick} id={word.id}>
 	{#if $sitelenMode === 'pona'}
 		{#if word.representations?.ligatures?.length}
 			<div class="float-right ml-2 flex flex-col items-end text-right">
@@ -57,12 +56,12 @@
 	</p>
 
 	<p class="line-clamp-4">
-		{translation.definition}
+		{word.translations.definition}
 	</p>
 
-	{#if word.usage_category === 'sandbox' && word.creator.length}
+	{#if word.usage_category === 'sandbox' && word.author.length}
 		<p class="mt-1 text-muted">
-			by <i>{word.creator.join(', ')}</i>
+			by <i>{word.author.join(', ')}</i>
 		</p>
 	{/if}
 

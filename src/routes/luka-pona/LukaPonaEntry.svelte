@@ -2,10 +2,10 @@
 	import { onMount } from 'svelte';
 
 	import { browser } from '$app/environment';
+	import { resolve } from '$app/paths';
 
-	import { autoplay, language } from '$lib/stores';
+	import { autoplay } from '$lib/stores';
 	import type { SignData } from '$lib/types';
-	import { getWordLink } from '$lib/util';
 
 	interface Props {
 		signData: SignData;
@@ -70,7 +70,7 @@
 
 <a
 	id={signData.id}
-	href={getWordLink(signData.words[0].id, $language)}
+	href={resolve(`/${signData.words[0].id}`)}
 	onclick={(e) => {
 		e.preventDefault();
 		onclick?.();
@@ -90,8 +90,9 @@
 			class="aspect-video w-full rounded-lg bg-secondary"
 		></canvas>
 
+		<!-- TODO: look for all video?. and make it conditionally do something -->
 		<img
-			src={signData.signs[0].video.gif}
+			src={signData.signs[0].video?.gif}
 			alt="{displayWord} luka pona"
 			class="absolute top-0 left-0 z-10 aspect-video w-full rounded-lg bg-secondary"
 			class:opacity-0={!$autoplay}

@@ -7,8 +7,6 @@
 		categoryTextColors,
 		getUsageCategoryFromPercent,
 		getWordDisplayRecognition,
-		getWordLink,
-		getTranslation,
 		getUcsur
 	} from '$lib/util';
 
@@ -23,21 +21,20 @@
 	import SignsList from '$lib/components/SignsList.svelte';
 	import Wikipedia from '$lib/components/icons/Wikipedia.svelte';
 	import WordEtymology from '$lib/components/WordEtymology.svelte';
+	import { resolve } from '$app/paths';
 
 	const { data } = $props();
 
 	const language = $derived(page.params.language);
 	const word = $derived(data.word);
 
-	const translation = $derived(getTranslation(word, language ?? 'en'));
-
 	let showHistory = $state(false);
 </script>
 
 <Meta
 	title="{word.word} – nimi.li | Toki Pona Dictionary"
-	description={translation.definition}
-	url="https://nimi.li{getWordLink(word.id, language)}"
+	description={word.translations.definition}
+	url="https://nimi.li{resolve(`/${word.id}`)}"
 	image="https://raw.githubusercontent.com/lipu-linku/ijo/main/sitelenpona/sitelen-seli-kiwen/${word.id}.png"
 	imageSize="256"
 	keywords={[word.word]}
@@ -51,7 +48,7 @@
 			<a
 				href={word.resources.sona_pona}
 				target="_blank"
-				rel="noreferrer noopener"
+				rel="external noreferrer noopener"
 				class="interactable p-2"
 			>
 				<Wikipedia />
@@ -60,9 +57,7 @@
 
 		<svelte:element
 			this={data.previous ? 'a' : 'button'}
-			href={data.previous
-				? getWordLink(data.previous, language)
-				: undefined}
+			href={data.previous ? resolve(`/${data.previous}`) : undefined}
 			class="interactable p-2"
 			disabled={!data.previous}
 			aria-label="previous word"
@@ -85,7 +80,7 @@
 
 		<svelte:element
 			this={data.next ? 'a' : 'button'}
-			href={data.next ? getWordLink(data.next, language) : undefined}
+			href={data.next ? resolve(`/${data.next}`) : undefined}
 			class="interactable p-2"
 			disabled={!data.next}
 			aria-label="next word"
@@ -107,7 +102,7 @@
 		</svelte:element>
 
 		<a
-			href={word.usage_category === 'sandbox' ? '/sandbox' : '/'}
+			href={resolve(word.usage_category === 'sandbox' ? '/sandbox' : '/')}
 			class="interactable p-2"
 			aria-label="home"
 		>
@@ -190,7 +185,7 @@
 	<div class="box">
 		<h2 class="text-lg">meaning</h2>
 		<p class="mt-1">
-			{translation.definition}
+			{word.translations.definition}
 		</p>
 
 		{#if word.see_also.length}
@@ -199,7 +194,7 @@
 			<p class="mt-1">
 				{#each word.see_also as other, i (other)}
 					{#if i > 0},{/if}
-					<Link href={getWordLink(other, language)}>{other}</Link>
+					<Link href={resolve(`/${other}`)}>{other}</Link>
 				{/each}
 			</p>
 		{/if}
@@ -322,8 +317,8 @@
 				<span class="text-muted">coined</span>
 				<b>
 					{word.coined_era}
-					{#if word.coined_year}
-						&middot; {word.coined_year}
+					{#if word.creation_date}
+						&middot; {word.creation_date}
 					{/if}
 				</b>
 			</p>
@@ -332,7 +327,7 @@
 		<h2 class="mt-4 text-lg">origin</h2>
 
 		<div class="mt-1">
-			<WordEtymology {word} {translation} />
+			<WordEtymology {word} />
 		</div>
 
 		{#if word.audio.length}
@@ -349,11 +344,11 @@
 			<div class="mt-4 flex items-center gap-2">
 				<h2 class="text-lg">author verbatim</h2>
 
-				{#if word.author_verbatim_source}
+				{#if word.author_source}
 					<a
-						href={word.author_verbatim_source}
+						href={word.author_source}
 						target="_blank"
-						rel="noopener noreferrer"
+						rel="external noopener noreferrer"
 						aria-label="source"
 						class="text-muted transition hv:text-foreground"
 					>
@@ -385,9 +380,9 @@
 			{/each}
 		{/if}
 
-		{#if translation.commentary}
+		{#if word.translations.commentary}
 			<h2 class="mt-4 text-lg">commentary</h2>
-			{#each translation.commentary.split('\n') as line, i (i)}
+			{#each word.translations.commentary.split('\n') as line, i (i)}
 				<p class="mt-1">
 					{line}
 				</p>
@@ -406,11 +401,12 @@
 				{word.representations.ligatures.join(' ')}
 			</span>
 
-			{#if translation.sp_etymology}
+			<!-- TODO: glyph info -->
+			<!-- {#if translation.sp_etymology}
 				<p class="text-muted">
 					{translation.sp_etymology}
 				</p>
-			{/if}
+			{/if} -->
 		{/if}
 
 		{#if word.representations?.sitelen_sitelen}
@@ -459,7 +455,7 @@
 		<div class="box">
 			<h2 class="text-lg">luka pona</h2>
 
-			{#if data.signs[0].video.mp4}
+			{#if data.signs[0].video?.mp4}
 				<p class="mt-2">
 					<video
 						src={data.signs[0].video.mp4}
@@ -481,7 +477,7 @@
 				</p>
 			{/if}
 
-			<SignsList signs={data.signs} {language} />
+			<SignsList signs={data.signs} />
 		</div>
 	{/if}
 </div>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
 
-	import type { LocalizedWord } from '@kulupu-linku/sona';
+	import type { Word } from '@kulupu-linku/sona';
 	import type { Book } from '@kulupu-linku/sona/utils';
 
 	import { outclick } from '$lib/actions/outclick';
@@ -38,7 +38,7 @@
 		books.filter((book) => book.shown).map((book) => book.name)
 	);
 
-	function genericFilter(word: LocalizedWord) {
+	function genericFilter(word: Word) {
 		return (
 			shownCategories.includes(word.usage_category) &&
 			shownBooks.includes(word.book)
@@ -170,6 +170,7 @@
 	bind:search
 	words={genericFilteredWords}
 	lipamanka={data.lipamanka}
+	lang={data.lang}
 	languages={data.languages}
 	bind:sortingMethod={$sortingMethod}
 	revealWord={(referred) => {

@@ -1,21 +1,17 @@
 import { client } from '@kulupu-linku/sona/client';
-import { error, redirect } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { combinedWordSort } from '$lib/util';
 import { distance } from 'fastest-levenshtein';
 
-export async function load({ fetch, params, setHeaders }) {
-	if (params.language === 'en') {
-		redirect(301, `/${params.nimi}`);
-	}
-
+export async function load({ fetch, locals, params, setHeaders }) {
 	const [data, lukaPona, lipamanka] = await Promise.all([
-		client({ fetch, baseUrl: PUBLIC_BASE_URL }).v1.words.$get({
-			query: { lang: params.language ?? 'en' }
+		client({ fetch, baseUrl: PUBLIC_BASE_URL }).v2.words.$get({
+			query: { lang: locals.lang }
 		}),
 		client({ fetch, baseUrl: PUBLIC_BASE_URL })
-			.v1.luka_pona.signs.$get({
-				query: { lang: params.language ?? 'en' }
+			.v2.luka_pona.signs.$get({
+				query: { lang: locals.lang }
 			})
 			.then((res) => res.json()),
 		fetch('/internal/api/lipamanka').then((res) => res.json()) as Promise<
@@ -34,7 +30,7 @@ export async function load({ fetch, params, setHeaders }) {
 
 	if (!word) {
 		const sandbox = await client({ fetch })
-			.v1.sandbox.$get({ query: {} })
+			.v2.sandbox.words.$get({ query: {} })
 			.then((res) => res.json());
 
 		const sandboxWords = Object.values(sandbox);
@@ -42,10 +38,6 @@ export async function load({ fetch, params, setHeaders }) {
 		const index = sandboxWords.indexOf(sandboxWord);
 
 		if (sandboxWord) {
-			if (params.language) {
-				redirect(301, `/${params.nimi}`);
-			}
-
 			setHeaders({ 'Cache-Control': 's-maxage=3600' });
 
 			return {

@@ -5,7 +5,7 @@
 	import { focusFirstElement } from '$lib/actions/focusFirstElement';
 	import { azWordSort, categoryColors, normalize } from '$lib/util';
 	import { scoreSearch } from '$lib/search';
-	import { autoplay, language } from '$lib/stores';
+	import { autoplay } from '$lib/stores';
 	import type { SignData } from '$lib/types';
 
 	import ColoredCheckbox from '$lib/components/ColoredCheckbox.svelte';
@@ -42,9 +42,7 @@
 					[
 						data,
 						Math.max(
-							...data.words.map((word) =>
-								scoreSearch(word, q, $language)
-							)
+							...data.words.map((word) => scoreSearch(word, q))
 						)
 					] as const
 			)

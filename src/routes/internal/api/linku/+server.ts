@@ -9,7 +9,7 @@ export async function GET({ fetch, url, setHeaders }) {
 
 	return json(
 		await client({ fetch, baseUrl: PUBLIC_BASE_URL })
-			.v1.words.$get({ query: { lang } })
+			.v2.words.$get({ query: { lang } })
 			.then((res) => res.json())
 	);
 }

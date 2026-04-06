@@ -59,8 +59,8 @@
 					/>
 				</svg>
 			</a>
-			are open! <strong>nimi.li</strong> relies on this data to accurately
-			describe word usage. Please take the surveys to help improve the dictionary!
+			are open! <strong>nimi.li</strong> relies on this data to accurately describe
+			word usage. Please take the surveys to help improve the dictionary!
 		</p>
 
 		<div

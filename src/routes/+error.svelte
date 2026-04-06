@@ -1,8 +1,6 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-
-	import { language } from '$lib/stores';
-	import { getWordLink } from '$lib/util';
 </script>
 
 <svelte:head>
@@ -29,7 +27,7 @@
 			{#each page.error?.closest as word (word)}
 				<li>
 					<a
-						href={getWordLink(word, $language)}
+						href={resolve(`/${word}`)}
 						class="inline-block interactable px-2 py-1"
 					>
 						{word}
@@ -40,7 +38,7 @@
 	{/if}
 
 	<p class="mt-6">
-		<a href="/" class="inline-block interactable px-2 py-1">
+		<a href={resolve('/')} class="inline-block interactable px-2 py-1">
 			o tawa lipu suli
 		</a>
 	</p>

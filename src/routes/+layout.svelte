@@ -5,6 +5,7 @@
 
 	import NProgress from 'nprogress';
 
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { dev } from '$app/environment';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
@@ -28,7 +29,7 @@
 		{ name: 'ilo ku', href: '/ilo-ku' },
 		{ name: 'sandbox', href: '/sandbox' },
 		{ name: 'about', href: '/about' }
-	];
+	] as const;
 
 	let opened = $state(false);
 
@@ -87,7 +88,7 @@
 						{route.name}
 					</span>
 				{:else}
-					<a href={route.href} class="nav-item-interactive">
+					<a href={resolve(route.href)}>
 						{route.name}
 					</a>
 				{/if}
@@ -134,7 +135,7 @@
 							</span>
 						{:else}
 							<a
-								href={route.href}
+								href={resolve(route.href)}
 								class="p-2"
 								onclick={() => (opened = false)}
 							>

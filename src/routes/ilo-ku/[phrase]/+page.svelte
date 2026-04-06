@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
+
 	import Link from '$lib/components/Link.svelte';
 	import Meta from '$lib/components/Meta.svelte';
 
@@ -74,7 +76,7 @@
 			</svg>
 		</svelte:element>
 
-		<a href="/ilo-ku" class="interactable p-2" aria-label="home">
+		<a href={resolve('/ilo-ku')} class="interactable p-2" aria-label="home">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
@@ -99,7 +101,7 @@
 	<p class="mt-1">
 		{#each phrase.compound.split(' ') as word, i (word)}
 			{i !== 0 ? ',' : ''}
-			<Link href="/{word}">{word}</Link>
+			<Link href={resolve(`/${word}`)}>{word}</Link>
 		{/each}
 	</p>
 

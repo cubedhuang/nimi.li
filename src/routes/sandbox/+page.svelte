@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 
 	import WordView from '$lib/components/WordView.svelte';
 	import Meta from '$lib/components/Meta.svelte';
 
 	const { data } = $props();
 
-	let words = $state(Object.values(data.words));
+	let words = $derived(Object.values(data.words));
 </script>
 
 <Meta
@@ -33,10 +34,11 @@
 
 <WordView
 	bind:words
+	lang={data.lang}
 	languages={data.languages}
 	revealWord={(referred) => {
 		if (!words.some((word) => word.word === referred)) {
-			goto(`/${referred}`);
+			goto(resolve(`/${referred}`));
 		}
 	}}
 	isSandbox

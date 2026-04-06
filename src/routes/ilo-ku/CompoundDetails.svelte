@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
+
 	import type { Compound } from '$lib/types';
 
 	import Details from '$lib/components/Details.svelte';
@@ -24,7 +26,9 @@
 
 			<div class="ml-auto flex items-center gap-1">
 				<a
-					href="/ilo-ku/{compound.compound.replace(/ /g, '-')}"
+					href={resolve(
+						`/ilo-ku/${compound.compound.replace(/ /g, '-')}`
+					)}
 					class="interactable px-2 py-1"
 				>
 					more
@@ -49,7 +53,7 @@
 			see
 			{#each compound.compound.split(' ') as word, i (word)}
 				{i !== 0 ? ',' : ''}
-				<Link href="/{word}">{word}</Link>
+				<Link href={resolve(`/${word}`)}>{word}</Link>
 			{/each}
 		</p>
 

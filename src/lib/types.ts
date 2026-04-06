@@ -1,4 +1,4 @@
-import type { LocalizedSign, LocalizedWord } from '@kulupu-linku/sona';
+import type { Sign, Word } from '@kulupu-linku/sona';
 
 export type CompoundData = Record<string, Compound>;
 
@@ -10,6 +10,6 @@ export interface Compound {
 
 export type SignData = {
 	id: string;
-	words: LocalizedWord[];
-	signs: LocalizedSign[];
+	words: Word[];
+	signs: Sign[];
 };
