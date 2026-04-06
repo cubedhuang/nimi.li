@@ -1,3 +1,5 @@
+import { redirect } from '@sveltejs/kit';
+
 export async function handle({ event, resolve }) {
 	const langParam = event.url.searchParams.get('lang');
 	if (langParam) {
@@ -7,16 +9,19 @@ export async function handle({ event, resolve }) {
 			httpOnly: false,
 			sameSite: 'lax'
 		});
+
+		const url = new URL(event.url);
+		url.searchParams.delete('lang');
+		throw redirect(302, url.pathname + url.search);
 	}
 
 	const lang =
-		langParam ??
 		event.cookies.get('lang') ??
 		event.request.headers
 			.get('accept-language')
 			?.split(',')[0]
 			?.slice(0, 2) ??
-		'tok';
+		'en';
 
 	event.locals.lang = lang;
 
