@@ -88,7 +88,7 @@
 						{route.name}
 					</span>
 				{:else}
-					<a href={resolve(route.href)}>
+					<a href={resolve(route.href)} class="nav-item-interactive">
 						{route.name}
 					</a>
 				{/if}
