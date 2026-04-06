@@ -1,4 +1,5 @@
 import type { Word } from '@kulupu-linku/sona';
+import { page } from '$app/state';
 import { distance } from 'fastest-levenshtein';
 
 import { getUcsur, normalize } from './util';
@@ -58,6 +59,12 @@ export function scoreSearch(word: Word, search: string) {
 		scoreMatch(translation.definition, search) * 50 +
 		scoreMatch(word.source_language, search) * 20 +
 		scoreMatch(word.author, search) * 20;
+
+	const pu =
+		word.pu_verbatim?.[page.data.lang as 'en'] ?? word.pu_verbatim?.en;
+	if (pu) {
+		score += scoreMatch(pu, search) * 50;
+	}
 
 	if (word.ku_data) {
 		score += scoreMatch(Object.keys(word.ku_data), search) * 10;

@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/state';
-
 	import { outclick } from '$lib/actions/outclick';
 	import { flyAndScale } from '$lib/transitions';
 	import {
@@ -25,7 +23,6 @@
 
 	const { data } = $props();
 
-	const language = $derived(page.params.language);
 	const word = $derived(data.word);
 
 	let showHistory = $state(false);
@@ -219,7 +216,7 @@
 				</a>
 			</h2>
 
-			<PuData data={word.pu_verbatim} {language} />
+			<PuData data={word.pu_verbatim} />
 		{/if}
 
 		{#if word.ku_data}
