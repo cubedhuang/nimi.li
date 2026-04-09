@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { tick } from 'svelte';
 	import { Command, Popover } from 'bits-ui';
+	import NProgress from 'nprogress';
 	import type { Language } from '@kulupu-linku/sona';
+
+	import { enhance } from '$app/forms';
 
 	import { flyAndScale } from '$lib/transitions';
 	import { normalize, sortLanguages } from '$lib/util';
-	import { enhance } from '$app/forms';
 
 	interface Props {
 		lang: string;
@@ -66,7 +68,14 @@
 	method="POST"
 	action="/internal/set-lang"
 	bind:this={formRef}
-	use:enhance
+	use:enhance={() => {
+		NProgress.start();
+
+		return async ({ update }) => {
+			await update();
+			NProgress.done();
+		};
+	}}
 	hidden
 >
 	<input type="hidden" name="lang" bind:this={langInput} />
