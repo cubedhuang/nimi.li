@@ -1,29 +1,17 @@
 import { client } from '@kulupu-linku/sona/client';
 import { error } from '@sveltejs/kit';
-import { PUBLIC_BASE_URL } from '$env/static/public';
+import { getLukaPonaSigns, getWords } from '$lib/server/fetch.js';
 import { combinedWordSort } from '$lib/util';
 import { distance } from 'fastest-levenshtein';
 
-export async function load({ fetch, locals, params, setHeaders }) {
-	const [data, lukaPona, lipamanka] = await Promise.all([
-		client({ fetch, baseUrl: PUBLIC_BASE_URL }).v2.words.$get({
-			query: { lang: locals.lang }
-		}),
-		client({ fetch, baseUrl: PUBLIC_BASE_URL })
-			.v2.luka_pona.signs.$get({
-				query: { lang: locals.lang }
-			})
-			.then((res) => res.json()),
+export async function load({ fetch, locals, params, platform, setHeaders }) {
+	const [wordData, lukaPona, lipamanka] = await Promise.all([
+		getWords({ fetch, platform, lang: locals.lang }),
+		getLukaPonaSigns({ fetch, platform, lang: locals.lang }),
 		fetch('/internal/api/lipamanka').then((res) => res.json()) as Promise<
 			Record<string, string>
 		>
 	]);
-
-	if (!data.ok) {
-		error(404, { message: 'Language not found' });
-	}
-
-	const wordData = await data.json();
 
 	const word = wordData[params.nimi];
 	const words = Object.values(wordData);

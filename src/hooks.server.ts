@@ -1,7 +1,13 @@
 import { redirect } from '@sveltejs/kit';
 
 export async function handle({ event, resolve }) {
-	const langParam = event.url.searchParams.get('lang');
+	let langParam: string | null = null;
+	try {
+		langParam = event.url.searchParams.get('lang');
+	} catch {
+		// weird hack. sveltekit runs the hook on every page during build even
+		// if not prerendered.
+	}
 	if (langParam) {
 		event.cookies.set('lang', langParam, {
 			path: '/',
