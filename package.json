@@ -21,6 +21,7 @@
 		"pngjs": "^7.0.0"
 	},
 	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20260409.1",
 		"@eslint/compat": "^2.0.4",
 		"@eslint/js": "^10.0.1",
 		"@sveltejs/adapter-cloudflare": "^7.2.8",

@@ -12,5 +12,10 @@ declare namespace App {
 		closest?: string[];
 	}
 
-	// interface Platform {}
+	interface Platform {
+		env: {
+			CACHE_KV: import('@cloudflare/workers-types').KVNamespace;
+		};
+		context: import('@cloudflare/workers-types').ExecutionContext;
+	}
 }
