@@ -62,6 +62,9 @@
 		formRef.requestSubmit();
 		closeAndFocusTrigger();
 	}
+
+	// eslint-disable-next-line no-undef
+	let nProgressTimeout: NodeJS.Timeout;
 </script>
 
 <form
@@ -69,10 +72,14 @@
 	action="/internal/api/set-lang"
 	bind:this={formRef}
 	use:enhance={() => {
-		NProgress.start();
+		clearTimeout(nProgressTimeout);
+		nProgressTimeout = setTimeout(() => {
+			NProgress.start();
+		}, 150);
 
 		return async ({ update }) => {
 			await update();
+			clearTimeout(nProgressTimeout);
 			NProgress.done();
 		};
 	}}
