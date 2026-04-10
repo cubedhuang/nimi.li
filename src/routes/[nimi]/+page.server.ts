@@ -1,6 +1,10 @@
-import { client } from '@kulupu-linku/sona/client';
 import { error } from '@sveltejs/kit';
-import { getLukaPonaSigns, getWords } from '$lib/server/fetch.js';
+import {
+	getLipamanka,
+	getLukaPonaSigns,
+	getSandboxWords,
+	getWords
+} from '$lib/server/fetch.js';
 import { combinedWordSort } from '$lib/util';
 import { distance } from 'fastest-levenshtein';
 
@@ -8,18 +12,18 @@ export async function load({ fetch, locals, params, platform, setHeaders }) {
 	const [wordData, lukaPona, lipamanka] = await Promise.all([
 		getWords({ fetch, platform, lang: locals.lang }),
 		getLukaPonaSigns({ fetch, platform, lang: locals.lang }),
-		fetch('/internal/api/lipamanka').then((res) => res.json()) as Promise<
-			Record<string, string>
-		>
+		getLipamanka({ fetch, platform })
 	]);
 
 	const word = wordData[params.nimi];
 	const words = Object.values(wordData);
 
 	if (!word) {
-		const sandbox = await client({ fetch })
-			.v2.sandbox.words.$get({ query: {} })
-			.then((res) => res.json());
+		const sandbox = await getSandboxWords({
+			fetch,
+			platform,
+			lang: locals.lang
+		});
 
 		const sandboxWords = Object.values(sandbox);
 		const sandboxWord = sandbox[params.nimi];

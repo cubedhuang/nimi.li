@@ -18,7 +18,7 @@
 
 {#if word.author.length}
 	<p>
-		coined by
+		<span class="text-muted">coined by</span>
 		<i>{word.author.join(', ')}</i>
 	</p>
 {/if}

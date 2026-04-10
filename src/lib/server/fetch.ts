@@ -56,6 +56,19 @@ export async function getWords({
 			.then((res) => res.json())
 	);
 }
+
+export async function getSandboxWords({
+	fetch,
+	platform,
+	lang
+}: RequestEvent & { lang: string }) {
+	return makeCachedRequest(platform, `sandbox_words:${lang}`, () =>
+		client({ fetch, baseUrl: PUBLIC_BASE_URL })
+			.v2.sandbox.words.$get({ query: { lang } })
+			.then((res) => res.json())
+	);
+}
+
 export async function getLukaPonaSigns({
 	fetch,
 	platform,
@@ -64,7 +77,7 @@ export async function getLukaPonaSigns({
 	return makeCachedRequest(platform, `luka_pona_signs:${lang}`, () =>
 		client({ fetch, baseUrl: PUBLIC_BASE_URL })
 			.v2.luka_pona.signs.$get({
-				query: { lang: lang }
+				query: { lang }
 			})
 			.then((res) => res.json())
 	);

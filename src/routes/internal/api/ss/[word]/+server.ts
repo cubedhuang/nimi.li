@@ -2,12 +2,8 @@ import { error } from '@sveltejs/kit';
 import jpeg from 'jpeg-js';
 import { PNG } from 'pngjs/browser';
 
-export async function GET({ fetch, setHeaders, url }) {
-	let word = url.searchParams.get('word');
-
-	if (!word) {
-		error(400, 'Missing word');
-	}
+export async function GET({ fetch, params, setHeaders }) {
+	let word = params.word;
 
 	if (!/^[a-z]+$/.test(word)) {
 		error(400, 'Invalid word');

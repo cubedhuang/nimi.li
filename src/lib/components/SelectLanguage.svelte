@@ -66,7 +66,7 @@
 
 <form
 	method="POST"
-	action="/internal/set-lang"
+	action="/internal/api/set-lang"
 	bind:this={formRef}
 	use:enhance={() => {
 		NProgress.start();

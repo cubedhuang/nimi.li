@@ -27,5 +27,5 @@
 	{/if}
 {/if}
 {#if word.creation_date}
-	{word.creation_date}
+	{word.creation_date.split('-', 1)[0]}
 {/if}

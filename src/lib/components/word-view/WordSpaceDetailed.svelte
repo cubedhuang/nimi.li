@@ -97,7 +97,7 @@
 				{/if}
 			{:else if word.representations?.sitelen_sitelen}
 				<img
-					src="/internal/api/ss?word={word.word}"
+					src="/internal/api/ss/{word.word}"
 					alt="{word.word} sitelen sitelen"
 					class="ml-auto h-9 w-9 invertible"
 				/>

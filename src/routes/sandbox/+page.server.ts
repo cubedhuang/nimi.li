@@ -1,14 +1,9 @@
-import { client } from '@kulupu-linku/sona/client';
-import { PUBLIC_BASE_URL } from '$env/static/public';
+import { getLanguages, getSandboxWords } from '$lib/server/fetch.js';
 
-export async function load({ fetch, setHeaders }) {
+export async function load({ fetch, platform, locals, setHeaders }) {
 	const [words, languages] = await Promise.all([
-		client({ fetch, baseUrl: PUBLIC_BASE_URL })
-			.v2.sandbox.words.$get({ query: {} })
-			.then((res) => res.json()),
-		client({ fetch, baseUrl: PUBLIC_BASE_URL })
-			.v2.languages.$get()
-			.then((res) => res.json())
+		getSandboxWords({ fetch, platform, lang: locals.lang }),
+		getLanguages({ fetch, platform })
 	]);
 
 	setHeaders({ 'Cache-Control': 's-maxage=3600' });
