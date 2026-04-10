@@ -302,12 +302,14 @@
 			</div>
 		</div>
 
-		<p>
-			<span class="text-muted">found in</span>
-			<b>
-				{word.book === 'none' ? 'no book' : word.book}
-			</b>
-		</p>
+		{#if word.book !== 'none'}
+			<p>
+				<span class="text-muted">found in</span>
+				<b>
+					{word.book}
+				</b>
+			</p>
+		{/if}
 
 		{#if word.coined_era}
 			<p>
