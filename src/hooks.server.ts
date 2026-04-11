@@ -30,18 +30,22 @@ export async function handle({ event, resolve }) {
 			?.slice(0, 2) ??
 		'en';
 
-	const languages = await getLanguages({
-		fetch: event.fetch,
-		platform: event.platform
-	});
-	if (!languages[lang]) {
-		event.cookies.set('lang', 'en', {
-			path: '/',
-			maxAge: 60 * 60 * 24 * 365,
-			httpOnly: false,
-			sameSite: 'lax'
+	try {
+		const languages = await getLanguages({
+			fetch: event.fetch,
+			platform: event.platform
 		});
-		lang = 'en';
+		if (!languages[lang]) {
+			event.cookies.set('lang', 'en', {
+				path: '/',
+				maxAge: 60 * 60 * 24 * 365,
+				httpOnly: false,
+				sameSite: 'lax'
+			});
+			lang = 'en';
+		}
+	} catch {
+		// same weird build hack as before
 	}
 
 	event.locals.lang = lang;
