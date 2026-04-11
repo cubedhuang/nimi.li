@@ -7,11 +7,6 @@ NODE_VERSION = "20"
 PNPM_VERSION = "9"
 PUBLIC_BASE_URL = "https://api.linku.la/"
 
-[env.production.vars]
-NODE_VERSION = "20"
-PNPM_VERSION = "9"
-PUBLIC_BASE_URL = "https://api.linku.la/"
-
 [[kv_namespaces]]
 binding = "CACHE_KV"
 id = "0f8d630d30dc445691bcbfb9c5d37d92"
