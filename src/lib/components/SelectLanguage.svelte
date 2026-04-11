@@ -75,7 +75,7 @@
 		clearTimeout(nProgressTimeout);
 		nProgressTimeout = setTimeout(() => {
 			NProgress.start();
-		}, 150);
+		}, 300);
 
 		return async ({ update }) => {
 			await update();
