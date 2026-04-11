@@ -1,20 +1,11 @@
-import { client } from '@kulupu-linku/sona/client';
-import { PUBLIC_BASE_URL } from '$env/static/public';
+import { getLanguages, getLipamanka, getWords } from '$lib/server/fetch.js';
 
-export async function load({ fetch, setHeaders }) {
+export async function load({ fetch, locals, platform }) {
 	const [words, languages, lipamanka] = await Promise.all([
-		client({ fetch, baseUrl: PUBLIC_BASE_URL })
-			.v1.words.$get({ query: { lang: 'en' } })
-			.then((res) => res.json()),
-		client({ fetch, baseUrl: PUBLIC_BASE_URL })
-			.v1.languages.$get()
-			.then((res) => res.json()),
-		fetch('/internal/api/lipamanka').then((res) => res.json()) as Promise<
-			Record<string, string>
-		>
+		getWords({ fetch, platform, lang: locals.lang }),
+		getLanguages({ fetch, platform }),
+		getLipamanka({ fetch, platform })
 	]);
-
-	setHeaders({ 'Cache-Control': 's-maxage=3600' });
 
 	return { words, languages, lipamanka };
 }

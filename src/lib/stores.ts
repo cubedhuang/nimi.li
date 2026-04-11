@@ -224,12 +224,6 @@ export const sortingMethod = persisted<SortingMethod>(
 	'combined'
 );
 
-export const language = persisted(
-	'language',
-	'en',
-	(lang) => lang !== 'eng' // removes Definition Rework language
-);
-
 export type SitelenMode = 'pona' | 'sitelen' | 'jelo' | 'emosi';
 export const sitelenMode = persisted<SitelenMode>('sitelenMode', 'pona');
 

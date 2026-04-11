@@ -2,12 +2,8 @@ import { error } from '@sveltejs/kit';
 import jpeg from 'jpeg-js';
 import { PNG } from 'pngjs/browser';
 
-export async function GET({ fetch, setHeaders, url }) {
-	let word = url.searchParams.get('word');
-
-	if (!word) {
-		error(400, 'Missing word');
-	}
+export async function GET({ fetch, params, setHeaders }) {
+	let word = params.word;
 
 	if (!/^[a-z]+$/.test(word)) {
 		error(400, 'Invalid word');
@@ -59,9 +55,9 @@ async function removeWhiteBackground(jpegData: jpeg.BufferLike) {
 			} else {
 				const min = Math.min(r, g, b);
 
-				png.data[i] = min / 4;
-				png.data[i + 1] = min / 4;
-				png.data[i + 2] = min / 4;
+				png.data[i] = 0;
+				png.data[i + 1] = 0;
+				png.data[i + 2] = 0;
 				png.data[i + 3] = 255 - min;
 			}
 		}

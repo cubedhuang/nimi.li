@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { language } from '$lib/stores';
+	import { page } from '$app/state';
 
 	interface Props {
 		data: Record<string, string>;
-		language?: string;
 	}
 
-	const { data, language: lang }: Props = $props();
+	const { data }: Props = $props();
 
-	const puData = $derived(data[lang || $language || 'en'] ?? data.en);
+	const puData = $derived(data[page.data.lang] ?? data.en);
 </script>
 
 <ul>

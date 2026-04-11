@@ -15,7 +15,7 @@
 
 	const { value, class: className = undefined }: Props = $props();
 
-	const theme = isDarkTheme(value) ? darkTheme : lightTheme;
+	const theme = $derived(isDarkTheme(value) ? darkTheme : lightTheme);
 
 	const selected = $derived(
 		$systemTheme ? value === $theme : value === $baseTheme

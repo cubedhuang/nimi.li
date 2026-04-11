@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
+
 	import type { Compound } from '$lib/types';
 
 	import Space from '$lib/components/Space.svelte';
@@ -21,7 +23,7 @@
 <Space
 	{onclick}
 	id={compound.compound.replace(/ /g, '-')}
-	href="/ilo-ku/{compound.compound.replace(/ /g, '-')}"
+	href={resolve(`/ilo-ku/${compound.compound.replace(/ /g, '-')}`)}
 >
 	<div class="h-full">
 		{#if compound.glyphs?.length}

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { language } from '$lib/stores';
+	import { resolve } from '$app/paths';
+
 	import type { SignData } from '$lib/types';
-	import { getWordLink, getTranslation } from '$lib/util';
 
 	import Details from '$lib/components/Details.svelte';
 	import SignsList from '$lib/components/SignsList.svelte';
@@ -26,7 +26,7 @@
 		{@const { words, signs } = data}
 
 		<video
-			src={signs[0].video.mp4}
+			src={signs[0].video?.mp4}
 			class="aspect-video w-full bg-secondary"
 			autoplay
 			loop
@@ -47,7 +47,7 @@
 
 				<div class="ml-auto flex items-center gap-1">
 					<a
-						href={getWordLink(words[0].id, $language)}
+						href={resolve(`/${words[0].id}`)}
 						class="interactable px-2 py-1"
 					>
 						more
@@ -57,7 +57,7 @@
 						<a
 							href={words[0].resources.sona_pona}
 							target="_blank"
-							rel="noreferrer noopener"
+							rel="external noreferrer noopener"
 							class="interactable p-1"
 						>
 							<Wikipedia />
@@ -77,10 +77,8 @@
 			</div>
 
 			{#each words as word (word.id)}
-				{@const translation = getTranslation(word, $language)}
-
 				<p class="mt-2">
-					{translation.definition}
+					{word.translations.definition}
 				</p>
 			{/each}
 

@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { Action } from 'svelte/action';
 
-	import type { LocalizedWord } from '@kulupu-linku/sona';
+	import type { Word } from '@kulupu-linku/sona';
 
 	import ExternalLink from './icons/ExternalLink.svelte';
 
 	interface Props {
-		word: LocalizedWord;
+		word: Word;
 		content: string;
 		space?: boolean;
 	}
@@ -52,7 +52,7 @@
 		class="icon-interactable"
 		{href}
 		target="_blank"
-		rel="noopener noreferrer"
+		rel="external noopener noreferrer"
 		aria-label="source"
 	>
 		<ExternalLink />

@@ -1,18 +1,15 @@
-import { client } from '@kulupu-linku/sona/client';
-import { PUBLIC_BASE_URL } from '$env/static/public';
+import {
+	getLukaPonaSigns,
+	getSandboxWords,
+	getWords
+} from '$lib/server/fetch.js';
 import type { SignData } from '$lib/types';
 
-export async function load({ fetch, setHeaders }) {
+export async function load({ fetch, locals, platform, setHeaders }) {
 	const [words, sandbox, lukaPona] = await Promise.all([
-		client({ fetch, baseUrl: PUBLIC_BASE_URL })
-			.v1.words.$get({ query: { lang: 'en' } })
-			.then((res) => res.json()),
-		client({ fetch, baseUrl: PUBLIC_BASE_URL })
-			.v1.sandbox.$get({ query: { lang: 'en' } })
-			.then((res) => res.json()),
-		client({ fetch, baseUrl: PUBLIC_BASE_URL })
-			.v1.luka_pona.signs.$get({ query: { lang: 'en' } })
-			.then((res) => res.json())
+		getWords({ fetch, platform, lang: locals.lang }),
+		getSandboxWords({ fetch, platform, lang: locals.lang }),
+		getLukaPonaSigns({ fetch, platform, lang: locals.lang })
 	]);
 
 	const lukaPonaData = Object.values(lukaPona);

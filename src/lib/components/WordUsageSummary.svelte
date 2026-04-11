@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { LocalizedWord } from '@kulupu-linku/sona';
+	import type { Word } from '@kulupu-linku/sona';
 
 	import { getWordDisplayRecognition } from '$lib/util';
 
 	interface Props {
-		word: LocalizedWord;
+		word: Word;
 	}
 
 	const { word }: Props = $props();
@@ -16,16 +16,16 @@
 {/if}
 {#if displayRecognition !== 'unknown'}
 	{getWordDisplayRecognition(word)}
-	{#if word.book !== 'none' || word.coined_year}
+	{#if word.book !== 'none' || word.creation_date}
 		&middot;
 	{/if}
 {/if}
 {#if word.book !== 'none'}
 	{word.book}
-	{#if word.coined_year}
+	{#if word.creation_date}
 		&middot;
 	{/if}
 {/if}
-{#if word.coined_year}
-	{word.coined_year}
+{#if word.creation_date}
+	{word.creation_date.split('-', 1)[0]}
 {/if}

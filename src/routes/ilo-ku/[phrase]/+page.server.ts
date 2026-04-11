@@ -1,7 +1,5 @@
 import { error, redirect } from '@sveltejs/kit';
 
-export const prerender = 'auto';
-
 export async function load({ params, parent }) {
 	if (params.phrase.includes(' ')) {
 		redirect(301, params.phrase.replaceAll(' ', '-'));

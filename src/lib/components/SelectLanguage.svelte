@@ -1,18 +1,20 @@
 <script lang="ts">
 	import { tick } from 'svelte';
 	import { Command, Popover } from 'bits-ui';
+	import NProgress from 'nprogress';
 	import type { Language } from '@kulupu-linku/sona';
 
-	import { language } from '$lib/stores';
+	import { enhance } from '$app/forms';
+
 	import { flyAndScale } from '$lib/transitions';
 	import { normalize, sortLanguages } from '$lib/util';
 
 	interface Props {
+		lang: string;
 		languages: Record<string, Language>;
-		onchange: (value: string) => void;
 	}
 
-	const { languages, onchange }: Props = $props();
+	const { lang, languages }: Props = $props();
 
 	const options = $derived(sortLanguages(languages));
 
@@ -51,7 +53,40 @@
 			triggerRef.focus();
 		});
 	}
+
+	let formRef = $state<HTMLFormElement>(null!);
+	let langInput = $state<HTMLInputElement>(null!);
+
+	function selectLanguage(langId: string) {
+		langInput.value = langId;
+		formRef.requestSubmit();
+		closeAndFocusTrigger();
+	}
+
+	// eslint-disable-next-line no-undef
+	let nProgressTimeout: NodeJS.Timeout;
 </script>
+
+<form
+	method="POST"
+	action="/internal/api/set-lang"
+	bind:this={formRef}
+	use:enhance={() => {
+		clearTimeout(nProgressTimeout);
+		nProgressTimeout = setTimeout(() => {
+			NProgress.start();
+		}, 300);
+
+		return async ({ update }) => {
+			await update();
+			clearTimeout(nProgressTimeout);
+			NProgress.done();
+		};
+	}}
+	hidden
+>
+	<input type="hidden" name="lang" bind:this={langInput} />
+</form>
 
 <div class="relative w-92">
 	<Popover.Root bind:open>
@@ -63,8 +98,7 @@
 			<span
 				class="flex-1 overflow-hidden text-left overflow-ellipsis whitespace-nowrap"
 			>
-				{languages[$language].name.endonym ??
-					languages[$language].name.en}
+				{languages[lang].name.endonym ?? languages[lang].name.en}
 			</span>
 
 			<svg
@@ -135,11 +169,11 @@
 						class="group w-full cursor-pointer select-none"
 						value={option.id}
 						onSelect={() => {
-							onchange(option.id);
+							selectLanguage(option.id);
 							closeAndFocusTrigger();
 						}}
 					>
-						{@const isSelected = $language === option.id}
+						{@const isSelected = lang === option.id}
 						<span
 							class="relative flex items-center rounded-md px-2 py-1 pl-6 leading-tight
 								group-data-selected:bg-background group-data-selected:text-accent

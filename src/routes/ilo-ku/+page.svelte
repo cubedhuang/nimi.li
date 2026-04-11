@@ -89,8 +89,8 @@
 		There are no hard-set compound phrases in Toki Pona. This is by design! Part
 		of the goal of the language is for you to break down your surroundings from
 		your own viewpoint and describe things dynamically, not use the same phrase
-		to mean the same thing all the time. Think about what the topic means to
-		you, and consider what is important about it.
+		to mean the same thing all the time. Think about what the topic means to you,
+		and consider what is important about it.
 	</p>
 
 	<footer class="mt-2">

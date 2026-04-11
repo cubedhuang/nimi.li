@@ -1,14 +1,7 @@
 <script lang="ts">
-	import type { LocalizedWord } from '@kulupu-linku/sona';
+	import type { Word } from '@kulupu-linku/sona';
 
-	import { language } from '$lib/stores';
-	import {
-		categoryColors,
-		categoryTextColors,
-		getWordLink,
-		getTranslation,
-		getUcsur
-	} from '$lib/util';
+	import { categoryColors, categoryTextColors, getUcsur } from '$lib/util';
 
 	import Copy from '$lib/components/Copy.svelte';
 	import Details from '$lib/components/Details.svelte';
@@ -21,9 +14,10 @@
 	import WordEtymology from './WordEtymology.svelte';
 	import WordUsageSummary from './WordUsageSummary.svelte';
 	import XMark from '$lib/components/icons/XMark.svelte';
+	import { resolve } from '$app/paths';
 
 	interface Props {
-		word: LocalizedWord | null;
+		word: Word | null;
 		lipamanka?: string;
 		onrefer: (word: string) => void;
 		onclose: (word: string) => void;
@@ -51,16 +45,11 @@
 	onclose={(word) => onclose(word.id)}
 >
 	{#snippet children(word)}
-		{@const translation = getTranslation(word, $language)}
-
 		<div class="flex items-end">
 			<h2 class="text-2xl">{word.word}</h2>
 
 			<div class="ml-auto flex items-center gap-1">
-				<a
-					href={getWordLink(word.id, $language)}
-					class="interactable px-2 py-1"
-				>
+				<a href={resolve(`/${word.id}`)} class="interactable px-2 py-1">
 					more
 				</a>
 
@@ -68,7 +57,7 @@
 					<a
 						href={word.resources.sona_pona}
 						target="_blank"
-						rel="noreferrer noopener"
+						rel="external noreferrer noopener"
 						class="interactable p-1"
 					>
 						<Wikipedia />
@@ -174,7 +163,7 @@
 		{/if}
 
 		<p class="mt-2">
-			{translation.definition}
+			{word.translations.definition}
 		</p>
 
 		{#if word.see_also.length}
@@ -235,7 +224,7 @@
 
 		<h3 class="mt-2 text-lg">origin</h3>
 
-		<WordEtymology {word} {translation} />
+		<WordEtymology {word} />
 
 		{#if word.representations?.ligatures?.length}
 			<h3 class="mt-2 text-lg">sitelen pona</h3>
@@ -244,18 +233,19 @@
 				{word.representations.ligatures.join(' ')}
 			</span>
 
-			{#if translation.sp_etymology}
+			<!-- TODO: use glyph info -->
+			<!-- {#if wordtranslation.sp_etymology}
 				<p class="text-muted">
-					{translation.sp_etymology}
+					{wordtranslation.sp_etymology}
 				</p>
-			{/if}
+			{/if} -->
 		{/if}
 
 		{#if word.representations?.sitelen_sitelen}
 			<h3 class="mt-2 text-lg">sitelen sitelen</h3>
 
 			<img
-				src="/internal/api/ss?word={word.word}"
+				src="/internal/api/ss/{word.word}"
 				alt="{word.word} sitelen sitelen"
 				class="h-10 w-10 invertible"
 			/>
@@ -279,8 +269,8 @@
 			</p>
 		{/if}
 
-		{#if translation.commentary}
-			{#each translation.commentary.split('\n') as line, i (i)}
+		{#if word.translations.commentary}
+			{#each word.translations.commentary.split('\n') as line, i (i)}
 				<p class="text-muted {i === 0 ? 'mt-2' : 'mt-1'}">
 					{line}
 				</p>

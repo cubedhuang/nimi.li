@@ -1,37 +1,31 @@
 <script lang="ts">
-	import type { LocalizedWord } from '@kulupu-linku/sona';
+	import type { Word } from '@kulupu-linku/sona';
 
-	import {
-		categoryColors,
-		getWordDisplayRecognition,
-		getShortWordEtymologies,
-		getTranslation,
-		getWordLink
-	} from '$lib/util';
-	import { language, sitelenMode } from '$lib/stores';
+	import { categoryColors, getWordDisplayRecognition } from '$lib/util';
+	import { sitelenMode } from '$lib/stores';
 	import Space from '$lib/components/Space.svelte';
+	import { resolve } from '$app/paths';
 
 	interface Props {
-		word: LocalizedWord;
+		word: Word;
 		onclick?: () => void;
 	}
 
 	const { word, onclick }: Props = $props();
 
-	const translation = $derived(getTranslation(word, $language));
 	const displayRecognition = $derived(getWordDisplayRecognition(word));
 </script>
 
-<Space href={getWordLink(word.id, $language)} {onclick} id={word.id}>
+<Space href={resolve(`/${word.id}`)} {onclick} id={word.id}>
 	<div class="grid grid-cols-3 text-muted">
 		<div>
 			<p class="line-clamp-1 break-all">
 				{word.source_language}
 			</p>
 
-			{#if word.etymology}
+			{#if word.translations.etymology}
 				<p class="line-clamp-1 text-xs break-all">
-					{getShortWordEtymologies(word, $language)}
+					{word.translations.etymology}
 				</p>
 			{/if}
 		</div>
@@ -47,9 +41,9 @@
 		</p>
 
 		<div class="text-right">
-			{#if word.creator.length}
+			{#if word.author.length}
 				<p class="line-clamp-1 break-all">
-					{word.creator.join(', ')}
+					{word.author.join(', ')}
 				</p>
 			{/if}
 
@@ -57,8 +51,8 @@
 				<p class="line-clamp-1 text-xs break-all">
 					{word.coined_era}
 
-					{#if word.coined_year}
-						&middot; {word.coined_year}
+					{#if word.creation_date}
+						&middot; {word.creation_date}
 					{/if}
 				</p>
 			{/if}
@@ -79,11 +73,11 @@
 				{word.word}
 			</h2>
 
-			<p class="mt-1">{translation.definition}</p>
+			<p class="mt-1">{word.translations.definition}</p>
 
-			{#if translation.commentary}
+			{#if word.translations.commentary}
 				<p class="mt-2 text-sm text-muted">
-					{translation.commentary.replace(/\n/g, ' / ')}
+					{word.translations.commentary.replace(/\n/g, ' / ')}
 				</p>
 			{/if}
 		</div>
@@ -103,7 +97,7 @@
 				{/if}
 			{:else if word.representations?.sitelen_sitelen}
 				<img
-					src="/internal/api/ss?word={word.word}"
+					src="/internal/api/ss/{word.word}"
 					alt="{word.word} sitelen sitelen"
 					class="ml-auto h-9 w-9 invertible"
 				/>

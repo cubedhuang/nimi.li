@@ -1,35 +1,22 @@
-import type { LocalizedWord } from '@kulupu-linku/sona';
-import { client } from '@kulupu-linku/sona/client';
+import type { Word } from '@kulupu-linku/sona';
 import type { UsageCategory } from '@kulupu-linku/sona/utils';
 import { text } from '@sveltejs/kit';
-import { PUBLIC_BASE_URL } from '$env/static/public';
+import { getWords } from '$lib/server/fetch.js';
 import type { CompoundData } from '$lib/types.js';
 
-export async function GET({ fetch }) {
-	const [words, languages, compounds] = [
-		await client({ fetch, baseUrl: PUBLIC_BASE_URL })
-			.v1.words.$get({ query: { lang: 'en' } })
-			.then((res) => res.json()),
-		await client({ fetch, baseUrl: PUBLIC_BASE_URL })
-			.v1.languages.$get({})
-			.then((res) => res.json()),
+export async function GET({ fetch, platform }) {
+	const [words, compounds] = [
+		getWords({ fetch, platform, lang: 'en' }),
 		(await fetch('/internal/api/nimi-ku').then((res) =>
 			res.json()
 		)) as CompoundData
 	];
 
-	return text(
-		render(
-			Object.values(words),
-			Object.keys(languages),
-			Object.keys(compounds)
-		),
-		{
-			headers: {
-				'Content-Type': 'application/xml'
-			}
+	return text(render(Object.values(words), Object.keys(compounds)), {
+		headers: {
+			'Content-Type': 'application/xml'
 		}
-	);
+	});
 }
 
 const priorities: Record<UsageCategory, number> = {
@@ -40,11 +27,7 @@ const priorities: Record<UsageCategory, number> = {
 	sandbox: 0.2
 };
 
-const render = (
-	words: LocalizedWord[],
-	languages: string[],
-	compounds: string[]
-) =>
+const render = (words: Word[], compounds: string[]) =>
 	`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url><loc>https://nimi.li/</loc><priority>1.0</priority></url>
@@ -61,15 +44,6 @@ ${words
 ${compounds
 	.map((compound) => {
 		return `<url><loc>https://nimi.li/ilo-ku/${compound.replaceAll(' ', '-')}</loc><priority>0.7</priority></url>`;
-	})
-	.join('\n')}
-${languages
-	.flatMap((lang) => {
-		if (lang === 'en') return [];
-		return words.map((word) => {
-			const priority = priorities[word.usage_category] / 10;
-			return `<url><loc>https://nimi.li/${word.id}/${lang}</loc><priority>${priority.toFixed(2)}</priority></url>`;
-		});
 	})
 	.join('\n')}
 </urlset>`;

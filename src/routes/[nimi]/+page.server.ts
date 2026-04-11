@@ -1,51 +1,35 @@
-import { client } from '@kulupu-linku/sona/client';
-import { error, redirect } from '@sveltejs/kit';
-import { PUBLIC_BASE_URL } from '$env/static/public';
+import { error } from '@sveltejs/kit';
+import {
+	getLipamanka,
+	getLukaPonaSigns,
+	getSandboxWords,
+	getWords
+} from '$lib/server/fetch.js';
 import { combinedWordSort } from '$lib/util';
 import { distance } from 'fastest-levenshtein';
 
-export async function load({ fetch, params, setHeaders }) {
-	if (params.language === 'en') {
-		redirect(301, `/${params.nimi}`);
-	}
-
-	const [data, lukaPona, lipamanka] = await Promise.all([
-		client({ fetch, baseUrl: PUBLIC_BASE_URL }).v1.words.$get({
-			query: { lang: params.language ?? 'en' }
-		}),
-		client({ fetch, baseUrl: PUBLIC_BASE_URL })
-			.v1.luka_pona.signs.$get({
-				query: { lang: params.language ?? 'en' }
-			})
-			.then((res) => res.json()),
-		fetch('/internal/api/lipamanka').then((res) => res.json()) as Promise<
-			Record<string, string>
-		>
+export async function load({ fetch, locals, params, platform, setHeaders }) {
+	const [wordData, lukaPona, lipamanka] = await Promise.all([
+		getWords({ fetch, platform, lang: locals.lang }),
+		getLukaPonaSigns({ fetch, platform, lang: locals.lang }),
+		getLipamanka({ fetch, platform })
 	]);
-
-	if (!data.ok) {
-		error(404, { message: 'Language not found' });
-	}
-
-	const wordData = await data.json();
 
 	const word = wordData[params.nimi];
 	const words = Object.values(wordData);
 
 	if (!word) {
-		const sandbox = await client({ fetch })
-			.v1.sandbox.$get({ query: {} })
-			.then((res) => res.json());
+		const sandbox = await getSandboxWords({
+			fetch,
+			platform,
+			lang: locals.lang
+		});
 
 		const sandboxWords = Object.values(sandbox);
 		const sandboxWord = sandbox[params.nimi];
 		const index = sandboxWords.indexOf(sandboxWord);
 
 		if (sandboxWord) {
-			if (params.language) {
-				redirect(301, `/${params.nimi}`);
-			}
-
 			setHeaders({ 'Cache-Control': 's-maxage=3600' });
 
 			return {

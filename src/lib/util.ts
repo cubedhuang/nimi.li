@@ -1,4 +1,4 @@
-import type { Language, LocalizedWord, Word } from '@kulupu-linku/sona';
+import type { Language, Word } from '@kulupu-linku/sona';
 import type { Book, UsageCategory } from '@kulupu-linku/sona/utils';
 
 export const normalize = (str: string) =>
@@ -43,18 +43,18 @@ export const categoryIndex = Object.fromEntries(
 	usageCategories.map((category, index) => [category, index] as const)
 ) as Record<UsageCategory, number>;
 
-export function azWordSort(a: LocalizedWord, b: LocalizedWord) {
+export function azWordSort(a: Word, b: Word) {
 	return a.word.toLowerCase().localeCompare(b.word.toLowerCase());
 }
 
-export function recognitionWordSort(a: LocalizedWord, b: LocalizedWord) {
+export function recognitionWordSort(a: Word, b: Word) {
 	const result = getWordRecognition(b) - getWordRecognition(a);
 
 	if (result === 0) return azWordSort(a, b);
 	return result;
 }
 
-export function combinedWordSort(a: LocalizedWord, b: LocalizedWord) {
+export function combinedWordSort(a: Word, b: Word) {
 	if (a.usage_category === b.usage_category) return azWordSort(a, b);
 	return categoryIndex[a.usage_category] - categoryIndex[b.usage_category];
 }
@@ -66,51 +66,11 @@ export function sortLanguages(languages: Record<string, Language>) {
 	}));
 }
 
-export function getTranslation<
-	T extends { translations: Record<string, unknown> }
->(word: T, $language: string): T['translations'][string] {
-	// @ts-expect-error this is fine
-	return word.translations[$language] ?? word.translations.en;
-}
-
-export function getShortWordEtymologies(
-	word: LocalizedWord,
-	$language: string
-) {
-	const translation = getTranslation(word, $language);
-
-	return word.etymology
-		.map(({ word: sourceWord, alt }, index) => {
-			const { definition, language } = translation.etymology[index];
-
-			let output = '';
-
-			if (index !== 0 || word.source_language.startsWith('multiple')) {
-				output += language + ' ';
-			}
-
-			if (sourceWord) {
-				output += sourceWord + ' ';
-			}
-
-			if (alt) {
-				output += alt + ' ';
-			}
-
-			if (definition) {
-				output += `‘${definition}’`;
-			}
-
-			return output.trim();
-		})
-		.join(', ');
-}
-
-export function getWordRecognition(word: LocalizedWord) {
+export function getWordRecognition(word: Word) {
 	return word.usage['2025-09'] ?? -1;
 }
 
-export function getWordDisplayRecognition(word: LocalizedWord) {
+export function getWordDisplayRecognition(word: Word) {
 	const recognition = getWordRecognition(word);
 	if (recognition === -1) return 'unknown';
 	return `${recognition}%`;
@@ -122,12 +82,6 @@ export function getUsageCategoryFromPercent(percent: number): UsageCategory {
 	if (percent >= 30) return 'uncommon';
 	if (percent >= 2) return 'obscure';
 	return 'sandbox';
-}
-
-export function getWordLink(id: string, $language: string | undefined) {
-	if (!$language || $language === 'en') return `/${id}`;
-
-	return `/${id}/${$language}`;
 }
 
 export function getUcsur(word: Word) {
