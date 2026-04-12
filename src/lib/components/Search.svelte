@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 
 	import MagnifyingGlassIcon from './icons/MagnifyingGlassIcon.svelte';
+	import { slide } from 'svelte/transition';
 
 	interface Props {
 		placeholder: string;
@@ -73,7 +74,7 @@
 		/>
 
 		<div
-			class="absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-1"
+			class="absolute top-1/2 right-3 flex -translate-y-1/2 items-center"
 		>
 			<span class="pointer-events-none text-muted select-none">
 				{count} / {total}
@@ -81,7 +82,8 @@
 
 			{#if value}
 				<button
-					class="cursor-pointer rounded p-0.5 text-muted transition-colors hv:text-foreground"
+					transition:slide={{ axis: 'x', duration: 150 }}
+					class="ml-1 cursor-pointer rounded p-0.5 text-muted transition-colors hv:text-foreground"
 					onclick={() => {
 						value = '';
 						searchBar.focus();
