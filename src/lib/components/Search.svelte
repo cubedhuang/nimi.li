@@ -74,16 +74,16 @@
 		/>
 
 		<div
-			class="absolute top-1/2 right-3 flex -translate-y-1/2 items-center"
+			class="pointer-events-none absolute top-1/2 right-3 flex -translate-y-1/2 items-center"
 		>
-			<span class="pointer-events-none text-muted select-none">
+			<span class="text-muted select-none">
 				{count} / {total}
 			</span>
 
 			{#if value}
 				<button
 					transition:slide={{ axis: 'x', duration: 150 }}
-					class="ml-1 cursor-pointer rounded p-0.5 text-muted transition-colors hv:text-foreground"
+					class="pointer-events-auto ml-1 cursor-pointer rounded p-0.5 text-muted transition-colors hv:text-foreground"
 					onclick={() => {
 						value = '';
 						searchBar.focus();
