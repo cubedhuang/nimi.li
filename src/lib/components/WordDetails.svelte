@@ -1,7 +1,11 @@
 <script lang="ts">
 	import type { Word } from '@kulupu-linku/sona';
 
-	import { categoryColors, categoryTextColors, getUcsur } from '$lib/util';
+	import {
+		categoryBackgroundColors,
+		categoryTextColors,
+		getUcsur
+	} from '$lib/util';
 
 	import Copy from '$lib/components/Copy.svelte';
 	import Details from '$lib/components/Details.svelte';
@@ -278,7 +282,7 @@
 		{/if}
 
 		<span
-			class="absolute -top-4 -left-4 rounded-full p-4 {categoryColors[
+			class="absolute -top-4 -left-4 rounded-full p-4 {categoryBackgroundColors[
 				word.usage_category
 			]}"
 		></span>

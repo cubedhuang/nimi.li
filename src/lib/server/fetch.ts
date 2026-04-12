@@ -1,6 +1,7 @@
 import { client } from '@kulupu-linku/sona/client';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { error } from '@sveltejs/kit';
+import { fetchKu } from './ku';
 
 type Cached<T> = { data: T; lastUpdated: number };
 
@@ -53,6 +54,18 @@ export async function getWords({
 	return makeCachedRequest(platform, `words:${lang}`, () =>
 		client({ fetch, baseUrl: PUBLIC_BASE_URL })
 			.v2.words.$get({ query: { lang } })
+			.then((res) => res.json())
+	);
+}
+
+export async function getGlyphs({
+	fetch,
+	platform,
+	lang
+}: RequestEvent & { lang: string }) {
+	return makeCachedRequest(platform, `glyphs:${lang}`, () =>
+		client({ fetch, baseUrl: PUBLIC_BASE_URL })
+			.v2.glyphs.$get({ query: { lang } })
 			.then((res) => res.json())
 	);
 }
@@ -118,4 +131,8 @@ export async function getLipamanka({ platform, fetch }: RequestEvent) {
 
 		return words;
 	});
+}
+
+export async function getKu({ platform, fetch }: RequestEvent) {
+	return makeCachedRequest(platform, 'ku', () => fetchKu({ fetch }));
 }

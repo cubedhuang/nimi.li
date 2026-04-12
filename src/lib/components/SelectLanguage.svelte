@@ -2,19 +2,16 @@
 	import { tick } from 'svelte';
 	import { Command, Popover } from 'bits-ui';
 	import NProgress from 'nprogress';
-	import type { Language } from '@kulupu-linku/sona';
 
 	import { enhance } from '$app/forms';
+	import { page } from '$app/state';
 
 	import { flyAndScale } from '$lib/transitions';
 	import { normalize, sortLanguages } from '$lib/util';
+	import LanguageIconMini from '$lib/components/icons/LanguageIconMini.svelte';
 
-	interface Props {
-		lang: string;
-		languages: Record<string, Language>;
-	}
-
-	const { lang, languages }: Props = $props();
+	const lang = $derived(page.data.lang);
+	const languages = $derived(page.data.languages);
 
 	const options = $derived(sortLanguages(languages));
 
@@ -88,31 +85,14 @@
 	<input type="hidden" name="lang" bind:this={langInput} />
 </form>
 
-<div class="relative w-92">
+<div class="popover-container text-sm">
 	<Popover.Root bind:open>
 		<Popover.Trigger
-			class="flex w-full interactable items-center gap-2 px-2 py-0.5 text-ellipsis"
+			class="nav-icon-button"
 			aria-label="Select Language"
 			bind:ref={triggerRef}
 		>
-			<span
-				class="flex-1 overflow-hidden text-left overflow-ellipsis whitespace-nowrap"
-			>
-				{languages[lang].name.endonym ?? languages[lang].name.en}
-			</span>
-
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 16 16"
-				fill="currentColor"
-				class="size-4 shrink-0 text-muted"
-			>
-				<path
-					fill-rule="evenodd"
-					d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
-					clip-rule="evenodd"
-				/>
-			</svg>
+			<LanguageIconMini />
 		</Popover.Trigger>
 
 		<Popover.Portal disabled>
@@ -122,7 +102,7 @@
 						<div
 							{...props}
 							transition:flyAndScale={{ y: -8 }}
-							class="absolute top-full left-0 z-50 mt-1 h-80 w-full rounded-md border-2 bg-card text-card-foreground shadow-md"
+							class="anchor-top-right absolute z-50 mt-2 h-92 w-72 rounded-md border-2 bg-card text-card-foreground shadow-md"
 						>
 							{@render command()}
 						</div>
@@ -143,7 +123,7 @@
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 16 16"
 				fill="currentColor"
-				class="absolute top-2.5 left-2 size-4"
+				class="absolute top-2 left-2 size-4 text-muted"
 			>
 				<path
 					fill-rule="evenodd"
@@ -175,7 +155,8 @@
 					>
 						{@const isSelected = lang === option.id}
 						<span
-							class="relative flex items-center rounded-md px-2 py-1 pl-6 leading-tight
+							class="relative block overflow-hidden rounded-md px-2 py-1 pl-6
+								leading-tight text-ellipsis whitespace-nowrap
 								group-data-selected:bg-background group-data-selected:text-accent
 								light:group-data-selected:bg-secondary darkish:group-data-selected:bg-secondary"
 						>
@@ -184,7 +165,7 @@
 									xmlns="http://www.w3.org/2000/svg"
 									viewBox="0 0 16 16"
 									fill="currentColor"
-									class="absolute left-1 size-4"
+									class="absolute top-1/2 left-1 size-4 -translate-y-1/2"
 								>
 									<path
 										fill-rule="evenodd"
@@ -202,3 +183,18 @@
 		</Command.List>
 	</Command.Root>
 {/snippet}
+
+<style>
+	@supports not (top: anchor(bottom)) {
+		.popover-container {
+			position: relative;
+		}
+	}
+	.anchor-top-right {
+		position-anchor: --nav;
+		top: 100%;
+		right: 0;
+		top: calc(anchor(bottom) + var(--spacing) * 2);
+		right: anchor(right);
+	}
+</style>

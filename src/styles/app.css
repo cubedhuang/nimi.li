@@ -242,10 +242,6 @@
 	@apply rounded-sm text-accent underline decoration-transparent underline-offset-4 outline-hidden outline-2 outline-offset-4 outline-accent transition-colors focus-visible:outline-solid hv:decoration-current;
 }
 
-@utility nav-item {
-	@apply rounded-lg border-2 bg-card p-2 transition-colors sm:rounded-t-none sm:border-t-0;
-}
-
-@utility nav-item-interactive {
-	@apply nav-item outline-hidden outline-2 outline-offset-2 outline-accent focus-visible:outline-solid hv:border-contrast;
+@utility nav-icon-button {
+	@apply cursor-pointer rounded-lg p-2 text-muted transition-colors hv:bg-secondary hv:text-foreground;
 }

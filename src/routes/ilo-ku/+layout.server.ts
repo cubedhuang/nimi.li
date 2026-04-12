@@ -1,11 +1,7 @@
-import type { CompoundData } from '$lib/types';
+import { getKu } from '$lib/server/fetch.js';
 
-export const prerender = true;
-
-export async function load({ fetch }) {
+export async function load({ fetch, platform }) {
 	return {
-		phrases: (await fetch('/internal/api/nimi-ku').then((res) =>
-			res.json()
-		)) as CompoundData
+		phrases: await getKu({ fetch, platform })
 	};
 }

@@ -2,6 +2,7 @@
 	import '../styles/app.css';
 
 	import { onMount, type Snippet } from 'svelte';
+	import { slide } from 'svelte/transition';
 
 	import NProgress from 'nprogress';
 
@@ -14,8 +15,14 @@
 	import { screenWidth } from '$lib/stores';
 	import { flyAndScale } from '$lib/transitions';
 
+	import SelectLanguage from '$lib/components/SelectLanguage.svelte';
 	// import SurveyBanner from './SurveyBanner.svelte';
 	import ThemeSelector from './ThemeSelector.svelte';
+	import ArrowsPointingInIconMini from '$lib/components/icons/ArrowsPointingInIconMini.svelte';
+	import ArrowsPointingOutIconMini from '$lib/components/icons/ArrowsPointingOutIconMini.svelte';
+	import Bars3BottomLeftIconMini from '$lib/components/icons/Bars3BottomLeftIconMini.svelte';
+	import XMarkIconMini from '$lib/components/icons/XMarkIconMini.svelte';
+	import ArrowDownTrayIconMini from '$lib/components/icons/ArrowDownTrayIconMini.svelte';
 
 	interface Props {
 		children: Snippet;
@@ -40,6 +47,7 @@
 	// disable smooth scroll on navigation
 	beforeNavigate(() => {
 		document.documentElement.style.scrollBehavior = 'auto';
+		opened = false;
 
 		clearTimeout(nProgressTimeout);
 
@@ -80,151 +88,117 @@
 <div class="content" class:fullscreen={$screenWidth === 'full'}>
 	<!-- <SurveyBanner /> -->
 
-	<nav class="flex justify-between pt-4 sm:pt-0">
-		<div class="hidden gap-1 sm:flex">
-			{#each routes as route (route.href)}
-				{#if page.url.pathname === route.href}
-					<span class="cursor-default nav-item text-muted">
-						{route.name}
-					</span>
-				{:else}
-					<a href={resolve(route.href)} class="nav-item-interactive">
-						{route.name}
-					</a>
-				{/if}
-			{/each}
-		</div>
-
-		<div
-			class="relative sm:hidden"
-			use:outclick
-			onoutclick={() => {
-				opened = false;
-			}}
-		>
-			<button
-				onclick={() => {
-					opened = !opened;
-				}}
-				class="cursor-pointer nav-item-interactive"
-				aria-label="open navigation"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="currentColor"
-					class="h-6 w-6"
+	<div
+		class="content full"
+		use:outclick
+		onoutclick={() => {
+			opened = false;
+		}}
+	>
+		<nav class="content full border-b-2 py-2">
+			<div class="nav-anchor flex items-center gap-1">
+				<a
+					href={resolve('/')}
+					class="mr-2 font-display text-lg font-bold transition-colors hv:text-accent"
 				>
-					<path
-						fill-rule="evenodd"
-						d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75H12a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-						clip-rule="evenodd"
-					/>
-				</svg>
-			</button>
+					nimi.li
+				</a>
 
-			{#if opened}
 				<div
-					transition:flyAndScale={{ x: -2, y: -4 }}
-					class="absolute top-full z-50 mt-2 flex flex-col divide-y-2 divide-border rounded-lg border-2 bg-card shadow-md"
-				>
+					class="mr-2 h-8 w-0.5 self-center rounded-full bg-border max-sm:hidden"
+					aria-hidden="true"
+				></div>
+
+				<div class="hidden gap-0.5 sm:flex">
 					{#each routes as route (route.href)}
-						{#if page.url.pathname === route.href}
-							<span class="cursor-default p-2 text-muted">
-								{route.name}
-							</span>
-						{:else}
-							<a
-								href={resolve(route.href)}
-								class="p-2"
-								onclick={() => (opened = false)}
-							>
-								{route.name}
-							</a>
-						{/if}
+						<a
+							href={resolve(route.href)}
+							class="nav-link {page.url.pathname === route.href
+								? 'active'
+								: ''}"
+						>
+							{route.name}
+						</a>
 					{/each}
 				</div>
-			{/if}
-		</div>
 
-		<div class="flex gap-1">
-			{#if deferredPrompt}
+				<div class="mr-auto" aria-hidden="true"></div>
+
+				{#if deferredPrompt}
+					<button
+						onclick={() => {
+							deferredPrompt.prompt();
+						}}
+						transition:flyAndScale={{ y: 4 }}
+						class="nav-icon-button"
+						aria-label="install as app"
+					>
+						<ArrowDownTrayIconMini />
+					</button>
+				{/if}
+
+				<button
+					class="nav-icon-button max-lg:hidden"
+					onclick={() => {
+						if ($screenWidth === 'full') {
+							$screenWidth = 'large';
+						} else {
+							$screenWidth = 'full';
+						}
+					}}
+					role="checkbox"
+					aria-checked={$screenWidth === 'full'}
+					aria-label="toggle full width"
+				>
+					{#if $screenWidth === 'large'}
+						<ArrowsPointingOutIconMini />
+					{:else}
+						<ArrowsPointingInIconMini />
+					{/if}
+				</button>
+
+				<SelectLanguage />
+				<ThemeSelector />
+
 				<button
 					onclick={() => {
-						deferredPrompt.prompt();
+						opened = !opened;
 					}}
-					transition:flyAndScale={{ y: 4 }}
-					class="nav-item-interactive"
-					aria-label="install as app"
+					class="nav-icon-button sm:hidden"
+					aria-label={opened ? 'close navigation' : 'open navigation'}
+					aria-expanded={opened}
 				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="1.5"
-						stroke="currentColor"
-						class="h-6 w-6"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-						/>
-					</svg>
+					{#if opened}
+						<XMarkIconMini />
+					{:else}
+						<Bars3BottomLeftIconMini />
+					{/if}
 				</button>
-			{/if}
+			</div>
+		</nav>
 
-			<button
-				class="cursor-pointer nav-item-interactive max-lg:hidden"
-				onclick={() => {
-					if ($screenWidth === 'full') {
-						$screenWidth = 'large';
-					} else {
-						$screenWidth = 'full';
-					}
-				}}
-				role="checkbox"
-				aria-checked={$screenWidth === 'full'}
-				aria-label="toggle full width"
+		{#if opened}
+			<div
+				class="content full border-b-2 bg-card py-2 sm:hidden"
+				transition:slide={{ duration: 200 }}
 			>
-				{#if $screenWidth === 'large'}
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="1.5"
-						stroke="currentColor"
-						class="h-6 w-6"
+				{#each routes as route (route.href)}
+					<a
+						href={resolve(route.href)}
+						class="content full nav-sheet-link {page.url
+							.pathname === route.href
+							? 'active'
+							: ''}"
+						onclick={() => (opened = false)}
 					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
-						/>
-					</svg>
-				{:else}
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="1.5"
-						stroke="currentColor"
-						class="h-6 w-6"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25"
-						/>
-					</svg>
-				{/if}
-			</button>
+						<span>{route.name}</span>
+					</a>
+				{/each}
+			</div>
+		{/if}
+	</div>
 
-			<ThemeSelector />
-		</div>
-	</nav>
-
-	<main class="content full pt-4 pb-24 sm:pt-8">
+	<main class="content full mt-8 mb-24">
 		{@render children()}
 	</main>
 </div>
@@ -247,5 +221,25 @@
 			0 0 --spacing(2) --var(--color-accent),
 			0 0 --spacing(1) --var(--color-accent);
 		transform: rotate(3deg) translate(0px, -4px);
+	}
+
+	.nav-link {
+		@apply cursor-pointer rounded-lg border-2 border-transparent px-2 py-1 text-sm text-muted transition hv:bg-secondary hv:text-secondary-foreground;
+	}
+
+	.nav-link.active {
+		@apply cursor-default border-secondary-border bg-secondary text-secondary-foreground;
+	}
+
+	.nav-sheet-link {
+		@apply py-2 text-sm text-muted transition-colors hv:bg-secondary hv:text-secondary-foreground;
+	}
+
+	.nav-sheet-link.active {
+		@apply cursor-default bg-secondary text-secondary-foreground;
+	}
+
+	.nav-anchor {
+		anchor-name: --nav;
 	}
 </style>

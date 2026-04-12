@@ -3,7 +3,7 @@
 	import type { PageData } from './$types';
 
 	import { focusFirstElement } from '$lib/actions/focusFirstElement';
-	import { azWordSort, categoryColors, normalize } from '$lib/util';
+	import { azWordSort, categoryBackgroundColors, normalize } from '$lib/util';
 	import { scoreSearch } from '$lib/search';
 	import { autoplay } from '$lib/stores';
 	import type { SignData } from '$lib/types';
@@ -66,28 +66,29 @@
 	]}
 />
 
-<h1 class="text-4xl">luka pona</h1>
+<h1 class="text-2xl">luka pona</h1>
 
-<p class="mt-2">
+<p class="mt-2 mb-4">
 	Explore signs for <b>Luka Pona Sign Language</b>. Hover over a sign to watch
 	it!
 </p>
 
-<div class="mt-4 flex flex-wrap gap-1">
+<Search
+	placeholder="o alasa..."
+	bind:value={search}
+	count={filteredSigns.length}
+	total={genericFilteredSigns.length}
+/>
+
+<div class="flex flex-wrap gap-1">
 	<ColoredCheckbox
 		bind:checked={$autoplay}
 		label="Play Videos Automatically"
-		color={categoryColors['core']}
+		color={categoryBackgroundColors['core']}
 	/>
 </div>
 
-<p class="mt-2 text-muted">
-	{filteredSigns.length} / {genericFilteredSigns.length}
-</p>
-
-<Search placeholder="o alasa..." bind:value={search} />
-
-<div class="mt-4 grid grid-cols-fill-64 gap-2">
+<div class="mt-2 grid grid-cols-fill-64 gap-2">
 	{#each filteredSigns as signData (signData.id)}
 		<LukaPonaEntry
 			{signData}

@@ -21,7 +21,7 @@
 
 {#if expandable}
 	<button
-		class="cursor-pointer rounded-sm text-muted underline decoration-transparent underline-offset-2 outline-hidden outline-offset-4 transition focus-visible:outline-contrast hv:decoration-current"
+		class="cursor-pointer rounded-sm text-sm text-muted underline decoration-transparent underline-offset-2 outline-hidden outline-offset-4 transition focus-visible:outline-contrast hv:decoration-current"
 		class:block={expanded}
 		onclick={() => {
 			expanded = !expanded;
@@ -30,9 +30,9 @@
 		bind:this={button}
 	>
 		{#if expanded}
-			less
+			show less
 		{:else}
-			more
+			read more
 		{/if}
 	</button>
 {/if}

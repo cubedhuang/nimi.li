@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Word } from '@kulupu-linku/sona';
 
-	import { categoryColors } from '$lib/util';
+	import { categoryBackgroundColors } from '$lib/util';
 	import { sitelenMode } from '$lib/stores';
 
 	import Space from '$lib/components/Space.svelte';
@@ -60,13 +60,13 @@
 	</p>
 
 	{#if word.usage_category === 'sandbox' && word.author.length}
-		<p class="mt-1 text-muted">
+		<p class="mt-1 text-sm text-muted">
 			by <i>{word.author.join(', ')}</i>
 		</p>
 	{/if}
 
 	<span
-		class="absolute -top-3 -left-3 rounded-full p-3 {categoryColors[
+		class="absolute -top-3 -left-3 rounded-full p-3 {categoryBackgroundColors[
 			word.usage_category
 		]}"
 	></span>

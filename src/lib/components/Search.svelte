@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import XMark from './icons/XMark.svelte';
+	import MagnifyingGlassIcon from './icons/MagnifyingGlassIcon.svelte';
 
 	interface Props {
 		placeholder: string;
 		value: string;
+		count: number;
+		total: number;
 	}
 
-	let { placeholder, value = $bindable('') }: Props = $props();
+	let { placeholder, value = $bindable(''), count, total }: Props = $props();
 
 	let div: HTMLDivElement;
 	let searchBar: HTMLInputElement;
@@ -50,32 +52,55 @@
 
 <div
 	bind:this={div}
-	class="content full sticky -top-px -mt-2 -mb-2 box-content border-b-2 pt-[9px] pb-1.5
+	class="content full sticky -top-px -mt-2 box-content border-b-2 pt-2.25 pb-1.5
 		{!stick
 		? 'border-transparent bg-transparent'
 		: 'z-50 border-border bg-background shadow-md'}"
 >
-	<div class="flex items-center gap-1">
+	<div class="relative">
+		<MagnifyingGlassIcon
+			class="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted"
+			aria-hidden="true"
+		/>
+
 		<input
 			type="search"
 			{placeholder}
 			bind:value
 			bind:this={searchBar}
-			class="w-96 max-w-full focusable cursor-auto px-4 py-2 placeholder:text-muted"
+			class="w-full focusable cursor-auto py-2 pl-10 placeholder:text-muted
+			{value ? 'pr-26' : 'pr-20'}"
 		/>
 
-		{#if value}
-			<button
-				class="shrink-0 interactable p-2"
-				onclick={() => {
-					value = '';
-					searchBar.focus();
-				}}
-				aria-label="clear search"
-			>
-				<XMark />
-			</button>
-		{/if}
+		<div
+			class="absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-1"
+		>
+			<span class="pointer-events-none text-muted select-none">
+				{count} / {total}
+			</span>
+
+			{#if value}
+				<button
+					class="cursor-pointer rounded p-0.5 text-muted transition-colors hv:text-foreground"
+					onclick={() => {
+						value = '';
+						searchBar.focus();
+					}}
+					aria-label="clear search"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 16 16"
+						fill="currentColor"
+						class="size-4"
+					>
+						<path
+							d="M5.28 4.22a.75.75 0 0 0-1.06 1.06L6.94 8l-2.72 2.72a.75.75 0 1 0 1.06 1.06L8 9.06l2.72 2.72a.75.75 0 1 0 1.06-1.06L9.06 8l2.72-2.72a.75.75 0 0 0-1.06-1.06L8 6.94 5.28 4.22Z"
+						/>
+					</svg>
+				</button>
+			{/if}
+		</div>
 	</div>
 </div>
 

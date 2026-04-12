@@ -17,7 +17,7 @@
 	keywords={['sandbox']}
 />
 
-<h1 class="text-4xl">sandbox</h1>
+<h1 class="text-2xl">sandbox</h1>
 
 <p class="mt-2 leading-relaxed">
 	Explore Linku's <b>sandbox</b>, a collection of proposed words which are
@@ -34,8 +34,6 @@
 
 <WordView
 	bind:words
-	lang={data.lang}
-	languages={data.languages}
 	revealWord={(referred) => {
 		if (!words.some((word) => word.word === referred)) {
 			goto(resolve(`/${referred}`));

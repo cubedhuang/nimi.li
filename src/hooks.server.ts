@@ -1,5 +1,4 @@
 import { redirect } from '@sveltejs/kit';
-import { getLanguages } from '$lib/server/fetch';
 
 export async function handle({ event, resolve }) {
 	let langParam: string | null = null;
@@ -22,31 +21,13 @@ export async function handle({ event, resolve }) {
 		throw redirect(302, url.pathname + url.search);
 	}
 
-	let lang =
+	const lang =
 		event.cookies.get('lang') ??
 		event.request.headers
 			.get('accept-language')
 			?.split(',')[0]
 			?.slice(0, 2) ??
 		'en';
-
-	try {
-		const languages = await getLanguages({
-			fetch: event.fetch,
-			platform: event.platform
-		});
-		if (!languages[lang]) {
-			event.cookies.set('lang', 'en', {
-				path: '/',
-				maxAge: 60 * 60 * 24 * 365,
-				httpOnly: false,
-				sameSite: 'lax'
-			});
-			lang = 'en';
-		}
-	} catch {
-		// same weird build hack as before
-	}
 
 	event.locals.lang = lang;
 

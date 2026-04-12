@@ -95,7 +95,7 @@
 	</div>
 </div>
 
-<div class="mt-6 box">
+<div class="mt-2 box">
 	<h2 class="text-lg">see also</h2>
 
 	<p class="mt-1">
