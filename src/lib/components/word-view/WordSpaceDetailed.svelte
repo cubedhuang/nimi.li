@@ -1,7 +1,10 @@
 <script lang="ts">
 	import type { Word } from '@kulupu-linku/sona';
 
-	import { categoryColors, getWordDisplayRecognition } from '$lib/util';
+	import {
+		categoryBackgroundColors,
+		getWordDisplayRecognition
+	} from '$lib/util';
 	import { sitelenMode } from '$lib/stores';
 	import Space from '$lib/components/Space.svelte';
 	import { resolve } from '$app/paths';
@@ -106,7 +109,7 @@
 	</div>
 
 	<span
-		class="absolute -top-3 -left-3 rounded-full p-3 {categoryColors[
+		class="absolute -top-3 -left-3 rounded-full p-3 {categoryBackgroundColors[
 			word.usage_category
 		]}"
 	></span>

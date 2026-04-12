@@ -1,5 +1,5 @@
 import type { Language, Word } from '@kulupu-linku/sona';
-import type { Book, UsageCategory } from '@kulupu-linku/sona/utils';
+import type { UsageCategory } from '@kulupu-linku/sona/utils';
 
 export const normalize = (str: string) =>
 	str
@@ -16,7 +16,7 @@ export const usageCategories = [
 	'sandbox'
 ] as const satisfies UsageCategory[];
 
-export const categoryColors: Record<UsageCategory, string> = {
+export const categoryBackgroundColors: Record<UsageCategory, string> = {
 	core: 'bg-emerald-400 darkish:bg-emerald-600',
 	common: 'bg-sky-400 darkish:bg-sky-600',
 	uncommon: 'bg-yellow-400 darkish:bg-yellow-600',
@@ -30,13 +30,6 @@ export const categoryTextColors: Record<UsageCategory, string> = {
 	uncommon: 'text-yellow-600 darkish:text-yellow-400',
 	obscure: 'text-fuchsia-600 darkish:text-fuchsia-400',
 	sandbox: 'text-gray-600 darkish:text-gray-300'
-};
-
-export const bookColors: Record<Book, string> = {
-	pu: categoryColors.core,
-	'ku suli': categoryColors.common,
-	'ku lili': categoryColors.uncommon,
-	none: categoryColors.obscure
 };
 
 export const categoryIndex = Object.fromEntries(

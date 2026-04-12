@@ -2,7 +2,7 @@
 	import Link from '$lib/components/Link.svelte';
 	import Meta from '$lib/components/Meta.svelte';
 
-	let pona = $state(true);
+	let pona = $state(false);
 
 	const t = (tokiPona: string, english: string) =>
 		pona ? tokiPona : english;
@@ -16,13 +16,13 @@
 />
 
 <div class="flex items-baseline justify-between">
-	<h1 class="text-4xl">{t('sona poka', 'about')}</h1>
+	<h1 class="text-2xl">{t('sona poka', 'about')}</h1>
 	<button class="interactable px-2 py-1" onclick={() => (pona = !pona)}>
 		{t('use English', 'o toki pona')}
 	</button>
 </div>
 
-<div class="mt-4 grid gap-2 leading-relaxed md:grid-cols-2">
+<div class="mt-2 grid gap-2 leading-relaxed md:grid-cols-2">
 	<div class="box">
 		<h2>{t('mi', 'me')}</h2>
 
@@ -44,7 +44,7 @@
 	</div>
 
 	<div class="box">
-		<h2>{t('ilo pali', 'tools')}</h2>
+		<h2>{t('ilo', 'tools')}</h2>
 
 		<p>
 			{t('mi pali e lipu ni kepeken ilo', 'This website was built with')}
@@ -56,12 +56,19 @@
 				' kepeken ilo',
 				', and'
 			)}
-			<Link href="https://tailwindcss.com">TailwindCSS</Link>.
+			<Link href="https://tailwindcss.com">TailwindCSS</Link>{t(
+				'. ilo',
+				". It's hosted on"
+			)}
+			<Link href="https://cloudflare.com">Cloudflare</Link>{t(
+				' li pana e lipu tawa sina.',
+				'.'
+			)}
 		</p>
 	</div>
 
 	<div class="box">
-		<h2>{t('tan sona', 'sources')}</h2>
+		<h2>{t('tan', 'sources')}</h2>
 
 		<p>
 			{t('ilo pona mute li ken e lipu ni. pali', '')}

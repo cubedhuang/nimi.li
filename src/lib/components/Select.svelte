@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { flyAndScale } from '$lib/transitions';
 	import { Select } from 'bits-ui';
+	import type { Component } from 'svelte';
 
 	interface Props {
 		options: {
@@ -8,6 +9,7 @@
 			value: string;
 		}[];
 		name: string;
+		Icon: Component;
 		value: string;
 		class?: string;
 		onchange?: (value: string) => void;
@@ -16,13 +18,14 @@
 	let {
 		options,
 		name,
+		Icon,
 		value = $bindable(),
 		class: className = '',
 		onchange
 	}: Props = $props();
 </script>
 
-<div class="{className} relative">
+<div class="{className} relative text-sm">
 	<Select.Root
 		type="single"
 		bind:value
@@ -31,11 +34,13 @@
 		{name}
 	>
 		<Select.Trigger
-			class="flex w-full interactable items-center gap-2 px-2 py-0.5 text-ellipsis"
+			class="flex w-full interactable items-center px-2 py-0.5 text-ellipsis"
 			aria-label={name}
 		>
+			<Icon />
+
 			<span
-				class="flex-1 overflow-hidden text-left overflow-ellipsis whitespace-nowrap"
+				class="ml-1 flex-1 overflow-hidden text-left overflow-ellipsis whitespace-nowrap"
 			>
 				{options.find((option) => option.value === value)?.label || ''}
 			</span>

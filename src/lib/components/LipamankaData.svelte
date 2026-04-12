@@ -19,6 +19,16 @@
 			: `https://lipamanka.gay/essays/dictionary#${word.word}`
 	);
 
+	let expanded = $state(false);
+	let expandable = $state(false);
+	let contentDiv = $state<HTMLDivElement>(null!);
+
+	$effect(() => {
+		if (contentDiv) {
+			expandable = contentDiv.scrollHeight > contentDiv.clientHeight;
+		}
+	});
+
 	const fixLinks: Action<HTMLDivElement> = (node) => {
 		const update = () => {
 			for (const a of node.getElementsByTagName('a')) {
@@ -59,10 +69,25 @@
 	</a>
 </h3>
 
-<div class:mt-1={space} class="lipamanka grid text-sm" use:fixLinks>
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-	{@html content}
+<div class:mt-1={space} class="lipamanka text-sm" use:fixLinks>
+	<div class:line-clamp-6={!expanded} bind:this={contentDiv}>
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+		{@html content}
+	</div>
 </div>
+
+{#if expandable || expanded}
+	<button
+		class="cursor-pointer rounded-sm text-sm text-muted underline decoration-transparent underline-offset-2 outline-hidden outline-offset-4 transition focus-visible:outline-contrast hv:decoration-current"
+		onclick={() => (expanded = !expanded)}
+	>
+		{#if expanded}
+			show less
+		{:else}
+			read more
+		{/if}
+	</button>
+{/if}
 
 <style lang="postcss">
 	@reference '../../styles/app.css';

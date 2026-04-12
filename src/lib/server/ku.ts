@@ -1,10 +1,6 @@
-import { json } from '@sveltejs/kit';
-import { dev } from '$app/environment';
 import type { Compound, CompoundData } from '$lib/types';
 
 import glyphs from './glyphs.json';
-
-export const prerender = true;
 
 function parseData(raw: string): CompoundData {
 	const regex = /^(.+?): \["?(.+?)"?\]/gm;
@@ -51,11 +47,7 @@ function parseData(raw: string): CompoundData {
 	);
 }
 
-export async function GET({ fetch, setHeaders }) {
-	if (dev) {
-		process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-	}
-
+export async function fetchKu({ fetch }: { fetch: typeof globalThis.fetch }) {
 	const pages = [
 		'https://tokipona.org/compounds.txt',
 		'https://tokipona.org/nimi_pu.txt',
@@ -81,7 +73,5 @@ export async function GET({ fetch, setHeaders }) {
 		return acc;
 	}, {});
 
-	setHeaders({ 'Cache-Control': 's-maxage=31536000' });
-
-	return json(data);
+	return data;
 }

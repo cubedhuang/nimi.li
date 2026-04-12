@@ -37,7 +37,7 @@
 	keywords={[word.word]}
 />
 
-<div class="flex flex-wrap items-center gap-1">
+<div class="flex flex-wrap items-end gap-1">
 	<h1 class="mr-auto text-4xl">{word.word}</h1>
 
 	<div class="flex gap-1">
@@ -178,7 +178,7 @@
 	</div>
 {/if}
 
-<div class="mt-6 grid gap-2 sm:grid-cols-2">
+<div class="mt-2 grid gap-2 sm:grid-cols-2">
 	<div class="box">
 		<h2 class="text-lg">meaning</h2>
 		<p class="mt-1">
@@ -197,9 +197,11 @@
 		{/if}
 
 		{#if data.lipamanka}
-			<div class="mt-4">
-				<LipamankaData {word} content={data.lipamanka} space />
-			</div>
+			{#key data.lipamanka}
+				<div class="mt-4">
+					<LipamankaData {word} content={data.lipamanka} space />
+				</div>
+			{/key}
 		{/if}
 
 		{#if word.pu_verbatim?.en}

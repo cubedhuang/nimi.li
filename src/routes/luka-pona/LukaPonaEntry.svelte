@@ -75,7 +75,7 @@
 		e.preventDefault();
 		onclick?.();
 	}}
-	class="group rounded-md text-left outline-offset-2 outline-accent focus-visible:outline-2"
+	class="group rounded-lg text-left outline-offset-2 outline-accent focus-visible:outline-2"
 	onmouseenter={handleEnter}
 	onmouseleave={handleLeave}
 	onfocus={handleEnter}

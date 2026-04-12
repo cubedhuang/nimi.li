@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment';
 
 	import { outclick } from '$lib/actions/outclick';
+	import PaintBrushIconMini from '$lib/components/icons/PaintBrushIconMini.svelte';
 	import { persisted } from '$lib/stores';
 	import { flyAndScale } from '$lib/transitions';
 
@@ -20,34 +21,21 @@
 	});
 </script>
 
-<div class="relative" use:outclick onoutclick={() => (opened = false)}>
+<div class="popover-container" use:outclick onoutclick={() => (opened = false)}>
 	<button
 		onclick={() => {
 			opened = !opened;
 		}}
-		class="cursor-pointer nav-item-interactive"
+		class="nav-icon-button"
 		aria-label="set color theme and font"
 	>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
-			viewBox="0 0 24 24"
-			stroke-width="1.5"
-			stroke="currentColor"
-			class="size-6"
-		>
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z"
-			/>
-		</svg>
+		<PaintBrushIconMini />
 	</button>
 
 	{#if opened}
 		<div
 			transition:flyAndScale={{ x: 4, y: -8 }}
-			class="absolute top-full right-0 z-50 mt-2 w-max rounded-lg border-2 bg-card p-4 shadow-md"
+			class="anchor-top-right absolute z-50 mt-2 w-max rounded-lg border-2 bg-card p-4 shadow-md"
 		>
 			<div class="flex justify-between">
 				<SystemOption
@@ -102,7 +90,7 @@
 				</div>
 			</div>
 
-			<div class="mt-2 grid gap-1">
+			<div class="mt-2 grid gap-1 text-sm">
 				<FontOption value="font-sans" name="Inter" />
 				<FontOption
 					value="font-atkinson"
@@ -116,3 +104,18 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	@supports not (top: anchor(bottom)) {
+		.popover-container {
+			position: relative;
+		}
+	}
+	.anchor-top-right {
+		position-anchor: --nav;
+		top: 100%;
+		right: 0;
+		top: calc(anchor(bottom) + var(--spacing) * 2);
+		right: anchor(right);
+	}
+</style>

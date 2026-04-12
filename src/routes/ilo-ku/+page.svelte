@@ -69,7 +69,7 @@
 	keywords={['compounds', 'ku', 'ilo ku', 'compound expressions']}
 />
 
-<h1 class="text-4xl">ilo ku</h1>
+<h1 class="text-2xl">ilo ku</h1>
 
 <p class="mt-2">
 	<b>ilo ku</b> lets you explore the
@@ -98,13 +98,14 @@
 	</footer>
 </blockquote>
 
-<p class="text-muted">
-	{filteredCompounds.length} / {compounds.length}
-</p>
+<Search
+	placeholder="o alasa..."
+	bind:value={search}
+	count={filteredCompounds.length}
+	total={compounds.length}
+/>
 
-<Search placeholder="o alasa..." bind:value={search} />
-
-<div class="mt-4 grid grid-cols-fill-64 gap-2">
+<div class="grid grid-cols-fill-64 gap-2">
 	{#each filteredCompounds as compound (compound.compound)}
 		<CompoundSpace
 			{compound}

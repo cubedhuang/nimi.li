@@ -65,7 +65,7 @@
 	</a>
 
 	<span class="text-xs text-muted">
-		<span class={categoryTextColors[word.usage_category]}>
+		<span class="font-bold {categoryTextColors[word.usage_category]}">
 			{getWordDisplayRecognition(word)}
 		</span>
 
