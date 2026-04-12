@@ -2,8 +2,25 @@ import { client } from '@kulupu-linku/sona/client';
 import { PUBLIC_BASE_URL } from '$env/static/public';
 import { error } from '@sveltejs/kit';
 import { fetchKu } from './ku';
+import type { Response as CfResponse } from '@cloudflare/workers-types';
+
+const CACHE_PREFIX = 'https://nimi.li/_cache/';
 
 type Cached<T> = { data: T; lastUpdated: number };
+
+async function putCache(
+	platform: App.Platform,
+	cacheKey: string,
+	data: unknown
+) {
+	const response = new Response(JSON.stringify(data), {
+		headers: {
+			'Content-Type': 'application/json',
+			'Cache-Control': 's-maxage=3600'
+		}
+	}) as unknown as CfResponse;
+	await platform.caches.default.put(cacheKey, response);
+}
 
 async function makeCachedRequest<T>(
 	platform: App.Platform | undefined,
@@ -13,32 +30,47 @@ async function makeCachedRequest<T>(
 	if (!platform) {
 		return await fetchData();
 	}
-	const kv = platform.env.CACHE_KV;
 
-	const cached = (await kv.get(key, 'json')) as Cached<T> | null;
+	const cache = platform.caches.default;
+	const cacheKey = `${CACHE_PREFIX}${key}`;
+	const cached = await cache.match(cacheKey);
+	if (cached) {
+		return cached.json() as Promise<T>;
+	}
+
+	const kv = platform.env.CACHE_KV;
+	const kvCached = (await kv.get(key, 'json')) as Cached<T> | null;
 
 	const oneHour = 60 * 60 * 1000;
-	const isStale = !cached || Date.now() - cached.lastUpdated > oneHour;
+	const isStale = !kvCached || Date.now() - kvCached.lastUpdated > oneHour;
 
-	if (!isStale) return cached.data;
+	if (!isStale) {
+		platform.context.waitUntil(putCache(platform, cacheKey, kvCached.data));
+		return kvCached.data;
+	}
 
-	const refresh = fetchData().then((data) =>
-		kv.put(
-			key,
-			JSON.stringify({
-				data,
-				lastUpdated: Date.now()
-			} satisfies Cached<T>)
-		)
-	);
+	let fetchedData: T;
+	const refresh = fetchData().then(async (data) => {
+		fetchedData = data;
+		await Promise.all([
+			putCache(platform, cacheKey, data),
+			kv.put(
+				key,
+				JSON.stringify({
+					data,
+					lastUpdated: Date.now()
+				} satisfies Cached<T>)
+			)
+		]);
+	});
 
-	if (cached) {
+	if (kvCached) {
 		platform.context.waitUntil(refresh);
-		return cached.data;
+		return kvCached.data;
 	}
 
 	await refresh;
-	return ((await kv.get(key, 'json')) as Cached<T>).data;
+	return fetchedData!;
 }
 
 type RequestEvent = {

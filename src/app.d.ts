@@ -17,5 +17,6 @@ declare namespace App {
 			CACHE_KV: import('@cloudflare/workers-types').KVNamespace;
 		};
 		context: import('@cloudflare/workers-types').ExecutionContext;
+		caches: import('@cloudflare/workers-types').CacheStorage;
 	}
 }
