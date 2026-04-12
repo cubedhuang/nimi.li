@@ -104,7 +104,7 @@
 	total={genericFilteredWords.length}
 />
 
-<div class="mb-2 flex flex-wrap gap-2">
+<div class="mb-4 flex flex-wrap gap-2">
 	{#if !isSandbox}
 		<div
 			use:outclick

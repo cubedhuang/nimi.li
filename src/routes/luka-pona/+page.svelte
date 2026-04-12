@@ -88,7 +88,7 @@
 	/>
 </div>
 
-<div class="mt-2 grid grid-cols-fill-64 gap-2">
+<div class="mt-4 grid grid-cols-fill-64 gap-2">
 	{#each filteredSigns as signData (signData.id)}
 		<LukaPonaEntry
 			{signData}
