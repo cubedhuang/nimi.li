@@ -122,7 +122,7 @@
 </div>
 
 {#if word.usage_category === 'obscure' || word.usage_category === 'sandbox'}
-	<div class="mt-4 -mb-2 flex items-baseline gap-2">
+	<div class="mt-2 flex items-baseline gap-2">
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 16 16"
@@ -152,10 +152,10 @@
 
 {#if word.deprecated}
 	<div
-		class="-mb-2 flex items-baseline gap-2
+		class="flex items-baseline gap-2
 			{word.usage_category === 'obscure' || word.usage_category === 'sandbox'
-			? 'mt-3'
-			: 'mt-4'}"
+			? 'mt-1'
+			: 'mt-2'}"
 	>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
