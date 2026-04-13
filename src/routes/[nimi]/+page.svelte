@@ -38,7 +38,7 @@
 />
 
 <div class="flex flex-wrap items-end gap-1">
-	<h1 class="mr-auto text-4xl">{word.word}</h1>
+	<h1 class="mr-auto text-3xl">{word.word}</h1>
 
 	<div class="flex gap-1">
 		{#if word.resources?.sona_pona}
