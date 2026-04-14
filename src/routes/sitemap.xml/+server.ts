@@ -1,15 +1,12 @@
 import type { Word } from '@kulupu-linku/sona';
 import type { UsageCategory } from '@kulupu-linku/sona/utils';
 import { text } from '@sveltejs/kit';
-import { getWords } from '$lib/server/fetch.js';
-import type { CompoundData } from '$lib/types.js';
+import { getKu, getWords } from '$lib/server/fetch.js';
 
 export async function GET({ fetch, platform }) {
 	const [words, compounds] = [
 		getWords({ fetch, platform, lang: 'en' }),
-		(await fetch('/internal/api/nimi-ku').then((res) =>
-			res.json()
-		)) as CompoundData
+		getKu({ fetch, platform })
 	];
 
 	return text(render(Object.values(words), Object.keys(compounds)), {
