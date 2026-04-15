@@ -4,10 +4,10 @@ import { text } from '@sveltejs/kit';
 import { getKu, getWords } from '$lib/server/fetch.js';
 
 export async function GET({ fetch, platform }) {
-	const [words, compounds] = [
+	const [words, compounds] = await Promise.all([
 		getWords({ fetch, platform, lang: 'en' }),
 		getKu({ fetch, platform })
-	];
+	]);
 
 	return text(render(Object.values(words), Object.keys(compounds)), {
 		headers: {
@@ -20,8 +20,8 @@ const priorities: Record<UsageCategory, number> = {
 	core: 0.8,
 	common: 0.6,
 	uncommon: 0.4,
-	obscure: 0.3,
-	sandbox: 0.2
+	obscure: 0.2,
+	sandbox: 0.1
 };
 
 const render = (words: Word[], compounds: string[]) =>
