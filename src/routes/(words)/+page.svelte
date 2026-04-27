@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { categories, sortingMethod } from '$lib/stores';
 
+	import Link from '$lib/components/Link.svelte';
 	import Meta from '$lib/components/Meta.svelte';
 	import WordView from '$lib/components/WordView.svelte';
 	import { Book } from '@kulupu-linku/sona/utils';
@@ -26,8 +27,11 @@
 <h1 class="text-2xl">dictionary</h1>
 
 <p class="mt-2 mb-4">
-	<b>nimi.li</b> is an interactive dictionary for Toki Pona. Click on a word to
-	read more!
+	<b>nimi.li</b> is an interactive dictionary for <Link
+		href="https://tokipona.net"
+	>
+		Toki Pona
+	</Link>. Click on a word to read more!
 </p>
 
 <WordView

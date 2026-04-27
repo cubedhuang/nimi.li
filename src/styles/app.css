@@ -239,7 +239,7 @@
 }
 
 @utility link {
-	@apply rounded-sm text-accent underline decoration-transparent underline-offset-4 outline-hidden outline-2 outline-offset-4 outline-accent transition-colors focus-visible:outline-solid hv:decoration-current;
+	@apply text-accent underline decoration-transparent underline-offset-2 outline-hidden outline-2 outline-offset-4 outline-accent transition-colors focus-visible:outline-solid hv:decoration-current;
 }
 
 @utility nav-icon-button {
