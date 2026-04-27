@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
 	import { outclick } from '$lib/actions/outclick';
 	import PaintBrushIconMini from '$lib/components/icons/PaintBrushIconMini.svelte';
@@ -10,13 +10,16 @@
 	import SystemOption from './SystemOption.svelte';
 	import ThemeOption from './ThemeOption.svelte';
 
-	const firstTime = persisted('first-time', browser);
+	const nthTime = persisted('nth-time', 0);
 	let opened = $state(false);
 
+	onMount(() => {
+		$nthTime += 1;
+	});
+
 	$effect(() => {
-		if ($firstTime) {
+		if ($nthTime === 2) {
 			opened = true;
-			$firstTime = false;
 		}
 	});
 </script>
