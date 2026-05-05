@@ -66,6 +66,7 @@
 
 		<input
 			type="search"
+			autocapitalize="off"
 			{placeholder}
 			bind:value
 			bind:this={searchBar}
