@@ -4,8 +4,8 @@
 	@font-face {
 		font-family: 'ssk';
 		src:
-			url('/fonts/sitelenselikiwenmonoasuki1.woff2') format('woff2'),
-			url('/fonts/sitelenselikiwenmonoasuki1.woff') format('woff');
+			url('/fonts/sitelenselikiwenmonoasuki.woff2') format('woff2'),
+			url('/fonts/sitelenselikiwenmonoasuki.woff') format('woff');
 		font-weight: normal;
 		font-style: normal;
 		font-display: swap;
