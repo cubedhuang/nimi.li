@@ -1,7 +1,11 @@
 <script lang="ts">
 	import type { Word } from '@kulupu-linku/sona';
 
-	import { categoryTextColors, getWordDisplayRecognition } from '$lib/util';
+	import {
+		categoryTextColors,
+		getWordDisplayRecognition,
+		getWordRecognition
+	} from '$lib/util';
 	import { sitelenMode } from '$lib/stores';
 	import { resolve } from '$app/paths';
 
@@ -63,12 +67,16 @@
 		</a>
 
 		<span class="text-xs text-muted">
-			<span class="font-bold {categoryTextColors[word.usage_category]}">
-				{getWordDisplayRecognition(word)}
-			</span>
+			{#if getWordRecognition(word) !== -1}
+				<span
+					class="font-bold {categoryTextColors[word.usage_category]}"
+				>
+					{getWordDisplayRecognition(word)}
+				</span>
+			{/if}
 
-			{#if word.book !== 'none'}
-				{word.book}
+			{#if word.usage_category !== 'sandbox'}
+				{word.usage_category}
 			{/if}
 		</span>
 

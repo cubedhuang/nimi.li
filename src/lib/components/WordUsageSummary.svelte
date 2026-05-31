@@ -16,12 +16,6 @@
 {/if}
 {#if displayRecognition !== 'unknown'}
 	{getWordDisplayRecognition(word)}
-	{#if word.book !== 'none' || word.creation_date}
-		&middot;
-	{/if}
-{/if}
-{#if word.book !== 'none'}
-	{word.book}
 	{#if word.creation_date}
 		&middot;
 	{/if}

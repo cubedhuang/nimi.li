@@ -68,11 +68,8 @@
 		<span class="font-bold {categoryTextColors[word.usage_category]}">
 			{getWordDisplayRecognition(word)}
 		</span>
-
-		{#if word.book !== 'none'}
-			&middot;
-			{word.book}
-		{/if}
+		&middot;
+		{word.usage_category}
 	</span>
 
 	<p class="line-clamp-4 text-center text-xs leading-tight">

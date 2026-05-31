@@ -206,7 +206,7 @@
 
 		{#if word.pu_verbatim?.en}
 			<h2 class="mt-4 mb-1 flex items-center text-lg">
-				pu verbatim
+				pu definition
 				<a
 					class="icon-interactable"
 					href="https://sona.pona.la/wiki/Toki_Pona:_The_Language_of_Good"
