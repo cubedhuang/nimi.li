@@ -6,7 +6,7 @@
 	import { persisted } from '$lib/stores';
 	import { flyAndScale } from '$lib/transitions';
 
-	const isBannerShown = persisted('survey-2025-shown', browser);
+	const isBannerShown = persisted('survey-2026-shown', browser);
 
 	let opened = $state(false);
 </script>
@@ -17,7 +17,7 @@
 		class="full flex justify-between gap-2 border-b-2 border-secondary-border bg-secondary px-4 py-4 pt-5 text-sm text-secondary-foreground sm:px-8"
 	>
 		<p>
-			The 2025 Linku
+			The 2026 Linku
 			<a
 				href="https://linku.la/wile"
 				target="_blank"
@@ -38,14 +38,14 @@
 					/>
 				</svg>
 			</a>
-			and new
+			and
 			<a
 				href="https://linku.la/wile-glyphs"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="items-center link"
 			>
-				<i>sitelen pona</i> glyph survey<svg
+				<i>sitelen pona</i> glyph usage survey<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 16 16"
 					fill="currentColor"

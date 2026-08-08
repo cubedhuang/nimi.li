@@ -16,7 +16,7 @@
 	import { flyAndScale } from '$lib/transitions';
 
 	import SelectLanguage from '$lib/components/SelectLanguage.svelte';
-	// import SurveyBanner from './SurveyBanner.svelte';
+	import SurveyBanner from './SurveyBanner.svelte';
 	import ThemeSelector from './ThemeSelector.svelte';
 	import ArrowsPointingInIconMini from '$lib/components/icons/ArrowsPointingInIconMini.svelte';
 	import ArrowsPointingOutIconMini from '$lib/components/icons/ArrowsPointingOutIconMini.svelte';
@@ -86,7 +86,7 @@
 </script>
 
 <div class="content" class:fullscreen={$screenWidth === 'full'}>
-	<!-- <SurveyBanner /> -->
+	<SurveyBanner />
 
 	<div
 		class="content full"
