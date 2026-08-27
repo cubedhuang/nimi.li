@@ -20,6 +20,7 @@
 	import Wikipedia from '$lib/components/icons/Wikipedia.svelte';
 	import WordEtymology from '$lib/components/WordEtymology.svelte';
 	import { resolve } from '$app/paths';
+	import GlyphInfo from '$lib/components/GlyphInfo.svelte';
 
 	const { data } = $props();
 
@@ -392,22 +393,19 @@
 	</div>
 
 	<div
-		class:box={word.representations?.ligatures?.length ||
+		class:box={data.glyphs.length ||
+			word.representations?.ligatures?.length ||
 			word.representations?.ucsur}
 	>
-		{#if word.representations?.ligatures?.length}
+		{#if data.glyphs.length}
+			<h2 class="mb-2 text-lg">sitelen pona</h2>
+			<GlyphInfo glyphs={data.glyphs} showSandbox />
+		{:else if word.representations?.ligatures?.length}
 			<h2 class="text-lg">sitelen pona</h2>
 
 			<span class="mt-1 font-pona text-7xl">
 				{word.representations.ligatures.join(' ')}
 			</span>
-
-			<!-- TODO: glyph info -->
-			<!-- {#if translation.sp_etymology}
-				<p class="text-muted">
-					{translation.sp_etymology}
-				</p>
-			{/if} -->
 		{/if}
 
 		{#if word.representations?.sitelen_sitelen}
@@ -437,12 +435,7 @@
 		{/if}
 
 		{#if word.representations?.ucsur}
-			<h2
-				class="text-lg"
-				class:mt-4={word.representations.ligatures?.length}
-			>
-				ucsur
-			</h2>
+			<h2 class="mt-4 text-lg">ucsur</h2>
 
 			<p class="mt-1 flex items-center gap-2">
 				{word.representations.ucsur}

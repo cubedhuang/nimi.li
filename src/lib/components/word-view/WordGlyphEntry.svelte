@@ -1,17 +1,21 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 
-	import type { Word } from '@kulupu-linku/sona';
+	import type { Glyph, Word } from '@kulupu-linku/sona';
 
 	import { categoryTextColors, getWordDisplayRecognition } from '$lib/util';
 	import { sitelenMode } from '$lib/stores';
+	import { getShownGlyphs } from './getShownGlyphs';
 
 	interface Props {
 		word: Word;
+		glyphs: Glyph[] | undefined;
 		onclick?: () => void;
 	}
 
-	const { word, onclick }: Props = $props();
+	const { word, glyphs, onclick }: Props = $props();
+
+	const shownGlyphs = $derived(getShownGlyphs(word, glyphs));
 </script>
 
 <div class="flex flex-col items-center" id={word.id}>
@@ -26,12 +30,22 @@
 		class="group text-center"
 	>
 		{#if $sitelenMode === 'pona'}
-			{#if word.representations?.ligatures?.length}
+			{#if shownGlyphs?.length}
+				<p class="flex justify-center py-1">
+					{#each shownGlyphs as glyph (glyph.id)}
+						<img
+							src={glyph.svg}
+							alt={glyph.id}
+							class="h-10 w-10 invertible"
+						/>
+					{/each}
+				</p>
+			{:else if word.representations?.ligatures?.length}
 				<p class="font-pona text-5xl whitespace-nowrap">
 					{word.representations.ligatures.slice(0, 3).join(' ')}
 				</p>
 			{:else}
-				<span class="h-12"></span>
+				<div class="h-12"></div>
 			{/if}
 		{:else if $sitelenMode === 'sitelen'}
 			{#if word.representations?.sitelen_sitelen}

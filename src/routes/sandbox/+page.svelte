@@ -33,7 +33,8 @@
 </p>
 
 <WordView
-	bind:words
+	{words}
+	glyphs={data.glyphs}
 	revealWord={(referred) => {
 		if (!words.some((word) => word.word === referred)) {
 			goto(resolve(`/${referred}`));

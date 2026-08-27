@@ -59,11 +59,13 @@ export function sortLanguages(languages: Record<string, Language>) {
 	}));
 }
 
-export function getWordRecognition(word: Word) {
+export function getWordRecognition(word: { usage: Record<string, number> }) {
 	return word.usage['2025-09'] ?? -1;
 }
 
-export function getWordDisplayRecognition(word: Word) {
+export function getWordDisplayRecognition(word: {
+	usage: Record<string, number>;
+}) {
 	const recognition = getWordRecognition(word);
 	if (recognition === -1) return 'unknown';
 	return `${recognition}%`;

@@ -37,6 +37,7 @@
 <WordView
 	bind:search
 	words={Object.values(data.words)}
+	glyphs={data.glyphs}
 	bind:books
 	lipamanka={data.lipamanka}
 	bind:sortingMethod={$sortingMethod}

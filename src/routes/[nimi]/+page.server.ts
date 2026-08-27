@@ -1,22 +1,31 @@
 import { error } from '@sveltejs/kit';
 import {
+	getGlyphs,
 	getLipamanka,
 	getLukaPonaSigns,
+	getSandboxGlyphs,
 	getSandboxWords,
 	getWords
 } from '$lib/server/fetch.js';
-import { combinedWordSort } from '$lib/util';
+import { combinedWordSort, getWordRecognition } from '$lib/util';
 import { distance } from 'fastest-levenshtein';
 
 export async function load({ fetch, locals, params, platform, setHeaders }) {
-	const [wordData, lukaPona, lipamanka] = await Promise.all([
-		getWords({ fetch, platform, lang: locals.lang }),
-		getLukaPonaSigns({ fetch, platform, lang: locals.lang }),
-		getLipamanka({ fetch, platform })
-	]);
+	const [wordData, glyphs, sandboxGlyphs, lukaPona, lipamanka] =
+		await Promise.all([
+			getWords({ fetch, platform, lang: locals.lang }),
+			getGlyphs({ fetch, platform, lang: locals.lang }),
+			getSandboxGlyphs({ fetch, platform, lang: locals.lang }),
+			getLukaPonaSigns({ fetch, platform, lang: locals.lang }),
+			getLipamanka({ fetch, platform })
+		]);
 
 	const word = wordData[params.nimi];
 	const words = Object.values(wordData);
+	const wordGlyphs = Object.values(glyphs)
+		.concat(Object.values(sandboxGlyphs))
+		.filter((glyph) => glyph.word_id === params.nimi)
+		.sort((a, b) => getWordRecognition(b) - getWordRecognition(a));
 
 	if (!word) {
 		const sandbox = await getSandboxWords({
@@ -34,6 +43,7 @@ export async function load({ fetch, locals, params, platform, setHeaders }) {
 
 			return {
 				word: sandboxWord,
+				glyphs: wordGlyphs,
 				next:
 					index === sandboxWords.length - 1
 						? undefined
@@ -73,6 +83,7 @@ export async function load({ fetch, locals, params, platform, setHeaders }) {
 
 	return {
 		word,
+		glyphs: wordGlyphs,
 		signs: Object.values(lukaPona).filter(
 			(word) => params.nimi === word.definition
 		),

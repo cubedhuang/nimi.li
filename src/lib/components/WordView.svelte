@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { tick } from 'svelte';
-	import type { Word } from '@kulupu-linku/sona';
+	import type { Glyph, Word } from '@kulupu-linku/sona';
 
 	import { focusFirstElement } from '$lib/actions/focusFirstElement';
 	import { filter } from '$lib/search';
@@ -37,6 +37,7 @@
 	interface Props {
 		search?: string;
 		words: Word[];
+		glyphs: Record<string, Glyph[]>;
 		books?: { name: Book; shown: boolean }[];
 		lipamanka?: Record<string, string>;
 		sortingMethod?: SortingMethod;
@@ -46,7 +47,8 @@
 
 	let {
 		search = $bindable(''),
-		words = $bindable(),
+		words,
+		glyphs,
 		books = $bindable(),
 		lipamanka,
 		sortingMethod = $bindable('alphabetical'),
@@ -258,25 +260,41 @@
 {#if $viewMode === 'compact'}
 	<div class="grid">
 		{#each filteredWords as word (word.id)}
-			<WordEntry {word} onclick={() => selectWord(word)} />
+			<WordEntry
+				{word}
+				glyphs={glyphs[word.id]}
+				onclick={() => selectWord(word)}
+			/>
 		{/each}
 	</div>
 {:else if $viewMode === 'glyphs'}
 	<div class="grid grid-cols-fill-28 gap-1">
 		{#each filteredWords as word (word.id)}
-			<WordGlyphEntry {word} onclick={() => selectWord(word)} />
+			<WordGlyphEntry
+				{word}
+				glyphs={glyphs[word.id]}
+				onclick={() => selectWord(word)}
+			/>
 		{/each}
 	</div>
 {:else if $viewMode === 'detailed'}
 	<div class="grid grid-cols-fill-96 gap-2">
 		{#each filteredWords as word (word.id)}
-			<WordSpaceDetailed {word} onclick={() => selectWord(word)} />
+			<WordSpaceDetailed
+				{word}
+				glyphs={glyphs[word.id]}
+				onclick={() => selectWord(word)}
+			/>
 		{/each}
 	</div>
 {:else}
 	<div class="grid grid-cols-fill-64 gap-2">
 		{#each filteredWords as word (word.id)}
-			<WordSpace {word} onclick={() => selectWord(word)} />
+			<WordSpace
+				{word}
+				glyphs={glyphs[word.id]}
+				onclick={() => selectWord(word)}
+			/>
 		{/each}
 	</div>
 {/if}
@@ -288,6 +306,7 @@
 
 <WordDetails
 	bind:word={selectedWord}
+	glyphs={glyphs[selectedWord?.id ?? '']}
 	lipamanka={lipamanka?.[selectedWord?.id ?? '']}
 	onrefer={(referred) => {
 		if (!filteredWords.some((word) => word.id === referred)) {

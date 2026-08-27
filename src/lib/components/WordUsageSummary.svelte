@@ -15,7 +15,7 @@
 	{word.usage_category} &middot;
 {/if}
 {#if displayRecognition !== 'unknown'}
-	{getWordDisplayRecognition(word)}
+	{displayRecognition}
 	{#if word.creation_date}
 		&middot;
 	{/if}

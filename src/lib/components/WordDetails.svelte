@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Word } from '@kulupu-linku/sona';
+	import type { Glyph, Word } from '@kulupu-linku/sona';
 
 	import {
 		categoryBackgroundColors,
@@ -19,9 +19,11 @@
 	import WordUsageSummary from './WordUsageSummary.svelte';
 	import XMark from '$lib/components/icons/XMark.svelte';
 	import { resolve } from '$app/paths';
+	import GlyphInfo from './GlyphInfo.svelte';
 
 	interface Props {
 		word: Word | null;
+		glyphs: Glyph[] | undefined;
 		lipamanka?: string;
 		onrefer: (word: string) => void;
 		onclose: (word: string) => void;
@@ -29,6 +31,7 @@
 
 	let {
 		word: possibleWord = $bindable(),
+		glyphs,
 		lipamanka,
 		onrefer,
 		onclose
@@ -230,19 +233,20 @@
 
 		<WordEtymology {word} />
 
-		{#if word.representations?.ligatures?.length}
+		{#if glyphs?.length}
+			<h3 class="mt-2 mb-1 text-lg">sitelen pona</h3>
+			<GlyphInfo
+				{glyphs}
+				showSandbox={word.usage_category === 'sandbox' ||
+					glyphs[0].usage_category === 'obscure' ||
+					glyphs[0].usage_category === 'sandbox'}
+			/>
+		{:else if word.representations?.ligatures?.length}
 			<h3 class="mt-2 text-lg">sitelen pona</h3>
 
 			<span class="font-pona text-4xl">
 				{word.representations.ligatures.join(' ')}
 			</span>
-
-			<!-- TODO: use glyph info -->
-			<!-- {#if wordtranslation.sp_etymology}
-				<p class="text-muted">
-					{wordtranslation.sp_etymology}
-				</p>
-			{/if} -->
 		{/if}
 
 		{#if word.representations?.sitelen_sitelen}

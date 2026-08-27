@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Word } from '@kulupu-linku/sona';
+	import type { Glyph, Word } from '@kulupu-linku/sona';
 
 	import { categoryBackgroundColors } from '$lib/util';
 	import { sitelenMode } from '$lib/stores';
@@ -7,18 +7,32 @@
 	import Space from '$lib/components/Space.svelte';
 	import WordUsageSummary from '../WordUsageSummary.svelte';
 	import { resolve } from '$app/paths';
+	import { getShownGlyphs } from './getShownGlyphs';
 
 	interface Props {
 		word: Word;
+		glyphs: Glyph[] | undefined;
 		onclick?: () => void;
 	}
 
-	const { word, onclick }: Props = $props();
+	const { word, glyphs, onclick }: Props = $props();
 </script>
 
 <Space href={resolve(`/${word.id}`)} {onclick} id={word.id}>
 	{#if $sitelenMode === 'pona'}
-		{#if word.representations?.ligatures?.length}
+		{#if glyphs?.length}
+			<div
+				class="float-right ml-2 flex flex-col items-end gap-2 text-right"
+			>
+				{#each getShownGlyphs(word, glyphs) as glyph (glyph.id)}
+					<img
+						src={glyph.svg}
+						alt={glyph.id}
+						class="h-8 w-8 invertible"
+					/>
+				{/each}
+			</div>
+		{:else if word.representations?.ligatures?.length}
 			<div class="float-right ml-2 flex flex-col items-end text-right">
 				{#each word.representations.ligatures as sitelen, i (i)}
 					<p class="font-pona text-4xl">{sitelen}</p>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Word } from '@kulupu-linku/sona';
+	import type { Glyph, Word } from '@kulupu-linku/sona';
 
 	import {
 		categoryBackgroundColors,
@@ -8,15 +8,18 @@
 	import { sitelenMode } from '$lib/stores';
 	import Space from '$lib/components/Space.svelte';
 	import { resolve } from '$app/paths';
+	import { getShownGlyphs } from './getShownGlyphs';
 
 	interface Props {
 		word: Word;
+		glyphs: Glyph[] | undefined;
 		onclick?: () => void;
 	}
 
-	const { word, onclick }: Props = $props();
+	const { word, glyphs, onclick }: Props = $props();
 
 	const displayRecognition = $derived(getWordDisplayRecognition(word));
+	const shownGlyphs = $derived(getShownGlyphs(word, glyphs));
 </script>
 
 <Space href={resolve(`/${word.id}`)} {onclick} id={word.id}>
@@ -63,11 +66,23 @@
 	</div>
 
 	<div class="mt-1 flex gap-2 text-center">
-		<div class="flex w-9 shrink-0 flex-col items-end text-right">
-			{#each word.representations?.ligatures ?? [] as sitelen, i (i)}
-				<p class="font-pona text-4xl">{sitelen}</p>
-			{/each}
-		</div>
+		{#if shownGlyphs?.length}
+			<div class="flex w-9 shrink-0 flex-col items-end gap-2 text-right">
+				{#each shownGlyphs ?? [] as glyph (glyph.id)}
+					<img
+						src={glyph.svg}
+						alt={glyph.id}
+						class="h-8 w-8 invertible"
+					/>
+				{/each}
+			</div>
+		{:else}
+			<div class="flex w-9 shrink-0 flex-col items-end text-right">
+				{#each word.representations?.ligatures ?? [] as sitelen, i (i)}
+					<p class="font-pona text-4xl">{sitelen}</p>
+				{/each}
+			</div>
+		{/if}
 
 		<div class="w-full">
 			<h2

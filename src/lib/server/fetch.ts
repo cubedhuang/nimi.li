@@ -114,6 +114,18 @@ export async function getSandboxWords({
 	);
 }
 
+export async function getSandboxGlyphs({
+	fetch,
+	platform,
+	lang
+}: RequestEvent & { lang: string }) {
+	return makeCachedRequest(platform, `sandbox_glyphs:${lang}`, () =>
+		client({ fetch, baseUrl: PUBLIC_BASE_URL })
+			.v2.sandbox.glyphs.$get({ query: { lang } })
+			.then((res) => res.json())
+	);
+}
+
 export async function getLukaPonaSigns({
 	fetch,
 	platform,

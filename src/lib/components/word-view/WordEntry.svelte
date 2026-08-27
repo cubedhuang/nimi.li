@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Word } from '@kulupu-linku/sona';
+	import type { Glyph, Word } from '@kulupu-linku/sona';
 
 	import {
 		categoryTextColors,
@@ -11,20 +11,27 @@
 
 	interface Props {
 		word: Word;
+		glyphs: Glyph[] | undefined;
 		onclick?: () => void;
 	}
 
-	const { word, onclick }: Props = $props();
+	const { word, glyphs, onclick }: Props = $props();
 </script>
 
 <p class="flex gap-1" id={word.id}>
 	{#if $sitelenMode === 'pona'}
-		{#if word.representations?.ligatures?.length}
-			<span class="w-5 shrink-0 font-pona text-xl">
+		{#if glyphs?.length}
+			<img
+				src={glyphs[0].svg}
+				alt={glyphs[0].id}
+				class="my-0.5 h-6 w-6 shrink-0 invertible"
+			/>
+		{:else if word.representations?.ligatures?.length}
+			<span class="h-6 w-6 shrink-0 text-center font-pona text-2xl">
 				{word.representations.ligatures[0]}
 			</span>
 		{:else}
-			<span class="w-5 shrink-0"></span>
+			<span class="h-6 w-6 shrink-0"></span>
 		{/if}
 	{:else if $sitelenMode === 'sitelen'}
 		{#if word.representations?.sitelen_sitelen}
@@ -34,22 +41,22 @@
 				class="my-0.5 h-6 w-6 shrink-0 invertible"
 			/>
 		{:else}
-			<span class="w-6 shrink-0"></span>
+			<span class="h-6 w-6 shrink-0"></span>
 		{/if}
 	{:else if $sitelenMode === 'jelo'}
 		{#if word.representations?.sitelen_jelo}
-			<span class="w-6 shrink-0 text-right text-xl">
+			<span class="h-6 w-6 shrink-0 text-right text-xl">
 				{word.representations.sitelen_jelo[0]}
 			</span>
 		{:else}
-			<span class="w-6 shrink-0"></span>
+			<span class="h-6 w-6 shrink-0"></span>
 		{/if}
 	{:else if word.representations?.sitelen_emosi}
-		<span class="w-6 shrink-0 text-right text-xl">
+		<span class="h-6 w-6 shrink-0 text-right text-xl">
 			{word.representations.sitelen_emosi}
 		</span>
 	{:else}
-		<span class="w-6 shrink-0"></span>
+		<span class="h-6 w-6 shrink-0"></span>
 	{/if}
 
 	<span class="mt-0.5 ml-0.5">
