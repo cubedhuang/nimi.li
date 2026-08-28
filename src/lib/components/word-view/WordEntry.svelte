@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Glyph, Word } from '@kulupu-linku/sona';
+	import type { ListGlyph, ListWord } from '$lib/types';
 
 	import {
 		categoryTextColors,
@@ -8,10 +8,11 @@
 	} from '$lib/util';
 	import { sitelenMode } from '$lib/stores';
 	import { resolve } from '$app/paths';
+	import { loadWordDetail } from '$lib/wordDetail';
 
 	interface Props {
-		word: Word;
-		glyphs: Glyph[] | undefined;
+		word: ListWord;
+		glyphs: ListGlyph[] | undefined;
 		onclick?: () => void;
 	}
 
@@ -24,6 +25,10 @@
 			<img
 				src={glyphs[0].svg}
 				alt={glyphs[0].id}
+				width="24"
+				height="24"
+				loading="lazy"
+				decoding="async"
 				class="my-0.5 h-6 w-6 shrink-0 invertible"
 			/>
 		{:else if word.representations?.ligatures?.length}
@@ -38,6 +43,10 @@
 			<img
 				src="/internal/api/ss/{word.word}"
 				alt="{word.word} sitelen sitelen"
+				width="24"
+				height="24"
+				loading="lazy"
+				decoding="async"
 				class="my-0.5 h-6 w-6 shrink-0 invertible"
 			/>
 		{:else}
@@ -68,6 +77,8 @@
 					onclick();
 				}
 			}}
+			onpointerdown={() => loadWordDetail(word.id)}
+			onfocus={() => loadWordDetail(word.id)}
 			class="font-bold transition hv:text-accent"
 		>
 			{word.word}

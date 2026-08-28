@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Word } from '@kulupu-linku/sona';
+	import type { ListWord } from '$lib/types';
 
 	interface Props {
-		word: Word;
+		word: ListWord;
 	}
 
 	const { word }: Props = $props();

@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Word } from '@kulupu-linku/sona';
+	import type { ListWord } from '$lib/types';
 
 	import { getWordDisplayRecognition } from '$lib/util';
 
 	interface Props {
-		word: Word;
+		word: ListWord;
 	}
 
 	const { word }: Props = $props();

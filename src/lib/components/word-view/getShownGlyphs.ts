@@ -1,6 +1,9 @@
-import type { Glyph, Word } from '@kulupu-linku/sona';
+import type { ListGlyph, ListWord } from '$lib/types';
 
-export function getShownGlyphs(word: Word, glyphs: Glyph[] | undefined) {
+export function getShownGlyphs(
+	word: ListWord,
+	glyphs: ListGlyph[] | undefined
+) {
 	if (!glyphs) return undefined;
 	return word.usage_category === 'sandbox' ||
 		glyphs[0].usage_category === 'obscure' ||

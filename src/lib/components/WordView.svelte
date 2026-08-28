@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { tick } from 'svelte';
-	import type { Glyph, Word } from '@kulupu-linku/sona';
+	import type { ListGlyph, ListWord } from '$lib/types';
 
 	import { focusFirstElement } from '$lib/actions/focusFirstElement';
 	import { filter } from '$lib/search';
+	import { loadWordDetail } from '$lib/wordDetail';
 	import {
 		categories,
 		sitelenMode,
@@ -36,10 +37,9 @@
 
 	interface Props {
 		search?: string;
-		words: Word[];
-		glyphs: Record<string, Glyph[]>;
+		words: ListWord[];
+		glyphs: Record<string, ListGlyph[]>;
 		books?: { name: Book; shown: boolean }[];
-		lipamanka?: Record<string, string>;
 		sortingMethod?: SortingMethod;
 		revealWord: (word: string) => void;
 		isSandbox?: boolean;
@@ -50,7 +50,6 @@
 		words,
 		glyphs,
 		books = $bindable(),
-		lipamanka,
 		sortingMethod = $bindable('alphabetical'),
 		revealWord,
 		isSandbox
@@ -66,7 +65,7 @@
 		books?.filter((book) => book.shown).map((book) => book.name)
 	);
 
-	function genericFilter(word: Word) {
+	function genericFilter(word: ListWord) {
 		return (
 			shownCategories.includes(word.usage_category) &&
 			(!shownBooks || shownBooks.includes(word.book))
@@ -78,11 +77,22 @@
 	);
 
 	let moreOptions = $state(false);
-	let selectedWord = $state<Word | null>(null);
+	let selectedWord = $state<ListWord | null>(null);
 
-	function selectWord(word: Word) {
-		if (selectedWord?.id === word.id) selectedWord = null;
-		else selectedWord = word;
+	const OPEN_GRACE_MS = 200;
+
+	async function selectWord(word: ListWord) {
+		if (selectedWord?.id === word.id) {
+			selectedWord = null;
+			return;
+		}
+
+		await Promise.race([
+			loadWordDetail(word.id),
+			new Promise((resolve) => setTimeout(resolve, OPEN_GRACE_MS))
+		]);
+
+		selectedWord = word;
 	}
 
 	const genericSorter = $derived(
@@ -307,7 +317,6 @@
 <WordDetails
 	bind:word={selectedWord}
 	glyphs={glyphs[selectedWord?.id ?? '']}
-	lipamanka={lipamanka?.[selectedWord?.id ?? '']}
 	onrefer={(referred) => {
 		if (!filteredWords.some((word) => word.id === referred)) {
 			search = '';

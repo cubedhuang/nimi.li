@@ -1,15 +1,16 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { loadWordDetail } from '$lib/wordDetail';
 
-	import type { Glyph, Word } from '@kulupu-linku/sona';
+	import type { ListGlyph, ListWord } from '$lib/types';
 
 	import { categoryTextColors, getWordDisplayRecognition } from '$lib/util';
 	import { sitelenMode } from '$lib/stores';
 	import { getShownGlyphs } from './getShownGlyphs';
 
 	interface Props {
-		word: Word;
-		glyphs: Glyph[] | undefined;
+		word: ListWord;
+		glyphs: ListGlyph[] | undefined;
 		onclick?: () => void;
 	}
 
@@ -27,6 +28,8 @@
 				onclick();
 			}
 		}}
+		onpointerdown={() => loadWordDetail(word.id)}
+		onfocus={() => loadWordDetail(word.id)}
 		class="group text-center"
 	>
 		{#if $sitelenMode === 'pona'}
@@ -36,6 +39,10 @@
 						<img
 							src={glyph.svg}
 							alt={glyph.id}
+							width="40"
+							height="40"
+							loading="lazy"
+							decoding="async"
 							class="h-10 w-10 invertible"
 						/>
 					{/each}
@@ -52,6 +59,10 @@
 				<img
 					src="/internal/api/ss/{word.word}"
 					alt="{word.word} sitelen sitelen"
+					width="48"
+					height="48"
+					loading="lazy"
+					decoding="async"
 					class="size-12 invertible"
 				/>
 			{:else}

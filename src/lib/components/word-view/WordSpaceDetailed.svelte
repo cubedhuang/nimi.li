@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Glyph, Word } from '@kulupu-linku/sona';
+	import type { ListGlyph, ListWord } from '$lib/types';
 
 	import {
 		categoryBackgroundColors,
@@ -9,10 +9,11 @@
 	import Space from '$lib/components/Space.svelte';
 	import { resolve } from '$app/paths';
 	import { getShownGlyphs } from './getShownGlyphs';
+	import { loadWordDetail } from '$lib/wordDetail';
 
 	interface Props {
-		word: Word;
-		glyphs: Glyph[] | undefined;
+		word: ListWord;
+		glyphs: ListGlyph[] | undefined;
 		onclick?: () => void;
 	}
 
@@ -22,7 +23,13 @@
 	const shownGlyphs = $derived(getShownGlyphs(word, glyphs));
 </script>
 
-<Space href={resolve(`/${word.id}`)} {onclick} id={word.id}>
+<Space
+	href={resolve(`/${word.id}`)}
+	{onclick}
+	id={word.id}
+	onpointerdown={() => loadWordDetail(word.id)}
+	onfocus={() => loadWordDetail(word.id)}
+>
 	<div class="grid grid-cols-3 text-muted">
 		<div>
 			<p class="line-clamp-1 break-all">
@@ -72,6 +79,10 @@
 					<img
 						src={glyph.svg}
 						alt={glyph.id}
+						width="32"
+						height="32"
+						loading="lazy"
+						decoding="async"
 						class="h-8 w-8 invertible"
 					/>
 				{/each}
@@ -117,6 +128,10 @@
 				<img
 					src="/internal/api/ss/{word.word}"
 					alt="{word.word} sitelen sitelen"
+					width="36"
+					height="36"
+					loading="lazy"
+					decoding="async"
 					class="ml-auto h-9 w-9 invertible"
 				/>
 			{/if}

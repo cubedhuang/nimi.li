@@ -6,7 +6,8 @@ import { build, files, version } from '$service-worker';
 declare const self: ServiceWorkerGlobalScope;
 
 const CACHE = `cache-${version}`;
-const ASSETS = [...build, ...files];
+const PRECACHE_FILES = files.filter((file) => !file.includes('/fonts/'));
+const ASSETS = [...build, ...PRECACHE_FILES];
 
 self.addEventListener('install', (event) => {
 	async function addFilesToCache() {

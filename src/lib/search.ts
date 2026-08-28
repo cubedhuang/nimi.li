@@ -1,10 +1,10 @@
-import type { Word } from '@kulupu-linku/sona';
-import { page } from '$app/state';
 import { distance } from 'fastest-levenshtein';
+
+import type { ListWord } from './types';
 
 import { getUcsur, normalize } from './util';
 
-export function filter(words: Word[], search: string) {
+export function filter(words: ListWord[], search: string) {
 	search = normalize(search);
 
 	if (!search) {
@@ -51,7 +51,7 @@ export function scoreMatch(
 	return 1 - distanceScore;
 }
 
-export function scoreSearch(word: Word, search: string) {
+export function scoreSearch(word: ListWord, search: string) {
 	const translation = word.translations;
 
 	let score =
@@ -60,14 +60,12 @@ export function scoreSearch(word: Word, search: string) {
 		scoreMatch(word.source_language, search) * 20 +
 		scoreMatch(word.author, search) * 20;
 
-	const pu =
-		word.pu_verbatim?.[page.data.lang as 'en'] ?? word.pu_verbatim?.en;
-	if (pu) {
-		score += scoreMatch(pu, search) * 50;
+	if (word.pu_search) {
+		score += scoreMatch(word.pu_search, search) * 50;
 	}
 
-	if (word.ku_data) {
-		score += scoreMatch(Object.keys(word.ku_data), search) * 10;
+	if (word.ku_search) {
+		score += scoreMatch(word.ku_search, search) * 10;
 	}
 
 	if (translation.etymology) {

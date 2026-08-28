@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Glyph, Word } from '@kulupu-linku/sona';
+	import type { ListGlyph, ListWord } from '$lib/types';
 
 	import { categoryBackgroundColors } from '$lib/util';
 	import { sitelenMode } from '$lib/stores';
@@ -8,17 +8,24 @@
 	import WordUsageSummary from '../WordUsageSummary.svelte';
 	import { resolve } from '$app/paths';
 	import { getShownGlyphs } from './getShownGlyphs';
+	import { loadWordDetail } from '$lib/wordDetail';
 
 	interface Props {
-		word: Word;
-		glyphs: Glyph[] | undefined;
+		word: ListWord;
+		glyphs: ListGlyph[] | undefined;
 		onclick?: () => void;
 	}
 
 	const { word, glyphs, onclick }: Props = $props();
 </script>
 
-<Space href={resolve(`/${word.id}`)} {onclick} id={word.id}>
+<Space
+	href={resolve(`/${word.id}`)}
+	{onclick}
+	id={word.id}
+	onpointerdown={() => loadWordDetail(word.id)}
+	onfocus={() => loadWordDetail(word.id)}
+>
 	{#if $sitelenMode === 'pona'}
 		{#if glyphs?.length}
 			<div
@@ -28,6 +35,10 @@
 					<img
 						src={glyph.svg}
 						alt={glyph.id}
+						width="32"
+						height="32"
+						loading="lazy"
+						decoding="async"
 						class="h-8 w-8 invertible"
 					/>
 				{/each}
@@ -44,6 +55,10 @@
 			<img
 				src="/internal/api/ss/{word.word}"
 				alt="{word.word} sitelen sitelen"
+				width="40"
+				height="40"
+				loading="lazy"
+				decoding="async"
 				class="float-right ml-2 h-10 w-10 shrink-0 invertible"
 			/>
 		{/if}

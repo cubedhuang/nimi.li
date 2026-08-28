@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { Glyph, Word } from '@kulupu-linku/sona';
-
 	import {
 		categoryBackgroundColors,
 		categoryTextColors,
 		getUcsur
 	} from '$lib/util';
+	import type { ListGlyph, ListWord, WordDetail } from '$lib/types';
+	import { getCachedWordDetail, loadWordDetail } from '$lib/wordDetail';
 
 	import Copy from '$lib/components/Copy.svelte';
 	import Details from '$lib/components/Details.svelte';
@@ -22,9 +22,8 @@
 	import GlyphInfo from './GlyphInfo.svelte';
 
 	interface Props {
-		word: Word | null;
-		glyphs: Glyph[] | undefined;
-		lipamanka?: string;
+		word: ListWord | null;
+		glyphs: ListGlyph[] | undefined;
 		onrefer: (word: string) => void;
 		onclose: (word: string) => void;
 	}
@@ -32,7 +31,6 @@
 	let {
 		word: possibleWord = $bindable(),
 		glyphs,
-		lipamanka,
 		onrefer,
 		onclose
 	}: Props = $props();
@@ -43,7 +41,33 @@
 		audio?.play();
 	}
 
-	const audioUrl = $derived(possibleWord?.audio[0]?.link);
+	let detail = $state<WordDetail | null>(null);
+
+	$effect(() => {
+		const id = possibleWord?.id;
+		if (!id) {
+			detail = null;
+			return;
+		}
+
+		const cached = getCachedWordDetail(id);
+		if (cached) {
+			detail = cached;
+			return;
+		}
+
+		detail = null;
+
+		let cancelled = false;
+		loadWordDetail(id).then((data) => {
+			if (data && !cancelled) detail = data;
+		});
+		return () => {
+			cancelled = true;
+		};
+	});
+
+	const audioUrl = $derived(detail?.word.audio[0]?.link);
 </script>
 
 <Details
@@ -60,9 +84,9 @@
 					more
 				</a>
 
-				{#if word.resources?.sona_pona}
+				{#if detail?.word.resources?.sona_pona}
 					<a
-						href={word.resources.sona_pona}
+						href={detail.word.resources.sona_pona}
 						target="_blank"
 						rel="external noreferrer noopener"
 						class="interactable p-1"
@@ -173,10 +197,10 @@
 			{word.translations.definition}
 		</p>
 
-		{#if word.see_also.length}
+		{#if detail?.word.see_also.length}
 			<p class="mt-2">
 				see
-				{#each word.see_also as other, i (other)}
+				{#each detail.word.see_also as other, i (other)}
 					<!-- Formatting here is weird to prevent additional spaces between commas -->
 					{i !== 0 ? ',' : ''}
 					<Link
@@ -189,13 +213,13 @@
 			</p>
 		{/if}
 
-		{#if lipamanka}
+		{#if detail?.lipamanka}
 			<div class="mt-2">
-				<LipamankaData {word} content={lipamanka} />
+				<LipamankaData {word} content={detail.lipamanka} />
 			</div>
 		{/if}
 
-		{#if word.pu_verbatim?.en}
+		{#if detail?.word.pu_verbatim?.en}
 			<h3 class="mt-2 flex items-center text-lg">
 				pu definition
 				<a
@@ -209,10 +233,10 @@
 				</a>
 			</h3>
 
-			<PuData data={word.pu_verbatim} />
+			<PuData data={detail.word.pu_verbatim} />
 		{/if}
 
-		{#if word.ku_data}
+		{#if detail?.word.ku_data}
 			<h3 class="mt-2 flex items-center text-lg">
 				ku translations
 				<a
@@ -226,17 +250,17 @@
 				</a>
 			</h3>
 
-			<KuData data={word.ku_data} />
+			<KuData data={detail.word.ku_data} />
 		{/if}
 
 		<h3 class="mt-2 text-lg">origin</h3>
 
 		<WordEtymology {word} />
 
-		{#if glyphs?.length}
+		{#if glyphs?.length && detail}
 			<h3 class="mt-2 mb-1 text-lg">sitelen pona</h3>
 			<GlyphInfo
-				{glyphs}
+				glyphs={detail.glyphs}
 				showSandbox={word.usage_category === 'sandbox' ||
 					glyphs[0].usage_category === 'obscure' ||
 					glyphs[0].usage_category === 'sandbox'}

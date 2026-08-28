@@ -1,18 +1,18 @@
 <script lang="ts">
 	import { categories, sortingMethod } from '$lib/stores';
+	import { bookNames } from '$lib/util';
 
 	import Link from '$lib/components/Link.svelte';
 	import Meta from '$lib/components/Meta.svelte';
 	import WordView from '$lib/components/WordView.svelte';
-	import { Book } from '@kulupu-linku/sona/utils';
 
 	const { data } = $props();
 
 	let search = $state('');
 
 	let books = $state(
-		Object.keys(Book.enum).map((book) => ({
-			name: book as Book,
+		bookNames.map((book) => ({
+			name: book,
 			shown: true
 		}))
 	);
@@ -39,7 +39,6 @@
 	words={Object.values(data.words)}
 	glyphs={data.glyphs}
 	bind:books
-	lipamanka={data.lipamanka}
 	bind:sortingMethod={$sortingMethod}
 	revealWord={(referred) => {
 		$categories = $categories.map((category) => ({

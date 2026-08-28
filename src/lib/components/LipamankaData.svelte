@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { Action } from 'svelte/action';
 
-	import type { Word } from '@kulupu-linku/sona';
+	import type { ListWord } from '$lib/types';
 
 	import ExternalLink from './icons/ExternalLink.svelte';
 
 	interface Props {
-		word: Word;
+		word: ListWord;
 		content: string;
 		space?: boolean;
 	}
