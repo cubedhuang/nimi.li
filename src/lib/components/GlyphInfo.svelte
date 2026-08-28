@@ -33,6 +33,7 @@
 			</figcaption>
 			<img
 				src={glyph.svg}
+				crossorigin="anonymous"
 				alt={glyph.id}
 				class="mt-2 h-12 w-12 invertible"
 			/>

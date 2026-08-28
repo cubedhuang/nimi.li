@@ -24,6 +24,7 @@
 		{#if glyphs?.length}
 			<img
 				src={glyphs[0].svg}
+				crossorigin="anonymous"
 				alt={glyphs[0].id}
 				width="24"
 				height="24"

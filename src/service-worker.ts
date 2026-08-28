@@ -6,8 +6,31 @@ import { build, files, version } from '$service-worker';
 declare const self: ServiceWorkerGlobalScope;
 
 const CACHE = `cache-${version}`;
+const GLYPH_CACHE = 'glyphs';
 const PRECACHE_FILES = files.filter((file) => !file.includes('/fonts/'));
 const ASSETS = [...build, ...PRECACHE_FILES];
+
+const GLYPH_ORIGIN = 'https://raw.githubusercontent.com';
+const GLYPH_PATH_PREFIX = '/lipu-linku/ijo/';
+
+function isGlyphRequest(url: URL) {
+	return (
+		url.origin === GLYPH_ORIGIN &&
+		url.pathname.startsWith(GLYPH_PATH_PREFIX)
+	);
+}
+
+async function revalidate(cache: Cache, request: Request) {
+	try {
+		const response = await fetch(request);
+
+		if (response.ok) {
+			await cache.put(request, response.clone());
+		}
+	} catch {
+		//
+	}
+}
 
 self.addEventListener('install', (event) => {
 	async function addFilesToCache() {
@@ -22,7 +45,7 @@ self.addEventListener('activate', (event) => {
 	async function deleteOldCaches() {
 		const keys = await caches.keys();
 
-		const old = keys.filter((key) => key !== CACHE);
+		const old = keys.filter((key) => key !== CACHE && key !== GLYPH_CACHE);
 
 		await Promise.all(old.map((key) => caches.delete(key)));
 	}
@@ -35,9 +58,17 @@ self.addEventListener('fetch', (event) => {
 
 	async function respond() {
 		const url = new URL(event.request.url);
-		const cache = await caches.open(CACHE);
+		const isGlyph = isGlyphRequest(url);
+		const cache = await caches.open(isGlyph ? GLYPH_CACHE : CACHE);
 
-		if (ASSETS.includes(url.pathname)) {
+		if (isGlyph) {
+			const response = await cache.match(event.request);
+
+			if (response) {
+				event.waitUntil(revalidate(cache, event.request));
+				return response;
+			}
+		} else if (ASSETS.includes(url.pathname)) {
 			const response = await cache.match(event.request);
 
 			if (response) {

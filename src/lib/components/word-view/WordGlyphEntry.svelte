@@ -38,6 +38,7 @@
 					{#each shownGlyphs as glyph (glyph.id)}
 						<img
 							src={glyph.svg}
+							crossorigin="anonymous"
 							alt={glyph.id}
 							width="40"
 							height="40"
