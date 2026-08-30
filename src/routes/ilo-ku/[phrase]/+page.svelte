@@ -22,8 +22,8 @@
 	keywords={[phrase.compound]}
 />
 
-<div class="flex flex-wrap items-center gap-1">
-	<h1 class="mr-auto text-4xl">{phrase.compound}</h1>
+<div class="flex flex-wrap items-end gap-1">
+	<h1 class="mr-auto text-3xl">{phrase.compound}</h1>
 
 	<div class="flex gap-1">
 		<svelte:element
