@@ -50,19 +50,21 @@ async function makeCachedRequest<T>(
 	}
 
 	let fetchedData: T;
-	const refresh = fetchData().then(async (data) => {
-		fetchedData = data;
-		await Promise.all([
-			putCache(platform, cacheKey, data),
-			kv.put(
-				key,
-				JSON.stringify({
-					data,
-					lastUpdated: Date.now()
-				} satisfies Cached<T>)
-			)
-		]);
-	});
+	const refresh = fetchData()
+		.then(async (data) => {
+			fetchedData = data;
+			await Promise.all([
+				putCache(platform, cacheKey, data),
+				kv.put(
+					key,
+					JSON.stringify({
+						data,
+						lastUpdated: Date.now()
+					} satisfies Cached<T>)
+				)
+			]);
+		})
+		.catch((e) => console.error('refresh failed', key, e));
 
 	if (kvCached) {
 		platform.context.waitUntil(refresh);
@@ -154,7 +156,7 @@ export async function getLipamanka({ platform, fetch }: RequestEvent) {
 			.then((res) => res.text())
 			.catch(() => '');
 		if (!rawText) {
-			error(500, 'Failed to fetch lipamanka data');
+			return {};
 		}
 
 		const re =
