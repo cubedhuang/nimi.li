@@ -15,7 +15,7 @@
 	title="{phrase.compound} – nimi.li | Toki Pona Dictionary"
 	description={Object.keys(phrase.uses).join(', ')}
 	url="https://nimi.li/ilo-ku/{getSlug(phrase.compound)}"
-	image="https://raw.githubusercontent.com/lipu-linku/ijo/main/sitelenpona/sitelen-seli-kiwen/${phrase.compound.split(
+	image="https://raw.githubusercontent.com/lipu-linku/ijo/main/sitelenpona/sitelen-seli-kiwen/{phrase.compound.split(
 		' '
 	)[0]}.png"
 	imageSize="256"
