@@ -32,8 +32,8 @@
 <Meta
 	title="{word.word} – nimi.li | Toki Pona Dictionary"
 	description={word.translations.definition}
-	url="https://nimi.li{resolve(`/${word.id}`)}"
-	image="https://raw.githubusercontent.com/lipu-linku/ijo/main/sitelenpona/sitelen-seli-kiwen/${word.id}.png"
+	url="https://nimi.li/{word.id}"
+	image="https://raw.githubusercontent.com/lipu-linku/ijo/main/sitelenpona/sitelen-seli-kiwen/{word.id}.png"
 	imageSize="256"
 	keywords={[word.word]}
 />
