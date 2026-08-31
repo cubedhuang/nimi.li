@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { loadWordDetail } from '$lib/wordDetail';
-	import { hydratedSrc } from '$lib/actions/hydratedSrc';
+	import HydratedImg from '$lib/components/HydratedImg.svelte';
 
 	import type { ListGlyph, ListWord } from '$lib/types';
 
@@ -37,9 +37,8 @@
 			{#if shownGlyphs?.length}
 				<p class="flex justify-center py-1">
 					{#each shownGlyphs as glyph (glyph.id)}
-						<img
+						<HydratedImg
 							src={glyph.svg}
-							use:hydratedSrc={glyph.svg}
 							crossorigin="anonymous"
 							alt={glyph.id}
 							width="40"
@@ -59,9 +58,8 @@
 			{/if}
 		{:else if $sitelenMode === 'sitelen'}
 			{#if word.representations?.sitelen_sitelen}
-				<img
+				<HydratedImg
 					src="/internal/api/ss/{word.word}"
-					use:hydratedSrc={`/internal/api/ss/${word.word}`}
 					alt="{word.word} sitelen sitelen"
 					width="48"
 					height="48"
