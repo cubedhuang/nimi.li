@@ -1,6 +1,5 @@
 import { client } from '@kulupu-linku/sona/client';
 import { PUBLIC_BASE_URL } from '$env/static/public';
-import { error } from '@sveltejs/kit';
 import { fetchKu } from './ku';
 import type { Response as CfResponse } from '@cloudflare/workers-types';
 
