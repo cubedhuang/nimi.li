@@ -1,22 +1,25 @@
 <script lang="ts">
 	import type { HTMLImgAttributes } from 'svelte/elements';
 
-	let { src, ...props }: HTMLImgAttributes & { src: string | undefined } =
-		$props();
+	const { src, ...props }: HTMLImgAttributes = $props();
+
+	let img: HTMLImageElement;
 
 	// https://svelte.dev/docs/svelte/runtime-warnings#Client-warnings-hydration_attribute_changed
 	// fixes a weird svelte hydration issue where `src` isn't updated
 	// between the server-sent html and the client-side hydrated component,
-	// by forcing the src to change on page load
-	if (typeof window !== 'undefined') {
-		// eslint-disable-next-line svelte/no-unused-svelte-ignore -- for some reason the rule is ignored both ways
-		// svelte-ignore state_referenced_locally
-		const initial = src;
-		src = undefined;
-		$effect(() => {
-			src = initial;
-		});
-	}
+	// by forcing the src to change on page load if the new one is different
+	$effect(() => {
+		if (
+			src !== undefined &&
+			src !== null &&
+			img.getAttribute('src') !== src
+		) {
+			img.setAttribute('src', src);
+		}
+	});
 </script>
 
-<img {src} {...props} />
+<!-- eslint-disable-next-line svelte/no-unused-svelte-ignore -- the rule only knows about compile-time warnings -->
+<!-- svelte-ignore hydration_attribute_changed -->
+<img bind:this={img} {src} {...props} />
