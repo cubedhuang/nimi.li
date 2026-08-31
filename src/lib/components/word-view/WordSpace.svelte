@@ -9,6 +9,7 @@
 	import { resolve } from '$app/paths';
 	import { getShownGlyphs } from './getShownGlyphs';
 	import { loadWordDetail } from '$lib/wordDetail';
+	import { hydratedSrc } from '$lib/actions/hydratedSrc';
 
 	interface Props {
 		word: ListWord;
@@ -34,6 +35,7 @@
 				{#each getShownGlyphs(word, glyphs) as glyph (glyph.id)}
 					<img
 						src={glyph.svg}
+						use:hydratedSrc={glyph.svg}
 						crossorigin="anonymous"
 						alt={glyph.id}
 						width="32"
@@ -55,6 +57,7 @@
 		{#if word.representations?.sitelen_sitelen}
 			<img
 				src="/internal/api/ss/{word.word}"
+				use:hydratedSrc={`/internal/api/ss/${word.word}`}
 				alt="{word.word} sitelen sitelen"
 				width="40"
 				height="40"

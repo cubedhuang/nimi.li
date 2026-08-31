@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { loadWordDetail } from '$lib/wordDetail';
+	import { hydratedSrc } from '$lib/actions/hydratedSrc';
 
 	import type { ListGlyph, ListWord } from '$lib/types';
 
@@ -38,6 +39,7 @@
 					{#each shownGlyphs as glyph (glyph.id)}
 						<img
 							src={glyph.svg}
+							use:hydratedSrc={glyph.svg}
 							crossorigin="anonymous"
 							alt={glyph.id}
 							width="40"
@@ -59,6 +61,7 @@
 			{#if word.representations?.sitelen_sitelen}
 				<img
 					src="/internal/api/ss/{word.word}"
+					use:hydratedSrc={`/internal/api/ss/${word.word}`}
 					alt="{word.word} sitelen sitelen"
 					width="48"
 					height="48"

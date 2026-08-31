@@ -9,6 +9,7 @@
 	import { sitelenMode } from '$lib/stores';
 	import { resolve } from '$app/paths';
 	import { loadWordDetail } from '$lib/wordDetail';
+	import { hydratedSrc } from '$lib/actions/hydratedSrc';
 
 	interface Props {
 		word: ListWord;
@@ -24,6 +25,7 @@
 		{#if glyphs?.length}
 			<img
 				src={glyphs[0].svg}
+				use:hydratedSrc={glyphs[0].svg}
 				crossorigin="anonymous"
 				alt={glyphs[0].id}
 				width="24"
@@ -43,6 +45,7 @@
 		{#if word.representations?.sitelen_sitelen}
 			<img
 				src="/internal/api/ss/{word.word}"
+				use:hydratedSrc={`/internal/api/ss/${word.word}`}
 				alt="{word.word} sitelen sitelen"
 				width="24"
 				height="24"
