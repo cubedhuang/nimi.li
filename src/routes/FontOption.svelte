@@ -7,9 +7,9 @@
 	}
 
 	const { value, name }: Props = $props();
-	const { font } = getSettings();
+	const settings = getSettings();
 
-	const selected = $derived(value === $font);
+	const selected = $derived(value === settings.font);
 </script>
 
 <button
@@ -18,7 +18,7 @@
 		? 'ring-2 ring-secondary-foreground ring-offset-1 ring-offset-card'
 		: ''}"
 	onclick={() => {
-		$font = value;
+		settings.font = value;
 	}}
 	role="option"
 	aria-selected={selected}

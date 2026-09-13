@@ -19,7 +19,7 @@
 	}
 
 	const { word, glyphs, onclick }: Props = $props();
-	const { sitelenMode } = getSettings();
+	const settings = getSettings();
 
 	const displayRecognition = $derived(getWordDisplayRecognition(word));
 	const shownGlyphs = $derived(getShownGlyphs(word, glyphs));
@@ -115,13 +115,13 @@
 		</div>
 
 		<div class="w-9 shrink-0">
-			{#if $sitelenMode === 'jelo'}
+			{#if settings.sitelenMode === 'jelo'}
 				{#if word.representations?.sitelen_jelo}
 					{#each word.representations.sitelen_jelo.slice(0, 3) as sitelen, i (i)}
 						<p class="text-3xl">{sitelen}</p>
 					{/each}
 				{/if}
-			{:else if $sitelenMode === 'emosi'}
+			{:else if settings.sitelenMode === 'emosi'}
 				{#if word.representations?.sitelen_emosi}
 					<span class="w-9 text-center text-3xl">
 						{word.representations.sitelen_emosi}

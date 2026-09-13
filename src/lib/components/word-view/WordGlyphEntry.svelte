@@ -16,7 +16,7 @@
 	}
 
 	const { word, glyphs, onclick }: Props = $props();
-	const { sitelenMode } = getSettings();
+	const settings = getSettings();
 
 	const shownGlyphs = $derived(getShownGlyphs(word, glyphs));
 </script>
@@ -34,7 +34,7 @@
 		onfocus={() => loadWordDetail(word.id)}
 		class="group text-center"
 	>
-		{#if $sitelenMode === 'pona'}
+		{#if settings.sitelenMode === 'pona'}
 			{#if shownGlyphs?.length}
 				<p class="flex justify-center py-1">
 					{#each shownGlyphs as glyph (glyph.id)}
@@ -57,7 +57,7 @@
 			{:else}
 				<div class="h-12"></div>
 			{/if}
-		{:else if $sitelenMode === 'sitelen'}
+		{:else if settings.sitelenMode === 'sitelen'}
 			{#if word.representations?.sitelen_sitelen}
 				<HydratedImg
 					src="/internal/api/ss/{word.word}"
@@ -71,7 +71,7 @@
 			{:else}
 				<span class="h-12"></span>
 			{/if}
-		{:else if $sitelenMode === 'jelo'}
+		{:else if settings.sitelenMode === 'jelo'}
 			{#if word.representations?.sitelen_jelo}
 				<p class="text-5xl">
 					{word.representations.sitelen_jelo.slice(0, 3).join('')}

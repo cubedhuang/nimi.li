@@ -18,11 +18,11 @@
 	}
 
 	const { word, glyphs, onclick }: Props = $props();
-	const { sitelenMode } = getSettings();
+	const settings = getSettings();
 </script>
 
 <p class="flex gap-1" id={word.id}>
-	{#if $sitelenMode === 'pona'}
+	{#if settings.sitelenMode === 'pona'}
 		{#if glyphs?.length}
 			<HydratedImg
 				src={glyphs[0].svg}
@@ -41,7 +41,7 @@
 		{:else}
 			<span class="h-6 w-6 shrink-0"></span>
 		{/if}
-	{:else if $sitelenMode === 'sitelen'}
+	{:else if settings.sitelenMode === 'sitelen'}
 		{#if word.representations?.sitelen_sitelen}
 			<HydratedImg
 				src="/internal/api/ss/{word.word}"
@@ -55,7 +55,7 @@
 		{:else}
 			<span class="h-6 w-6 shrink-0"></span>
 		{/if}
-	{:else if $sitelenMode === 'jelo'}
+	{:else if settings.sitelenMode === 'jelo'}
 		{#if word.representations?.sitelen_jelo}
 			<span class="h-6 w-6 shrink-0 text-right text-xl">
 				{word.representations.sitelen_jelo[0]}

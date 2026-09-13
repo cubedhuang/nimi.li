@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import { browser } from '$app/environment';
 	import { resolve } from '$app/paths';
 
 	import { getSettings } from '$lib/settings';
@@ -13,7 +12,7 @@
 	}
 
 	const { signData, onclick }: Props = $props();
-	const { autoplay } = getSettings();
+	const settings = getSettings();
 
 	const displayWord = $derived(
 		signData.words
@@ -26,13 +25,11 @@
 	let canvas: HTMLCanvasElement;
 	let ctx: CanvasRenderingContext2D | null = null;
 
-	if (browser) {
-		autoplay.subscribe((value) => {
-			if (img && value) {
-				img.setAttribute('src', img.src);
-			}
-		});
-	}
+	$effect(() => {
+		if (settings.autoplay) {
+			img.setAttribute('src', img.src);
+		}
+	});
 
 	function handleLoaded() {
 		if (!ctx) {
@@ -45,7 +42,7 @@
 	}
 
 	function handleEnter() {
-		if ($autoplay) {
+		if (settings.autoplay) {
 			return;
 		}
 
@@ -55,7 +52,7 @@
 	}
 
 	function handleLeave() {
-		if ($autoplay) {
+		if (settings.autoplay) {
 			return;
 		}
 
@@ -96,7 +93,7 @@
 			src={signData.signs[0].video?.gif}
 			alt="{displayWord} luka pona"
 			class="absolute top-0 left-0 z-10 aspect-video w-full rounded-lg bg-secondary"
-			class:opacity-0={!$autoplay}
+			class:opacity-0={!settings.autoplay}
 			loading="lazy"
 			bind:this={img}
 			onload={handleLoaded}

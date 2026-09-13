@@ -7,7 +7,7 @@
 	import WordView from '$lib/components/WordView.svelte';
 
 	const { data } = $props();
-	const { categories, sortingMethod } = getSettings();
+	const settings = getSettings();
 
 	let search = $state('');
 
@@ -40,9 +40,9 @@
 	words={Object.values(data.words)}
 	glyphs={data.glyphs}
 	bind:books
-	bind:sortingMethod={$sortingMethod}
+	bind:sortingMethod={settings.sortingMethod}
 	revealWord={(referred) => {
-		$categories = $categories.map((category) => ({
+		settings.categories = settings.categories.map((category) => ({
 			...category,
 			shown:
 				category.shown ||

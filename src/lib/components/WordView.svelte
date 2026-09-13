@@ -49,10 +49,10 @@
 		revealWord,
 		isSandbox
 	}: Props = $props();
-	const { categories, sitelenMode, viewMode } = getSettings();
+	const settings = getSettings();
 
 	const shownCategories = $derived(
-		$categories
+		settings.categories
 			.filter((category) => category.shown)
 			.map((category) => category.name)
 	);
@@ -122,7 +122,7 @@
 			class="mr-auto"
 		>
 			<div class="flex flex-wrap gap-1">
-				{#each $categories as category (category.name)}
+				{#each settings.categories as category (category.name)}
 					<PillToggle
 						bind:checked={category.shown}
 						label={category.name}
@@ -217,7 +217,7 @@
 				{ label: 'List', value: 'compact' },
 				{ label: 'Glyphs', value: 'glyphs' }
 			]}
-			bind:value={$viewMode}
+			bind:value={settings.viewMode}
 			class="w-36 shrink-0"
 		/>
 
@@ -244,7 +244,7 @@
 				{ label: 'sitelen jelo', value: 'jelo' },
 				{ label: 'sitelen Emosi', value: 'emosi' }
 			]}
-			bind:value={$sitelenMode}
+			bind:value={settings.sitelenMode}
 			class="w-44 shrink-0"
 		/>
 	</div>
@@ -263,7 +263,7 @@
 	</p>
 {/if} -->
 
-{#if $viewMode === 'compact'}
+{#if settings.viewMode === 'compact'}
 	<div class="grid">
 		{#each filteredWords as word (word.id)}
 			<WordEntry
@@ -273,7 +273,7 @@
 			/>
 		{/each}
 	</div>
-{:else if $viewMode === 'glyphs'}
+{:else if settings.viewMode === 'glyphs'}
 	<div class="grid grid-cols-fill-28 gap-1">
 		{#each filteredWords as word (word.id)}
 			<WordGlyphEntry
@@ -283,7 +283,7 @@
 			/>
 		{/each}
 	</div>
-{:else if $viewMode === 'detailed'}
+{:else if settings.viewMode === 'detailed'}
 	<div class="grid grid-cols-fill-96 gap-2">
 		{#each filteredWords as word (word.id)}
 			<WordSpaceDetailed

@@ -6,9 +6,9 @@
 	}
 
 	const { class: className = undefined }: Props = $props();
-	const { systemTheme } = getSettings();
+	const settings = getSettings();
 
-	const selected = $derived($systemTheme);
+	const selected = $derived(settings.systemTheme);
 </script>
 
 <button
@@ -17,7 +17,7 @@
 		? 'ring-2 ring-secondary-foreground ring-offset-1 ring-offset-card'
 		: ''}"
 	onclick={() => {
-		$systemTheme = !$systemTheme;
+		settings.systemTheme = !settings.systemTheme;
 	}}
 	role="option"
 	aria-selected={selected}

@@ -5,12 +5,12 @@
 	import { getSettings } from '$lib/settings';
 	import { flyAndScale } from '$lib/transitions';
 
-	const { surveyBannerShown } = getSettings();
+	const settings = getSettings();
 
 	let opened = $state(false);
 </script>
 
-{#if $surveyBannerShown}
+{#if settings.surveyBannerShown}
 	<div
 		out:slide
 		class="full flex justify-between gap-2 border-b-2 border-secondary-border bg-secondary px-4 py-4 pt-5 text-sm text-secondary-foreground sm:px-8"
@@ -100,7 +100,7 @@
 							class="flex-1 interactable border-secondary-border bg-secondary px-2 py-1 hv:border-accent"
 							onclick={() => {
 								opened = false;
-								$isBannerShown = false;
+								settings.surveyBannerShown = false;
 							}}
 						>
 							Yes, I have!

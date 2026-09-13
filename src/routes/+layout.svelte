@@ -29,7 +29,7 @@
 	let { children, data }: LayoutProps = $props();
 	// we don't care about updates to this after initial load
 	// svelte-ignore state_referenced_locally
-	const { screenWidth } = initSettings(data.settingsCookie);
+	const settings = initSettings(data.settingsCookie);
 
 	const routes = [
 		{ name: 'dictionary', href: '/' },
@@ -86,7 +86,7 @@
 	});
 </script>
 
-<div class="content" class:fullscreen={$screenWidth === 'full'}>
+<div class="content" class:fullscreen={settings.screenWidth === 'full'}>
 	<!-- <SurveyBanner /> -->
 
 	<div
@@ -141,17 +141,17 @@
 				<button
 					class="nav-icon-button max-lg:hidden"
 					onclick={() => {
-						if ($screenWidth === 'full') {
-							$screenWidth = 'large';
+						if (settings.screenWidth === 'full') {
+							settings.screenWidth = 'large';
 						} else {
-							$screenWidth = 'full';
+							settings.screenWidth = 'full';
 						}
 					}}
 					role="checkbox"
-					aria-checked={$screenWidth === 'full'}
+					aria-checked={settings.screenWidth === 'full'}
 					aria-label="toggle full width"
 				>
-					{#if $screenWidth === 'large'}
+					{#if settings.screenWidth === 'large'}
 						<ArrowsPointingOutIconMini />
 					{:else}
 						<ArrowsPointingInIconMini />

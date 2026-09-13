@@ -19,7 +19,7 @@
 	}
 
 	const { data }: Props = $props();
-	const { autoplay } = getSettings();
+	const settings = getSettings();
 
 	const signs = $derived(data.signs);
 
@@ -83,7 +83,7 @@
 
 <div class="flex flex-wrap gap-1">
 	<ColoredCheckbox
-		bind:checked={$autoplay}
+		bind:checked={settings.autoplay}
 		label="Play Videos Automatically"
 		color={categoryBackgroundColors['core']}
 	/>

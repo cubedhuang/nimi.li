@@ -7,12 +7,11 @@
 	}
 
 	const { value, class: className = undefined }: Props = $props();
-	const { baseTheme, lightTheme, darkTheme, systemTheme } = getSettings();
+	const settings = getSettings();
 
-	const theme = $derived(isDarkTheme(value) ? darkTheme : lightTheme);
-
+	const slot = $derived(isDarkTheme(value) ? 'darkTheme' : 'lightTheme');
 	const selected = $derived(
-		$systemTheme ? value === $theme : value === $baseTheme
+		value === (settings.systemTheme ? settings[slot] : settings.baseTheme)
 	);
 </script>
 
@@ -22,9 +21,9 @@
 		? 'ring-2 ring-secondary-foreground ring-offset-1 ring-offset-card'
 		: ''}"
 	onclick={() => {
-		// synchronize both stores
-		$theme = value;
-		$baseTheme = value;
+		// synchronize both theme values
+		settings[slot] = value;
+		settings.baseTheme = value;
 	}}
 	role="option"
 	aria-selected={selected}

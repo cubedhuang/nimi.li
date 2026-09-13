@@ -10,15 +10,15 @@
 	import SystemOption from './SystemOption.svelte';
 	import ThemeOption from './ThemeOption.svelte';
 
-	const { nthTime } = getSettings();
+	const settings = getSettings();
 	let opened = $state(false);
 
 	onMount(() => {
-		$nthTime += 1;
+		settings.nthTime += 1;
 	});
 
 	$effect(() => {
-		if ($nthTime === 2) {
+		if (settings.nthTime === 2) {
 			opened = true;
 		}
 	});
