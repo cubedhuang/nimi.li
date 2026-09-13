@@ -103,6 +103,7 @@ export type Settings = {
 
 // TODO: remove this after a while. this change was made 2026-09-13. remove
 // after maybe a month or two
+// also remove HydratedImg with this
 function readLegacyStorage(key: string): unknown {
 	const storageKey = `nimi.li:${key}`;
 	try {
