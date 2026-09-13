@@ -1,17 +1,16 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
-	import { browser } from '$app/environment';
 
 	import { outclick } from '$lib/actions/outclick';
-	import { persisted } from '$lib/stores';
+	import { getSettings } from '$lib/settings';
 	import { flyAndScale } from '$lib/transitions';
 
-	const isBannerShown = persisted('survey-2026-shown', browser);
+	const { surveyBannerShown } = getSettings();
 
 	let opened = $state(false);
 </script>
 
-{#if $isBannerShown}
+{#if $surveyBannerShown}
 	<div
 		out:slide
 		class="full flex justify-between gap-2 border-b-2 border-secondary-border bg-secondary px-4 py-4 pt-5 text-sm text-secondary-foreground sm:px-8"

@@ -1,4 +1,5 @@
 import { getLanguages } from '$lib/server/fetch';
+import { SETTINGS_COOKIE } from '$lib/settings';
 
 export async function load({ cookies, fetch, locals, platform }) {
 	const languages = await getLanguages({ fetch, platform });
@@ -12,5 +13,9 @@ export async function load({ cookies, fetch, locals, platform }) {
 		locals.lang = 'en';
 	}
 
-	return { lang: locals.lang, languages };
+	return {
+		lang: locals.lang,
+		languages,
+		settingsCookie: cookies.get(SETTINGS_COOKIE)
+	};
 }

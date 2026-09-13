@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../styles/app.css';
 
-	import { onMount, type Snippet } from 'svelte';
+	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 
 	import NProgress from 'nprogress';
@@ -12,7 +12,7 @@
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 
 	import { outclick } from '$lib/actions/outclick';
-	import { screenWidth } from '$lib/stores';
+	import { initSettings } from '$lib/settings';
 	import { flyAndScale } from '$lib/transitions';
 
 	import SelectLanguage from '$lib/components/SelectLanguage.svelte';
@@ -24,11 +24,12 @@
 	import XMarkIconMini from '$lib/components/icons/XMarkIconMini.svelte';
 	import ArrowDownTrayIconMini from '$lib/components/icons/ArrowDownTrayIconMini.svelte';
 
-	interface Props {
-		children: Snippet;
-	}
+	import type { LayoutProps } from './$types';
 
-	const { children }: Props = $props();
+	let { children, data }: LayoutProps = $props();
+	// we don't care about updates to this after initial load
+	// svelte-ignore state_referenced_locally
+	const { screenWidth } = initSettings(data.settingsCookie);
 
 	const routes = [
 		{ name: 'dictionary', href: '/' },

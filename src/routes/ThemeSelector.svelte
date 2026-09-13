@@ -3,14 +3,14 @@
 
 	import { outclick } from '$lib/actions/outclick';
 	import PaintBrushIconMini from '$lib/components/icons/PaintBrushIconMini.svelte';
-	import { persisted } from '$lib/stores';
+	import { getSettings } from '$lib/settings';
 	import { flyAndScale } from '$lib/transitions';
 
 	import FontOption from './FontOption.svelte';
 	import SystemOption from './SystemOption.svelte';
 	import ThemeOption from './ThemeOption.svelte';
 
-	const nthTime = persisted('nth-time', 0);
+	const { nthTime } = getSettings();
 	let opened = $state(false);
 
 	onMount(() => {

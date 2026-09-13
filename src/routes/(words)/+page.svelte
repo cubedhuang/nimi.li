@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { categories, sortingMethod } from '$lib/stores';
+	import { getSettings } from '$lib/settings';
 	import { bookNames } from '$lib/util';
 
 	import Link from '$lib/components/Link.svelte';
@@ -7,6 +7,7 @@
 	import WordView from '$lib/components/WordView.svelte';
 
 	const { data } = $props();
+	const { categories, sortingMethod } = getSettings();
 
 	let search = $state('');
 

@@ -5,7 +5,7 @@
 		categoryBackgroundColors,
 		getWordDisplayRecognition
 	} from '$lib/util';
-	import { sitelenMode } from '$lib/stores';
+	import { getSettings } from '$lib/settings';
 	import Space from '$lib/components/Space.svelte';
 	import { resolve } from '$app/paths';
 	import { getShownGlyphs } from './getShownGlyphs';
@@ -19,6 +19,7 @@
 	}
 
 	const { word, glyphs, onclick }: Props = $props();
+	const { sitelenMode } = getSettings();
 
 	const displayRecognition = $derived(getWordDisplayRecognition(word));
 	const shownGlyphs = $derived(getShownGlyphs(word, glyphs));

@@ -1,12 +1,5 @@
 <script lang="ts">
-	import {
-		baseTheme,
-		lightTheme,
-		darkTheme,
-		systemTheme,
-		type Theme,
-		isDarkTheme
-	} from '$lib/stores';
+	import { getSettings, isDarkTheme, type Theme } from '$lib/settings';
 
 	interface Props {
 		value: Theme;
@@ -14,6 +7,7 @@
 	}
 
 	const { value, class: className = undefined }: Props = $props();
+	const { baseTheme, lightTheme, darkTheme, systemTheme } = getSettings();
 
 	const theme = $derived(isDarkTheme(value) ? darkTheme : lightTheme);
 

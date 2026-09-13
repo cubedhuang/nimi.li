@@ -6,7 +6,7 @@
 		getWordDisplayRecognition,
 		getWordRecognition
 	} from '$lib/util';
-	import { sitelenMode } from '$lib/stores';
+	import { getSettings } from '$lib/settings';
 	import { resolve } from '$app/paths';
 	import { loadWordDetail } from '$lib/wordDetail';
 	import HydratedImg from '$lib/components/HydratedImg.svelte';
@@ -18,6 +18,7 @@
 	}
 
 	const { word, glyphs, onclick }: Props = $props();
+	const { sitelenMode } = getSettings();
 </script>
 
 <p class="flex gap-1" id={word.id}>

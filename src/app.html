@@ -39,51 +39,14 @@
 		<script>
 			// @ts-check
 			{
-				const isDark = window.matchMedia(
-					'(prefers-color-scheme: dark)'
-				).matches;
+				const html = document.documentElement;
+				const { lightTheme, darkTheme } = html.dataset;
 
-				/** @type {string | null} */
-				let themeValue;
-				try {
-					/** @type {string | null} */
-					let value;
-					let systemTheme = localStorage.getItem(
-						'nimi.li:system-theme'
-					);
-					if (systemTheme == 'true') {
-						if (isDark) {
-							value = localStorage.getItem('nimi.li:dark-theme');
-						} else {
-							value = localStorage.getItem('nimi.li:light-theme');
-						}
-					} else {
-						value = localStorage.getItem('nimi.li:base-theme');
-					}
-					themeValue = value ? JSON.parse(value) : null;
-				} catch {
-					themeValue = null;
-				}
-
-				if (themeValue) {
-					document.documentElement.classList.add(themeValue);
-				} else {
-					document.documentElement.classList.toggle('dark', isDark);
-				}
-
-				/** @type {string | null} */
-				let fontValue;
-				try {
-					let value = localStorage.getItem('nimi.li:font');
-					fontValue = value ? JSON.parse(value) : null;
-				} catch {
-					fontValue = null;
-				}
-
-				if (fontValue) {
-					document.documentElement.classList.add(fontValue);
-				} else {
-					document.documentElement.classList.add('font-sans');
+				if (lightTheme && darkTheme) {
+					const isDark = window.matchMedia(
+						'(prefers-color-scheme: dark)'
+					).matches;
+					html.classList.add(isDark ? darkTheme : lightTheme);
 				}
 			}
 		</script>

@@ -6,7 +6,7 @@
 	import type { ListGlyph, ListWord } from '$lib/types';
 
 	import { categoryTextColors, getWordDisplayRecognition } from '$lib/util';
-	import { sitelenMode } from '$lib/stores';
+	import { getSettings } from '$lib/settings';
 	import { getShownGlyphs } from './getShownGlyphs';
 
 	interface Props {
@@ -16,6 +16,7 @@
 	}
 
 	const { word, glyphs, onclick }: Props = $props();
+	const { sitelenMode } = getSettings();
 
 	const shownGlyphs = $derived(getShownGlyphs(word, glyphs));
 </script>

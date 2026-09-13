@@ -5,7 +5,7 @@
 	import { focusFirstElement } from '$lib/actions/focusFirstElement';
 	import { azWordSort, categoryBackgroundColors, normalize } from '$lib/util';
 	import { scoreSearch } from '$lib/search';
-	import { autoplay } from '$lib/stores';
+	import { getSettings } from '$lib/settings';
 	import type { SignData } from '$lib/types';
 
 	import ColoredCheckbox from '$lib/components/ColoredCheckbox.svelte';
@@ -19,6 +19,7 @@
 	}
 
 	const { data }: Props = $props();
+	const { autoplay } = getSettings();
 
 	const signs = $derived(data.signs);
 

@@ -4,7 +4,7 @@
 	import { browser } from '$app/environment';
 	import { resolve } from '$app/paths';
 
-	import { autoplay } from '$lib/stores';
+	import { getSettings } from '$lib/settings';
 	import type { SignData } from '$lib/types';
 
 	interface Props {
@@ -13,6 +13,7 @@
 	}
 
 	const { signData, onclick }: Props = $props();
+	const { autoplay } = getSettings();
 
 	const displayWord = $derived(
 		signData.words

@@ -2,7 +2,7 @@
 	import type { ListGlyph, ListWord } from '$lib/types';
 
 	import { categoryBackgroundColors } from '$lib/util';
-	import { sitelenMode } from '$lib/stores';
+	import { getSettings } from '$lib/settings';
 
 	import Space from '$lib/components/Space.svelte';
 	import WordUsageSummary from '../WordUsageSummary.svelte';
@@ -18,6 +18,7 @@
 	}
 
 	const { word, glyphs, onclick }: Props = $props();
+	const { sitelenMode } = getSettings();
 </script>
 
 <Space

@@ -5,12 +5,7 @@
 	import { focusFirstElement } from '$lib/actions/focusFirstElement';
 	import { filter } from '$lib/search';
 	import { loadWordDetail } from '$lib/wordDetail';
-	import {
-		categories,
-		sitelenMode,
-		type SortingMethod,
-		viewMode
-	} from '$lib/stores';
+	import { getSettings, type SortingMethod } from '$lib/settings';
 	import {
 		azWordSort,
 		recognitionWordSort,
@@ -54,6 +49,7 @@
 		revealWord,
 		isSandbox
 	}: Props = $props();
+	const { categories, sitelenMode, viewMode } = getSettings();
 
 	const shownCategories = $derived(
 		$categories

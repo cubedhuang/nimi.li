@@ -1,5 +1,12 @@
 import { redirect } from '@sveltejs/kit';
 
+import {
+	SETTINGS_COOKIE,
+	SETTINGS_COOKIE_OPTIONS,
+	htmlAppearanceAttributes,
+	createSettings
+} from '$lib/settings';
+
 export async function handle({ event, resolve }) {
 	let langParam: string | null = null;
 	try {
@@ -31,5 +38,19 @@ export async function handle({ event, resolve }) {
 
 	event.locals.lang = lang;
 
-	return resolve(event);
+	const settingsCookie = event.cookies.get(SETTINGS_COOKIE);
+	if (settingsCookie !== undefined) {
+		event.cookies.set(
+			SETTINGS_COOKIE,
+			settingsCookie,
+			SETTINGS_COOKIE_OPTIONS
+		);
+	}
+	const settings = createSettings(settingsCookie);
+
+	// crazy hack to get the attributes onto the html
+	return resolve(event, {
+		transformPageChunk: ({ html }) =>
+			html.replace('<html', `<html ${htmlAppearanceAttributes(settings)}`)
+	});
 }

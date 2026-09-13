@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { font, type Font } from '$lib/stores';
+	import { getSettings, type Font } from '$lib/settings';
 
 	interface Props {
 		value: Font;
@@ -7,6 +7,7 @@
 	}
 
 	const { value, name }: Props = $props();
+	const { font } = getSettings();
 
 	const selected = $derived(value === $font);
 </script>

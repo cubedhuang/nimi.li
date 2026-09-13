@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { systemTheme } from '$lib/stores';
+	import { getSettings } from '$lib/settings';
 
 	interface Props {
 		class?: string | undefined;
 	}
 
 	const { class: className = undefined }: Props = $props();
+	const { systemTheme } = getSettings();
 
 	const selected = $derived($systemTheme);
 </script>
