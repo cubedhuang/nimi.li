@@ -1,5 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 
+import { getLanguages } from '$lib/server/fetch';
+import { negotiateLanguage } from '$lib/server/language';
 import {
 	SETTINGS_COOKIE,
 	SETTINGS_COOKIE_OPTIONS,
@@ -28,15 +30,20 @@ export async function handle({ event, resolve }) {
 		throw redirect(302, url.pathname + url.search);
 	}
 
-	const lang =
-		event.cookies.get('lang') ??
-		event.request.headers
-			.get('accept-language')
-			?.split(',')[0]
-			?.slice(0, 2) ??
-		'en';
+	const languages = await getLanguages(event);
 
-	event.locals.lang = lang;
+	let cookieLang = event.cookies.get('lang');
+	if (cookieLang !== undefined && !Object.hasOwn(languages, cookieLang)) {
+		event.cookies.delete('lang', { path: '/' });
+		cookieLang = undefined;
+	}
+	event.locals.lang =
+		cookieLang ??
+		negotiateLanguage(
+			event.request.headers.get('accept-language'),
+			languages
+		) ??
+		'en';
 
 	const settingsCookie = event.cookies.get(SETTINGS_COOKIE);
 	if (settingsCookie !== undefined) {
