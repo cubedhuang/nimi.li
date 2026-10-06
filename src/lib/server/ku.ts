@@ -1,4 +1,5 @@
 import type { Compound, CompoundData } from '$lib/types';
+import { ensureOk } from './fetch';
 
 import glyphs from './glyphs.json';
 
@@ -55,7 +56,11 @@ export async function fetchKu({ fetch }: { fetch: typeof globalThis.fetch }) {
 	];
 
 	const datas = await Promise.all(
-		pages.map((page) => fetch(page).then((res) => res.text()))
+		pages.map((page) =>
+			fetch(page)
+				.then(ensureOk)
+				.then((res) => res.text())
+		)
 	).then((rawDatas) => rawDatas.map(parseData));
 
 	const data: CompoundData = datas.reduce((acc, data) => {

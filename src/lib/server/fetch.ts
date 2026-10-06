@@ -21,6 +21,18 @@ async function putCache(
 	await platform.caches.default.put(cacheKey, response);
 }
 
+export function ensureOk<
+	R extends { ok: boolean; status: number; statusText: string; url: string }
+>(res: R) {
+	if (!res.ok) {
+		throw new Error(
+			`request to ${res.url} failed: ${res.status} ${res.statusText}`
+		);
+	}
+
+	return res;
+}
+
 async function makeCachedRequest<T>(
 	platform: App.Platform | undefined,
 	key: string,
@@ -48,30 +60,29 @@ async function makeCachedRequest<T>(
 		return kvCached.data;
 	}
 
-	let fetchedData: T;
-	const refresh = fetchData()
-		.then(async (data) => {
-			fetchedData = data;
-			await Promise.all([
-				putCache(platform, cacheKey, data),
-				kv.put(
-					key,
-					JSON.stringify({
-						data,
-						lastUpdated: Date.now()
-					} satisfies Cached<T>)
-				)
-			]);
-		})
-		.catch((e) => console.error('refresh failed', key, e));
+	const refresh = fetchData().then(async (data) => {
+		await Promise.all([
+			putCache(platform, cacheKey, data),
+			kv.put(
+				key,
+				JSON.stringify({
+					data,
+					lastUpdated: Date.now()
+				} satisfies Cached<T>)
+			)
+		]).catch((e) => console.error('cache write failed', key, e));
+
+		return data;
+	});
 
 	if (kvCached) {
-		platform.context.waitUntil(refresh);
+		platform.context.waitUntil(
+			refresh.catch((e) => console.error('refresh failed', key, e))
+		);
 		return kvCached.data;
 	}
 
-	await refresh;
-	return fetchedData!;
+	return await refresh;
 }
 
 type RequestEvent = {
@@ -87,6 +98,7 @@ export async function getWords({
 	return makeCachedRequest(platform, `words:${lang}`, () =>
 		client({ fetch, baseUrl: PUBLIC_BASE_URL })
 			.v2.words.$get({ query: { lang } })
+			.then(ensureOk)
 			.then((res) => res.json())
 	);
 }
@@ -99,6 +111,7 @@ export async function getGlyphs({
 	return makeCachedRequest(platform, `glyphs:${lang}`, () =>
 		client({ fetch, baseUrl: PUBLIC_BASE_URL })
 			.v2.glyphs.$get({ query: { lang } })
+			.then(ensureOk)
 			.then((res) => res.json())
 	);
 }
@@ -111,6 +124,7 @@ export async function getSandboxWords({
 	return makeCachedRequest(platform, `sandbox_words:${lang}`, () =>
 		client({ fetch, baseUrl: PUBLIC_BASE_URL })
 			.v2.sandbox.words.$get({ query: { lang } })
+			.then(ensureOk)
 			.then((res) => res.json())
 	);
 }
@@ -123,6 +137,7 @@ export async function getSandboxGlyphs({
 	return makeCachedRequest(platform, `sandbox_glyphs:${lang}`, () =>
 		client({ fetch, baseUrl: PUBLIC_BASE_URL })
 			.v2.sandbox.glyphs.$get({ query: { lang } })
+			.then(ensureOk)
 			.then((res) => res.json())
 	);
 }
@@ -137,6 +152,7 @@ export async function getLukaPonaSigns({
 			.v2.luka_pona.signs.$get({
 				query: { lang }
 			})
+			.then(ensureOk)
 			.then((res) => res.json())
 	);
 }
@@ -145,6 +161,7 @@ export async function getLanguages({ platform, fetch }: RequestEvent) {
 	return makeCachedRequest(platform, 'languages', () =>
 		client({ fetch, baseUrl: PUBLIC_BASE_URL })
 			.v2.languages.$get()
+			.then(ensureOk)
 			.then((res) => res.json())
 	);
 }
@@ -152,11 +169,8 @@ export async function getLanguages({ platform, fetch }: RequestEvent) {
 export async function getLipamanka({ platform, fetch }: RequestEvent) {
 	return makeCachedRequest(platform, 'lipamanka', async () => {
 		const rawText = await fetch('https://lipamanka.gay/essays/dictionary')
-			.then((res) => res.text())
-			.catch(() => '');
-		if (!rawText) {
-			return {};
-		}
+			.then(ensureOk)
+			.then((res) => res.text());
 
 		const re =
 			/<details(?: open)?>\s*?<summary id="([^"]+)">.*?<\/summary>\s*([\s\S]*?)\s*<\/details>/g;
@@ -175,6 +189,9 @@ export async function getLipamanka({ platform, fetch }: RequestEvent) {
 		}
 
 		return words;
+	}).catch((e) => {
+		console.error('lipamanka failed', e);
+		return {} as Record<string, string>;
 	});
 }
 
