@@ -1,7 +1,11 @@
 import { Languages } from '@kulupu-linku/sona';
 
 function parseLocale(tag: string) {
-	return new Intl.Locale(tag).maximize();
+	try {
+		return new Intl.Locale(tag).maximize();
+	} catch {
+		return null;
+	}
 }
 
 export function negotiateLanguage(

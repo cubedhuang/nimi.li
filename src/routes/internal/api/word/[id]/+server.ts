@@ -6,7 +6,7 @@ import {
 	getSandboxWords,
 	getWords
 } from '$lib/server/fetch';
-import { getWordRecognition } from '$lib/util';
+import { getOwn, getWordRecognition } from '$lib/util';
 import type { WordDetail } from '$lib/types';
 
 export async function GET({ fetch, locals, params, platform, setHeaders }) {
@@ -20,8 +20,11 @@ export async function GET({ fetch, locals, params, platform, setHeaders }) {
 	]);
 
 	const word =
-		words[id] ??
-		(await getSandboxWords({ fetch, platform, lang: locals.lang }))[id];
+		getOwn(words, id) ??
+		getOwn(
+			await getSandboxWords({ fetch, platform, lang: locals.lang }),
+			id
+		);
 
 	if (!word) {
 		error(404, 'Word not found');
@@ -35,6 +38,6 @@ export async function GET({ fetch, locals, params, platform, setHeaders }) {
 			.concat(Object.values(sandboxGlyphs))
 			.filter((glyph) => glyph.word_id === id)
 			.sort((a, b) => getWordRecognition(b) - getWordRecognition(a)),
-		lipamanka: lipamanka[id] ?? null
+		lipamanka: getOwn(lipamanka, id) ?? null
 	} satisfies WordDetail);
 }

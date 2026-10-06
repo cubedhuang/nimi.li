@@ -1,12 +1,16 @@
 import { error, redirect } from '@sveltejs/kit';
+import { getOwn } from '$lib/util';
 
 export async function load({ params, parent }) {
 	if (params.phrase.includes(' ')) {
-		redirect(301, params.phrase.replaceAll(' ', '-'));
+		redirect(
+			301,
+			`/ilo-ku/${encodeURIComponent(params.phrase.replaceAll(' ', '-'))}`
+		);
 	}
 
 	const { phrases } = await parent();
-	const phrase = phrases[params.phrase.replaceAll('-', ' ')];
+	const phrase = getOwn(phrases, params.phrase.replaceAll('-', ' '));
 
 	if (!phrase) {
 		error(404, 'Phrase not found');

@@ -3,6 +3,14 @@ import type { Book, UsageCategory } from '@kulupu-linku/sona/utils';
 
 import type { ListWord } from './types';
 
+/** use whenever getting a user-defined string on an object to prevent bad stuff */
+export function getOwn<T>(
+	record: Record<string, T>,
+	key: string
+): T | undefined {
+	return Object.hasOwn(record, key) ? record[key] : undefined;
+}
+
 export const normalize = (str: string) =>
 	str
 		.normalize('NFD')

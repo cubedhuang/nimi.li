@@ -27,7 +27,7 @@ export async function handle({ event, resolve }) {
 
 		const url = new URL(event.url);
 		url.searchParams.delete('lang');
-		throw redirect(302, url.pathname + url.search);
+		throw redirect(302, url.href);
 	}
 
 	const languages = await getLanguages(event);

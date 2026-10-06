@@ -7,7 +7,7 @@ import {
 	getSandboxWords,
 	getWords
 } from '$lib/server/fetch.js';
-import { combinedWordSort, getWordRecognition } from '$lib/util';
+import { combinedWordSort, getOwn, getWordRecognition } from '$lib/util';
 import { distance } from 'fastest-levenshtein';
 
 export async function load({ fetch, locals, params, platform, setHeaders }) {
@@ -20,7 +20,7 @@ export async function load({ fetch, locals, params, platform, setHeaders }) {
 			getLipamanka({ fetch, platform })
 		]);
 
-	const word = wordData[params.nimi];
+	const word = getOwn(wordData, params.nimi);
 	const words = Object.values(wordData);
 	const wordGlyphs = Object.values(glyphs)
 		.concat(Object.values(sandboxGlyphs))
@@ -35,10 +35,10 @@ export async function load({ fetch, locals, params, platform, setHeaders }) {
 		});
 
 		const sandboxWords = Object.values(sandbox);
-		const sandboxWord = sandbox[params.nimi];
-		const index = sandboxWords.indexOf(sandboxWord);
+		const sandboxWord = getOwn(sandbox, params.nimi);
 
 		if (sandboxWord) {
+			const index = sandboxWords.indexOf(sandboxWord);
 			setHeaders({ 'Cache-Control': 's-maxage=3600' });
 
 			return {
@@ -87,7 +87,7 @@ export async function load({ fetch, locals, params, platform, setHeaders }) {
 		signs: Object.values(lukaPona).filter(
 			(word) => params.nimi === word.definition
 		),
-		lipamanka: lipamanka[params.nimi],
+		lipamanka: getOwn(lipamanka, params.nimi),
 		next:
 			index === words.length - 1 ? undefined : sortedWords[index + 1].id,
 		previous: index === 0 ? undefined : sortedWords[index - 1].id
