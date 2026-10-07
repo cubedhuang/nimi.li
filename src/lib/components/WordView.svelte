@@ -77,16 +77,21 @@
 
 	const OPEN_GRACE_MS = 200;
 
+	let pendingWordId: string | null = null;
 	async function selectWord(word: ListWord) {
-		if (selectedWord?.id === word.id) {
+		if (selectedWord?.id === word.id || pendingWordId === word.id) {
+			pendingWordId = null;
 			selectedWord = null;
 			return;
 		}
 
+		pendingWordId = word.id;
 		await Promise.race([
 			loadWordDetail(word.id),
 			new Promise((resolve) => setTimeout(resolve, OPEN_GRACE_MS))
 		]);
+		if (pendingWordId !== word.id) return;
+		pendingWordId = null;
 
 		selectedWord = word;
 	}
