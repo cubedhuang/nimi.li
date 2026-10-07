@@ -1,7 +1,7 @@
-import { getKu } from '$lib/server/fetch.js';
+import { getKu } from '#lib/server/fetch.js';
 
-export async function load({ fetch, platform }) {
+export async function load({ fetch }) {
 	return {
-		phrases: await getKu({ fetch, platform })
+		phrases: await getKu({ fetch })
 	};
 }

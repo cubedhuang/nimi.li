@@ -6,18 +6,18 @@ import {
 	getSandboxGlyphs,
 	getSandboxWords,
 	getWords
-} from '$lib/server/fetch.js';
-import { combinedWordSort, getOwn, getWordRecognition } from '$lib/util';
+} from '#lib/server/fetch.js';
+import { combinedWordSort, getOwn, getWordRecognition } from '#lib/util.js';
 import { distance } from 'fastest-levenshtein';
 
-export async function load({ fetch, locals, params, platform, setHeaders }) {
+export async function load({ fetch, locals, params, setHeaders }) {
 	const [wordData, glyphs, sandboxGlyphs, lukaPona, lipamanka] =
 		await Promise.all([
-			getWords({ fetch, platform, lang: locals.lang }),
-			getGlyphs({ fetch, platform, lang: locals.lang }),
-			getSandboxGlyphs({ fetch, platform, lang: locals.lang }),
-			getLukaPonaSigns({ fetch, platform, lang: locals.lang }),
-			getLipamanka({ fetch, platform })
+			getWords({ fetch, lang: locals.lang }),
+			getGlyphs({ fetch, lang: locals.lang }),
+			getSandboxGlyphs({ fetch, lang: locals.lang }),
+			getLukaPonaSigns({ fetch, lang: locals.lang }),
+			getLipamanka({ fetch })
 		]);
 
 	const word = getOwn(wordData, params.nimi);
@@ -30,7 +30,6 @@ export async function load({ fetch, locals, params, platform, setHeaders }) {
 	if (!word) {
 		const sandbox = await getSandboxWords({
 			fetch,
-			platform,
 			lang: locals.lang
 		});
 
@@ -70,10 +69,7 @@ export async function load({ fetch, locals, params, platform, setHeaders }) {
 			closest.push('kijetesantakalu');
 		}
 
-		error(404, {
-			message: 'Not found',
-			closest
-		});
+		error(404, 'Not found', { closest });
 	}
 
 	const sortedWords = words.sort(combinedWordSort);

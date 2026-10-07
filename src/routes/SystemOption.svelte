@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getSettings } from '$lib/settings';
+	import { getSettings } from '#lib/settings/index.js';
 
 	interface Props {
 		class?: string | undefined;

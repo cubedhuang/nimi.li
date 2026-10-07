@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 
-	import type { SignData } from '$lib/types';
+	import type { SignData } from '#lib/types.js';
 
-	import Details from '$lib/components/Details.svelte';
-	import SignsList from '$lib/components/SignsList.svelte';
-	import Wikipedia from '$lib/components/icons/Wikipedia.svelte';
-	import XMark from '$lib/components/icons/XMark.svelte';
+	import Details from '#lib/components/Details.svelte';
+	import SignsList from '#lib/components/SignsList.svelte';
+	import Wikipedia from '#lib/components/icons/Wikipedia.svelte';
+	import XMark from '#lib/components/icons/XMark.svelte';
 
 	interface Props {
 		data: SignData | null;
@@ -47,7 +47,7 @@
 
 				<div class="ml-auto flex items-center gap-1">
 					<a
-						href={resolve(`/${words[0].id}`)}
+						href={resolve('/[nimi]', { nimi: words[0].id })}
 						class="interactable px-2 py-1"
 					>
 						more

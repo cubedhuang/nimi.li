@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { categoryTextColors, getWordDisplayRecognition } from '$lib/util';
+	import {
+		categoryTextColors,
+		getWordDisplayRecognition
+	} from '#lib/util.js';
 	import type { Glyph } from '@kulupu-linku/sona';
 
 	interface Props {

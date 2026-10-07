@@ -1,4 +1,4 @@
-import type { Compound, CompoundData } from '$lib/types';
+import type { Compound, CompoundData } from '#lib/types.js';
 import { ensureOk } from './fetch';
 
 import glyphs from './glyphs.json';

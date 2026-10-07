@@ -9,7 +9,6 @@
 </script>
 
 <a
-	// eslint-disable-next-line svelte/no-navigation-without-resolve
 	{href}
 	class="relative interactable overflow-hidden p-4 text-left transition hover:scale-[1.02]"
 	{...props}

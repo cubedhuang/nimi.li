@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 
-	import type { Compound } from '$lib/types';
+	import type { Compound } from '#lib/types.js';
 
-	import Space from '$lib/components/Space.svelte';
+	import Space from '#lib/components/Space.svelte';
 
 	interface Props {
 		compound: Compound;
@@ -23,7 +23,7 @@
 <Space
 	{onclick}
 	id={compound.compound.replace(/ /g, '-')}
-	href={resolve(`/ilo-ku/${compound.compound.replace(/ /g, '-')}`)}
+	href={resolve(`ilo-ku/${compound.compound.replace(/ /g, '-')}`)}
 >
 	<div class="h-full">
 		{#if compound.glyphs?.length}

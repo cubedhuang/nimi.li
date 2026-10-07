@@ -1,4 +1,4 @@
-import type { ListGlyph, ListWord } from '$lib/types';
+import type { ListGlyph, ListWord } from '#lib/types.js';
 
 export function getShownGlyphs(
 	word: ListWord,

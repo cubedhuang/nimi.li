@@ -3,17 +3,17 @@ import {
 	getLanguages,
 	getSandboxGlyphs,
 	getSandboxWords
-} from '$lib/server/fetch.js';
-import { toListGlyph, toListWord } from '$lib/server/project';
-import { getWordRecognition } from '$lib/util';
-import type { ListGlyph } from '$lib/types';
+} from '#lib/server/fetch.js';
+import { toListGlyph, toListWord } from '#lib/server/project.js';
+import { getWordRecognition } from '#lib/util.js';
+import type { ListGlyph } from '#lib/types.js';
 
-export async function load({ fetch, platform, locals, setHeaders }) {
+export async function load({ fetch, locals, setHeaders }) {
 	const [words, glyphs, sandboxGlyphs, languages] = await Promise.all([
-		getSandboxWords({ fetch, platform, lang: locals.lang }),
-		getGlyphs({ fetch, platform, lang: locals.lang }),
-		getSandboxGlyphs({ fetch, platform, lang: locals.lang }),
-		getLanguages({ fetch, platform })
+		getSandboxWords({ fetch, lang: locals.lang }),
+		getGlyphs({ fetch, lang: locals.lang }),
+		getSandboxGlyphs({ fetch, lang: locals.lang }),
+		getLanguages({ fetch })
 	]);
 
 	setHeaders({ 'Cache-Control': 's-maxage=3600' });

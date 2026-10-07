@@ -1,26 +1,26 @@
 <script lang="ts">
-	import { outclick } from '$lib/actions/outclick';
-	import { flyAndScale } from '$lib/transitions';
+	import { outclick } from '#lib/actions/outclick.js';
+	import { flyAndScale } from '#lib/transitions.js';
 	import {
 		categoryTextColors,
 		getUsageCategoryFromPercent,
 		getWordDisplayRecognition,
 		getUcsur
-	} from '$lib/util';
+	} from '#lib/util.js';
 
 	import AudioPlayer from './AudioPlayer.svelte';
-	import Copy from '$lib/components/Copy.svelte';
-	import ExternalLink from '$lib/components/icons/ExternalLink.svelte';
-	import KuData from '$lib/components/KuData.svelte';
-	import Link from '$lib/components/Link.svelte';
-	import LipamankaData from '$lib/components/LipamankaData.svelte';
-	import Meta from '$lib/components/Meta.svelte';
-	import PuData from '$lib/components/PuData.svelte';
-	import SignsList from '$lib/components/SignsList.svelte';
-	import Wikipedia from '$lib/components/icons/Wikipedia.svelte';
-	import WordEtymology from '$lib/components/WordEtymology.svelte';
+	import Copy from '#lib/components/Copy.svelte';
+	import ExternalLink from '#lib/components/icons/ExternalLink.svelte';
+	import KuData from '#lib/components/KuData.svelte';
+	import Link from '#lib/components/Link.svelte';
+	import LipamankaData from '#lib/components/LipamankaData.svelte';
+	import Meta from '#lib/components/Meta.svelte';
+	import PuData from '#lib/components/PuData.svelte';
+	import SignsList from '#lib/components/SignsList.svelte';
+	import Wikipedia from '#lib/components/icons/Wikipedia.svelte';
+	import WordEtymology from '#lib/components/WordEtymology.svelte';
 	import { resolve } from '$app/paths';
-	import GlyphInfo from '$lib/components/GlyphInfo.svelte';
+	import GlyphInfo from '#lib/components/GlyphInfo.svelte';
 
 	const { data } = $props();
 
@@ -55,7 +55,9 @@
 
 		<svelte:element
 			this={data.previous ? 'a' : 'button'}
-			href={data.previous ? resolve(`/${data.previous}`) : undefined}
+			href={data.previous
+				? resolve('/[nimi]', { nimi: data.previous })
+				: undefined}
 			class="interactable p-2"
 			disabled={!data.previous}
 			aria-label="previous word"
@@ -78,7 +80,9 @@
 
 		<svelte:element
 			this={data.next ? 'a' : 'button'}
-			href={data.next ? resolve(`/${data.next}`) : undefined}
+			href={data.next
+				? resolve('/[nimi]', { nimi: data.next })
+				: undefined}
 			class="interactable p-2"
 			disabled={!data.next}
 			aria-label="next word"
@@ -100,7 +104,9 @@
 		</svelte:element>
 
 		<a
-			href={resolve(word.usage_category === 'sandbox' ? '/sandbox' : '/')}
+			href={resolve(
+				word.usage_category === 'sandbox' ? '/sandbox' : '/(words)'
+			)}
 			class="interactable p-2"
 			aria-label="home"
 		>
@@ -192,7 +198,9 @@
 			<p class="mt-1">
 				{#each word.see_also as other, i (other)}
 					{#if i > 0},{/if}
-					<Link href={resolve(`/${other}`)}>{other}</Link>
+					<Link href={resolve('/[nimi]', { nimi: other })}
+						>{other}</Link
+					>
 				{/each}
 			</p>
 		{/if}

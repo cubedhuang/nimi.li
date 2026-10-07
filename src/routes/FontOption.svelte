@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getSettings, type Font } from '$lib/settings';
+	import { getSettings, type Font } from '#lib/settings/index.js';
 
 	interface Props {
 		value: Font;

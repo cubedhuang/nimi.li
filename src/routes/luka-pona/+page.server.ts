@@ -2,14 +2,14 @@ import {
 	getLukaPonaSigns,
 	getSandboxWords,
 	getWords
-} from '$lib/server/fetch.js';
-import type { SignData } from '$lib/types';
+} from '#lib/server/fetch.js';
+import type { SignData } from '#lib/types.js';
 
-export async function load({ fetch, locals, platform, setHeaders }) {
+export async function load({ fetch, locals, setHeaders }) {
 	const [words, sandbox, lukaPona] = await Promise.all([
-		getWords({ fetch, platform, lang: locals.lang }),
-		getSandboxWords({ fetch, platform, lang: locals.lang }),
-		getLukaPonaSigns({ fetch, platform, lang: locals.lang })
+		getWords({ fetch, lang: locals.lang }),
+		getSandboxWords({ fetch, lang: locals.lang }),
+		getLukaPonaSigns({ fetch, lang: locals.lang })
 	]);
 
 	const lukaPonaData = Object.values(lukaPona);

@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { distance } from 'fastest-levenshtein';
 
-	import { focusFirstElement } from '$lib/actions/focusFirstElement';
-	import type { Compound } from '$lib/types';
-	import { normalize } from '$lib/util';
+	import { focusFirstElement } from '#lib/actions/focusFirstElement.js';
+	import type { Compound } from '#lib/types.js';
+	import { normalize } from '#lib/util.js';
 
 	import CompoundDetails from './CompoundDetails.svelte';
 	import CompoundSpace from './CompoundSpace.svelte';
-	import Link from '$lib/components/Link.svelte';
-	import Search from '$lib/components/Search.svelte';
-	import Meta from '$lib/components/Meta.svelte';
+	import Link from '#lib/components/Link.svelte';
+	import Search from '#lib/components/Search.svelte';
+	import Meta from '#lib/components/Meta.svelte';
 	import { tick } from 'svelte';
 
 	const { data } = $props();

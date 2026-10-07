@@ -1,8 +1,8 @@
-import { getLanguages } from '$lib/server/fetch';
-import { SETTINGS_COOKIE } from '$lib/settings';
+import { getLanguages } from '#lib/server/fetch.js';
+import { SETTINGS_COOKIE } from '#lib/settings/index.js';
 
-export async function load({ cookies, fetch, locals, platform }) {
-	const languages = await getLanguages({ fetch, platform });
+export async function load({ cookies, fetch, locals }) {
+	const languages = await getLanguages({ fetch });
 
 	return {
 		lang: locals.lang,

@@ -3,8 +3,8 @@
 
 	import { resolve } from '$app/paths';
 
-	import { getSettings } from '$lib/settings';
-	import type { SignData } from '$lib/types';
+	import { getSettings } from '#lib/settings/index.js';
+	import type { SignData } from '#lib/types.js';
 
 	interface Props {
 		signData: SignData;
@@ -68,7 +68,7 @@
 
 <a
 	id={signData.id}
-	href={resolve(`/${signData.words[0].id}`)}
+	href={resolve('/[nimi]', { nimi: signData.words[0].id })}
 	onclick={(e) => {
 		e.preventDefault();
 		onclick?.();

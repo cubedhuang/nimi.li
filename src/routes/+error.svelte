@@ -27,7 +27,7 @@
 			{#each page.error?.closest as word (word)}
 				<li>
 					<a
-						href={resolve(`/${word}`)}
+						href={resolve('/[nimi]', { nimi: word })}
 						class="inline-block interactable px-2 py-1"
 					>
 						{word}
@@ -38,7 +38,10 @@
 	{/if}
 
 	<p class="mt-6">
-		<a href={resolve('/')} class="inline-block interactable px-2 py-1">
+		<a
+			href={resolve('/(words)')}
+			class="inline-block interactable px-2 py-1"
+		>
 			o tawa lipu suli
 		</a>
 	</p>

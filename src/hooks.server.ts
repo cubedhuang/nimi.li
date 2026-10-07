@@ -1,13 +1,13 @@
 import { redirect } from '@sveltejs/kit';
 
-import { getLanguages } from '$lib/server/fetch';
-import { negotiateLanguage } from '$lib/server/language';
+import { getLanguages } from '#lib/server/fetch.js';
+import { negotiateLanguage } from '#lib/server/language.js';
 import {
 	SETTINGS_COOKIE,
 	SETTINGS_COOKIE_OPTIONS,
 	htmlAppearanceAttributes,
 	createSettings
-} from '$lib/settings';
+} from '#lib/settings/index.js';
 
 export async function handle({ event, resolve }) {
 	let langParam: string | null = null;

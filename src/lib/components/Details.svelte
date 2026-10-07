@@ -1,8 +1,8 @@
 <script lang="ts" generics="T">
 	import type { Snippet } from 'svelte';
 
-	import { focusFirstElement } from '$lib/actions/focusFirstElement';
-	import { flyAndScale } from '$lib/transitions';
+	import { focusFirstElement } from '#lib/actions/focusFirstElement.js';
+	import { flyAndScale } from '#lib/transitions.js';
 
 	interface Props {
 		value: T | null;

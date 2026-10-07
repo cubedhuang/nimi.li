@@ -1,7 +1,7 @@
 import type { Glyph, Word } from '@kulupu-linku/sona';
 
-import { RECOGNITION_PERIOD } from '$lib/util';
-import type { ListGlyph, ListWord } from '$lib/types';
+import { RECOGNITION_PERIOD } from '#lib/util.js';
+import type { ListGlyph, ListWord } from '#lib/types.js';
 
 export function toListWord(word: Word, lang: string): ListWord {
 	const recognition = word.usage[RECOGNITION_PERIOD];

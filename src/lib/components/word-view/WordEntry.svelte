@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { ListGlyph, ListWord } from '$lib/types';
+	import type { ListGlyph, ListWord } from '#lib/types.js';
 
 	import {
 		categoryTextColors,
 		getWordDisplayRecognition,
 		getWordRecognition
-	} from '$lib/util';
-	import { getSettings } from '$lib/settings';
+	} from '#lib/util.js';
+	import { getSettings } from '#lib/settings/index.js';
 	import { resolve } from '$app/paths';
-	import { loadWordDetail } from '$lib/wordDetail';
-	import HydratedImg from '$lib/components/HydratedImg.svelte';
+	import { loadWordDetail } from '#lib/wordDetail.js';
+	import HydratedImg from '#lib/components/HydratedImg.svelte';
 
 	interface Props {
 		word: ListWord;
@@ -73,7 +73,7 @@
 
 	<span class="mt-0.5 ml-0.5">
 		<a
-			href={resolve(`/${word.id}`)}
+			href={resolve('/[nimi]', { nimi: word.id })}
 			onclick={(e) => {
 				e.preventDefault();
 				if (onclick) {

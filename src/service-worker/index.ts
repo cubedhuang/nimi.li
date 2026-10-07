@@ -1,14 +1,17 @@
-/// <reference lib="webworker" />
-/// <reference types="@sveltejs/kit" />
-
-import { build, files, version } from '$service-worker';
-
-declare const self: ServiceWorkerGlobalScope;
+import { version } from '$app/env';
+import { assets, immutable } from '$app/manifest';
+import { resolve } from '$app/paths';
+import { self } from '$app/service-worker';
 
 const CACHE = `cache-${version}`;
 const GLYPH_CACHE = 'glyphs';
-const PRECACHE_FILES = files.filter((file) => !file.includes('/fonts/'));
-const ASSETS = [...build, ...PRECACHE_FILES];
+const PRECACHE_FILES = assets
+	.map((asset) => resolve(asset.path as string))
+	.filter((file) => !file.includes('/fonts/'));
+const ASSETS = [
+	...immutable.map((asset) => resolve(asset.path)),
+	...PRECACHE_FILES
+];
 
 const GLYPH_ORIGIN = 'https://raw.githubusercontent.com';
 const GLYPH_PATH_PREFIX = '/lipu-linku/ijo/';
