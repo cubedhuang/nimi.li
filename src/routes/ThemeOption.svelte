@@ -1,5 +1,9 @@
 <script lang="ts">
-	import { getSettings, isDarkTheme, type Theme } from '$lib/settings';
+	import {
+		getSettings,
+		isDarkTheme,
+		type Theme
+	} from '#lib/settings/index.js';
 
 	interface Props {
 		value: Theme;

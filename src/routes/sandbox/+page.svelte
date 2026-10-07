@@ -2,8 +2,8 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 
-	import WordView from '$lib/components/WordView.svelte';
-	import Meta from '$lib/components/Meta.svelte';
+	import WordView from '#lib/components/WordView.svelte';
+	import Meta from '#lib/components/Meta.svelte';
 
 	const { data } = $props();
 
@@ -37,7 +37,7 @@
 	glyphs={data.glyphs}
 	revealWord={(referred) => {
 		if (!words.some((word) => word.word === referred)) {
-			goto(resolve(`/${referred}`));
+			goto(resolve('/[nimi]', { nimi: referred }));
 		}
 	}}
 	isSandbox

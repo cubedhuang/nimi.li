@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 
 export const SETTINGS_COOKIE = 'settings';
 
@@ -16,6 +16,7 @@ export function parseSettingsCookie(
 
 	try {
 		const parsed: unknown = JSON.parse(raw);
+
 		return parsed !== null && typeof parsed === 'object'
 			? (parsed as Record<string, unknown>)
 			: {};

@@ -8,21 +8,21 @@
 
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import { dev } from '$app/environment';
+	import { dev } from '$app/env';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
 
-	import { outclick } from '$lib/actions/outclick';
-	import { initSettings } from '$lib/settings';
-	import { flyAndScale } from '$lib/transitions';
+	import { outclick } from '#lib/actions/outclick.js';
+	import { initSettings } from '#lib/settings/index.js';
+	import { flyAndScale } from '#lib/transitions.js';
 
-	import SelectLanguage from '$lib/components/SelectLanguage.svelte';
+	import SelectLanguage from '#lib/components/SelectLanguage.svelte';
 	// import SurveyBanner from './SurveyBanner.svelte';
 	import ThemeSelector from './ThemeSelector.svelte';
-	import ArrowsPointingInIconMini from '$lib/components/icons/ArrowsPointingInIconMini.svelte';
-	import ArrowsPointingOutIconMini from '$lib/components/icons/ArrowsPointingOutIconMini.svelte';
-	import Bars3BottomLeftIconMini from '$lib/components/icons/Bars3BottomLeftIconMini.svelte';
-	import XMarkIconMini from '$lib/components/icons/XMarkIconMini.svelte';
-	import ArrowDownTrayIconMini from '$lib/components/icons/ArrowDownTrayIconMini.svelte';
+	import ArrowsPointingInIconMini from '#lib/components/icons/ArrowsPointingInIconMini.svelte';
+	import ArrowsPointingOutIconMini from '#lib/components/icons/ArrowsPointingOutIconMini.svelte';
+	import Bars3BottomLeftIconMini from '#lib/components/icons/Bars3BottomLeftIconMini.svelte';
+	import XMarkIconMini from '#lib/components/icons/XMarkIconMini.svelte';
+	import ArrowDownTrayIconMini from '#lib/components/icons/ArrowDownTrayIconMini.svelte';
 
 	import type { LayoutProps } from './$types';
 
@@ -32,11 +32,11 @@
 	const settings = initSettings(data.settingsCookie);
 
 	const routes = [
-		{ name: 'dictionary', href: '/' },
-		{ name: 'luka pona', href: '/luka-pona' },
-		{ name: 'ilo ku', href: '/ilo-ku' },
-		{ name: 'sandbox', href: '/sandbox' },
-		{ name: 'about', href: '/about' }
+		{ name: 'dictionary', id: '/(words)' },
+		{ name: 'luka pona', id: '/luka-pona' },
+		{ name: 'ilo ku', id: '/ilo-ku' },
+		{ name: 'sandbox', id: '/sandbox' },
+		{ name: 'about', id: '/about' }
 	] as const;
 
 	let opened = $state(false);
@@ -46,7 +46,9 @@
 	let nProgressTimeout: NodeJS.Timeout;
 
 	// disable smooth scroll on navigation
-	beforeNavigate(() => {
+	beforeNavigate(({ shallow, type }) => {
+		if (shallow && type === 'goto') return;
+
 		document.documentElement.style.scrollBehavior = 'auto';
 		opened = false;
 
@@ -56,9 +58,11 @@
 			NProgress.start();
 		}, 150);
 	});
-	afterNavigate(() => {
-		document.documentElement.style.scrollBehavior = 'smooth';
 
+	afterNavigate(({ shallow, type }) => {
+		if (shallow && type === 'goto') return;
+
+		document.documentElement.style.scrollBehavior = 'smooth';
 		clearTimeout(nProgressTimeout);
 		NProgress.done();
 	});
@@ -99,7 +103,7 @@
 		<nav class="content full border-b-2 py-2">
 			<div class="nav-anchor flex items-center gap-1">
 				<a
-					href={resolve('/')}
+					href={resolve('/(words)')}
 					class="mr-2 font-display text-lg font-bold transition-colors hv:text-accent"
 				>
 					nimi.li
@@ -111,10 +115,10 @@
 				></div>
 
 				<div class="hidden gap-0.5 sm:flex">
-					{#each routes as route (route.href)}
+					{#each routes as route (route.id)}
 						<a
-							href={resolve(route.href)}
-							class="nav-link {page.url.pathname === route.href
+							href={resolve(route.id)}
+							class="nav-link {page.route.id === route.id
 								? 'active'
 								: ''}"
 						>
@@ -183,17 +187,16 @@
 				class="content full border-b-2 bg-card py-2 sm:hidden"
 				transition:slide={{ duration: 200 }}
 			>
-				{#each routes as route (route.href)}
+				{#each routes as route (route.id)}
 					<a
-						href={resolve(route.href)}
-						class="content full nav-sheet-link {page.url
-							.pathname === route.href
+						href={resolve(route.id)}
+						class="content full nav-sheet-link {page.route.id ===
+						route.id
 							? 'active'
 							: ''}"
 						onclick={() => (opened = false)}
+						><span>{route.name}</span></a
 					>
-						<span>{route.name}</span>
-					</a>
 				{/each}
 			</div>
 		{/if}

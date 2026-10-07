@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { ListWord } from '$lib/types';
+	import type { ListWord } from '#lib/types.js';
 
-	import { getWordDisplayRecognition } from '$lib/util';
+	import { getWordDisplayRecognition } from '#lib/util.js';
 
 	interface Props {
 		word: ListWord;

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { slide } from 'svelte/transition';
 
-	import { outclick } from '$lib/actions/outclick';
-	import { getSettings } from '$lib/settings';
-	import { flyAndScale } from '$lib/transitions';
+	import { outclick } from '#lib/actions/outclick.js';
+	import { getSettings } from '#lib/settings/index.js';
+	import { flyAndScale } from '#lib/transitions.js';
 
 	const settings = getSettings();
 

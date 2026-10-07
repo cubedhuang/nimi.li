@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { flyAndScale } from '$lib/transitions';
+	import { flyAndScale } from '#lib/transitions.js';
 	import { Select } from 'bits-ui';
 	import type { Component } from 'svelte';
 

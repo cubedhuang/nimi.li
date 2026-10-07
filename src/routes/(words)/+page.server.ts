@@ -1,13 +1,13 @@
-import { getGlyphs, getSandboxGlyphs, getWords } from '$lib/server/fetch.js';
-import { toListGlyph, toListWord } from '$lib/server/project.js';
-import { getWordRecognition } from '$lib/util.js';
-import type { ListGlyph } from '$lib/types.js';
+import { getGlyphs, getSandboxGlyphs, getWords } from '#lib/server/fetch.js';
+import { toListGlyph, toListWord } from '#lib/server/project.js';
+import { getWordRecognition } from '#lib/util.js';
+import type { ListGlyph } from '#lib/types.js';
 
-export async function load({ fetch, locals, platform }) {
+export async function load({ fetch, locals }) {
 	const [words, glyphs, sandboxGlyphs] = await Promise.all([
-		getWords({ fetch, platform, lang: locals.lang }),
-		getGlyphs({ fetch, platform, lang: locals.lang }),
-		getSandboxGlyphs({ fetch, platform, lang: locals.lang })
+		getWords({ fetch, lang: locals.lang }),
+		getGlyphs({ fetch, lang: locals.lang }),
+		getSandboxGlyphs({ fetch, lang: locals.lang })
 	]);
 
 	return {

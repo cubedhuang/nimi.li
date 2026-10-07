@@ -6,9 +6,9 @@
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
 
-	import { flyAndScale } from '$lib/transitions';
-	import { normalize, sortLanguages } from '$lib/util';
-	import LanguageIconMini from '$lib/components/icons/LanguageIconMini.svelte';
+	import { flyAndScale } from '#lib/transitions.js';
+	import { normalize, sortLanguages } from '#lib/util.js';
+	import LanguageIconMini from '#lib/components/icons/LanguageIconMini.svelte';
 
 	const lang = $derived(page.data.lang);
 	const languages = $derived(page.data.languages);
@@ -79,7 +79,7 @@
 		}, 300);
 
 		return async ({ update }) => {
-			await update();
+			await update({ navigate: false });
 			clearTimeout(nProgressTimeout);
 			NProgress.done();
 		};

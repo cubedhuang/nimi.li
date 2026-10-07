@@ -1,15 +1,14 @@
 import type { Word } from '@kulupu-linku/sona';
 import type { UsageCategory } from '@kulupu-linku/sona/utils';
-import { text } from '@sveltejs/kit';
-import { getKu, getWords } from '$lib/server/fetch.js';
+import { getKu, getWords } from '#lib/server/fetch.js';
 
-export async function GET({ fetch, platform }) {
+export async function GET({ fetch }) {
 	const [words, compounds] = await Promise.all([
-		getWords({ fetch, platform, lang: 'en' }),
-		getKu({ fetch, platform })
+		getWords({ fetch, lang: 'en' }),
+		getKu({ fetch })
 	]);
 
-	return text(render(Object.values(words), Object.keys(compounds)), {
+	return new Response(render(Object.values(words), Object.keys(compounds)), {
 		headers: {
 			'Content-Type': 'application/xml'
 		}

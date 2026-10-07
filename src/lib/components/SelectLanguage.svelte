@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { tick } from 'svelte';
 
-	import LanguageIconMini from '$lib/components/icons/LanguageIconMini.svelte';
+	import LanguageIconMini from '#lib/components/icons/LanguageIconMini.svelte';
 
 	type MenuComponent =
 		typeof import('./select-language/SelectLanguageMenu.svelte').default;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Action } from 'svelte/action';
 
-	import type { ListWord } from '$lib/types';
+	import type { ListWord } from '#lib/types.js';
 
 	import ExternalLink from './icons/ExternalLink.svelte';
 

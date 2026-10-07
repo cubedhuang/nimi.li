@@ -1,30 +1,27 @@
-import { error, json } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import {
 	getGlyphs,
 	getLipamanka,
 	getSandboxGlyphs,
 	getSandboxWords,
 	getWords
-} from '$lib/server/fetch';
-import { getOwn, getWordRecognition } from '$lib/util';
-import type { WordDetail } from '$lib/types';
+} from '#lib/server/fetch.js';
+import { getOwn, getWordRecognition } from '#lib/util.js';
+import type { WordDetail } from '#lib/types.js';
 
-export async function GET({ fetch, locals, params, platform, setHeaders }) {
+export async function GET({ fetch, locals, params, setHeaders }) {
 	const { id } = params;
 
 	const [words, glyphs, sandboxGlyphs, lipamanka] = await Promise.all([
-		getWords({ fetch, platform, lang: locals.lang }),
-		getGlyphs({ fetch, platform, lang: locals.lang }),
-		getSandboxGlyphs({ fetch, platform, lang: locals.lang }),
-		getLipamanka({ fetch, platform })
+		getWords({ fetch, lang: locals.lang }),
+		getGlyphs({ fetch, lang: locals.lang }),
+		getSandboxGlyphs({ fetch, lang: locals.lang }),
+		getLipamanka({ fetch })
 	]);
 
 	const word =
 		getOwn(words, id) ??
-		getOwn(
-			await getSandboxWords({ fetch, platform, lang: locals.lang }),
-			id
-		);
+		getOwn(await getSandboxWords({ fetch, lang: locals.lang }), id);
 
 	if (!word) {
 		error(404, 'Word not found');
@@ -32,7 +29,7 @@ export async function GET({ fetch, locals, params, platform, setHeaders }) {
 
 	setHeaders({ 'Cache-Control': 's-maxage=3600' });
 
-	return json({
+	return Response.json({
 		word,
 		glyphs: Object.values(glyphs)
 			.concat(Object.values(sandboxGlyphs))

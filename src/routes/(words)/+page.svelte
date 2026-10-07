@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { getSettings } from '$lib/settings';
-	import { bookNames } from '$lib/util';
+	import { getSettings } from '#lib/settings/index.js';
+	import { bookNames } from '#lib/util.js';
 
-	import Link from '$lib/components/Link.svelte';
-	import Meta from '$lib/components/Meta.svelte';
-	import WordView from '$lib/components/WordView.svelte';
+	import Link from '#lib/components/Link.svelte';
+	import Meta from '#lib/components/Meta.svelte';
+	import WordView from '#lib/components/WordView.svelte';
 
 	const { data } = $props();
 	const settings = getSettings();

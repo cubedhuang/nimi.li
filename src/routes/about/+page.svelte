@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Link from '$lib/components/Link.svelte';
-	import Meta from '$lib/components/Meta.svelte';
+	import Link from '#lib/components/Link.svelte';
+	import Meta from '#lib/components/Meta.svelte';
 
 	let pona = $state(false);
 

@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { tick } from 'svelte';
-	import type { ListGlyph, ListWord } from '$lib/types';
+	import type { ListGlyph, ListWord } from '#lib/types.js';
 
-	import { focusFirstElement } from '$lib/actions/focusFirstElement';
-	import { filter } from '$lib/search';
-	import { loadWordDetail } from '$lib/wordDetail';
-	import { getSettings, type SortingMethod } from '$lib/settings';
+	import { focusFirstElement } from '#lib/actions/focusFirstElement.js';
+	import { filter } from '#lib/search.js';
+	import { loadWordDetail } from '#lib/wordDetail.js';
+	import { getSettings, type SortingMethod } from '#lib/settings/index.js';
 	import {
 		azWordSort,
 		recognitionWordSort,
 		combinedWordSort
-	} from '$lib/util';
+	} from '#lib/util.js';
 
 	import Select from './Select.svelte';
 
@@ -20,9 +20,9 @@
 	import WordSpaceDetailed from './word-view/WordSpaceDetailed.svelte';
 	import Search from './Search.svelte';
 	import WordDetails from './WordDetails.svelte';
-	import { outclick } from '$lib/actions/outclick';
+	import { outclick } from '#lib/actions/outclick.js';
 	import type { Book } from '@kulupu-linku/sona/utils';
-	import { flyAndScale } from '$lib/transitions';
+	import { flyAndScale } from '#lib/transitions.js';
 	import { slide } from 'svelte/transition';
 	import PillToggle from './PillToggle.svelte';
 	import EllipsisHorizontalIconMicro from './icons/EllipsisHorizontalIconMicro.svelte';

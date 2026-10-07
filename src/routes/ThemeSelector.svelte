@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import { outclick } from '$lib/actions/outclick';
-	import PaintBrushIconMini from '$lib/components/icons/PaintBrushIconMini.svelte';
-	import { getSettings } from '$lib/settings';
-	import { flyAndScale } from '$lib/transitions';
+	import { outclick } from '#lib/actions/outclick.js';
+	import PaintBrushIconMini from '#lib/components/icons/PaintBrushIconMini.svelte';
+	import { getSettings } from '#lib/settings/index.js';
+	import { flyAndScale } from '#lib/transitions.js';
 
 	import FontOption from './FontOption.svelte';
 	import SystemOption from './SystemOption.svelte';

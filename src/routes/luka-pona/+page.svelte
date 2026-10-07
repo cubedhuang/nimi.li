@@ -2,17 +2,21 @@
 	import { tick } from 'svelte';
 	import type { PageData } from './$types';
 
-	import { focusFirstElement } from '$lib/actions/focusFirstElement';
-	import { azWordSort, categoryBackgroundColors, normalize } from '$lib/util';
-	import { scoreSearch } from '$lib/search';
-	import { getSettings } from '$lib/settings';
-	import type { SignData } from '$lib/types';
+	import { focusFirstElement } from '#lib/actions/focusFirstElement.js';
+	import {
+		azWordSort,
+		categoryBackgroundColors,
+		normalize
+	} from '#lib/util.js';
+	import { scoreSearch } from '#lib/search.js';
+	import { getSettings } from '#lib/settings/index.js';
+	import type { SignData } from '#lib/types.js';
 
-	import ColoredCheckbox from '$lib/components/ColoredCheckbox.svelte';
+	import ColoredCheckbox from '#lib/components/ColoredCheckbox.svelte';
 	import LukaPonaEntry from './LukaPonaEntry.svelte';
-	import Search from '$lib/components/Search.svelte';
+	import Search from '#lib/components/Search.svelte';
 	import SignDetails from './SignDetails.svelte';
-	import Meta from '$lib/components/Meta.svelte';
+	import Meta from '#lib/components/Meta.svelte';
 
 	interface Props {
 		data: PageData;

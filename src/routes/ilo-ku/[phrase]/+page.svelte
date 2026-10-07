@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 
-	import Link from '$lib/components/Link.svelte';
-	import Meta from '$lib/components/Meta.svelte';
+	import Link from '#lib/components/Link.svelte';
+	import Meta from '#lib/components/Meta.svelte';
 
 	const { data } = $props();
 	const phrase = $derived(data.phrase);
@@ -47,7 +47,7 @@
 					stroke-linecap="round"
 					stroke-linejoin="round"
 					d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-				/>
+				></path>
 			</svg>
 		</svelte:element>
 
@@ -72,11 +72,11 @@
 					stroke-linecap="round"
 					stroke-linejoin="round"
 					d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-				/>
+				></path>
 			</svg>
 		</svelte:element>
 
-		<a href={resolve('/ilo-ku')} class="interactable p-2" aria-label="home">
+		<a href={resolve('ilo-ku')} class="interactable p-2" aria-label="home">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
@@ -89,7 +89,7 @@
 					stroke-linecap="round"
 					stroke-linejoin="round"
 					d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-				/>
+				></path>
 			</svg>
 		</a>
 	</div>
@@ -101,7 +101,7 @@
 	<p class="mt-1">
 		{#each phrase.compound.split(' ') as word, i (word)}
 			{i !== 0 ? ',' : ''}
-			<Link href={resolve(`/${word}`)}>{word}</Link>
+			<Link href={resolve('/[nimi]', { nimi: word })}>{word}</Link>
 		{/each}
 	</p>
 
@@ -109,12 +109,7 @@
 
 	<div class="mt-1 flex flex-col">
 		{#each Object.entries(phrase.uses) as [use, count] (use)}
-			<p>
-				{use}
-				<span class="text-muted">
-					&middot; {count}%
-				</span>
-			</p>
+			<p>{use} <span class="text-muted">· {count}%</span></p>
 		{/each}
 	</div>
 </div>

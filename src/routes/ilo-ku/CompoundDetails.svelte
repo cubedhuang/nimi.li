@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 
-	import type { Compound } from '$lib/types';
+	import type { Compound } from '#lib/types.js';
 
-	import Details from '$lib/components/Details.svelte';
-	import Link from '$lib/components/Link.svelte';
-	import XMark from '$lib/components/icons/XMark.svelte';
+	import Details from '#lib/components/Details.svelte';
+	import Link from '#lib/components/Link.svelte';
+	import XMark from '#lib/components/icons/XMark.svelte';
 
 	interface Props {
 		compound: Compound | null;
@@ -26,9 +26,9 @@
 
 			<div class="ml-auto flex items-center gap-1">
 				<a
-					href={resolve(
-						`/ilo-ku/${compound.compound.replace(/ /g, '-')}`
-					)}
+					href={resolve('/ilo-ku/[phrase]', {
+						phrase: compound.compound.replace(/ /g, '-')
+					})}
 					class="interactable px-2 py-1"
 				>
 					more
@@ -53,18 +53,13 @@
 			see
 			{#each compound.compound.split(' ') as word, i (word)}
 				{i !== 0 ? ',' : ''}
-				<Link href={resolve(`/${word}`)}>{word}</Link>
+				<Link href={resolve('/[nimi]', { nimi: word })}>{word}</Link>
 			{/each}
 		</p>
 
 		<div class="mt-2 flex flex-col">
 			{#each Object.entries(compound.uses) as [use, count] (use)}
-				<p>
-					{use}
-					<span class="text-muted">
-						&middot; {count}%
-					</span>
-				</p>
+				<p>{use} <span class="text-muted">· {count}%</span></p>
 			{/each}
 		</div>
 	{/snippet}

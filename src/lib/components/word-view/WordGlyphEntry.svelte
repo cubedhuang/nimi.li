@@ -1,12 +1,15 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { loadWordDetail } from '$lib/wordDetail';
-	import HydratedImg from '$lib/components/HydratedImg.svelte';
+	import { loadWordDetail } from '#lib/wordDetail.js';
+	import HydratedImg from '#lib/components/HydratedImg.svelte';
 
-	import type { ListGlyph, ListWord } from '$lib/types';
+	import type { ListGlyph, ListWord } from '#lib/types.js';
 
-	import { categoryTextColors, getWordDisplayRecognition } from '$lib/util';
-	import { getSettings } from '$lib/settings';
+	import {
+		categoryTextColors,
+		getWordDisplayRecognition
+	} from '#lib/util.js';
+	import { getSettings } from '#lib/settings/index.js';
 	import { getShownGlyphs } from './getShownGlyphs';
 
 	interface Props {
@@ -23,7 +26,7 @@
 
 <div class="flex flex-col items-center" id={word.id}>
 	<a
-		href={resolve(`/${word.id}`)}
+		href={resolve('/[nimi]', { nimi: word.id })}
 		onclick={(e) => {
 			e.preventDefault();
 			if (onclick) {

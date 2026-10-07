@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { ListGlyph, ListWord } from '$lib/types';
+	import type { ListGlyph, ListWord } from '#lib/types.js';
 
-	import { categoryBackgroundColors } from '$lib/util';
-	import { getSettings } from '$lib/settings';
+	import { categoryBackgroundColors } from '#lib/util.js';
+	import { getSettings } from '#lib/settings/index.js';
 
-	import Space from '$lib/components/Space.svelte';
+	import Space from '#lib/components/Space.svelte';
 	import WordUsageSummary from '../WordUsageSummary.svelte';
 	import { resolve } from '$app/paths';
 	import { getShownGlyphs } from './getShownGlyphs';
-	import { loadWordDetail } from '$lib/wordDetail';
-	import HydratedImg from '$lib/components/HydratedImg.svelte';
+	import { loadWordDetail } from '#lib/wordDetail.js';
+	import HydratedImg from '#lib/components/HydratedImg.svelte';
 
 	interface Props {
 		word: ListWord;
@@ -22,7 +22,7 @@
 </script>
 
 <Space
-	href={resolve(`/${word.id}`)}
+	href={resolve('/[nimi]', { nimi: word.id })}
 	{onclick}
 	id={word.id}
 	onpointerdown={() => loadWordDetail(word.id)}

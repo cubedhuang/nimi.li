@@ -5,7 +5,6 @@
 </script>
 
 <a
-	// eslint-disable-next-line svelte/no-navigation-without-resolve
 	{href}
 	target={!href || href.startsWith('/') || href.startsWith('#')
 		? undefined

@@ -3,21 +3,21 @@
 		categoryBackgroundColors,
 		categoryTextColors,
 		getUcsur
-	} from '$lib/util';
-	import type { ListGlyph, ListWord, WordDetail } from '$lib/types';
-	import { getCachedWordDetail, loadWordDetail } from '$lib/wordDetail';
+	} from '#lib/util.js';
+	import type { ListGlyph, ListWord, WordDetail } from '#lib/types.js';
+	import { getCachedWordDetail, loadWordDetail } from '#lib/wordDetail.js';
 
-	import Copy from '$lib/components/Copy.svelte';
-	import Details from '$lib/components/Details.svelte';
-	import ExternalLink from '$lib/components/icons/ExternalLink.svelte';
+	import Copy from '#lib/components/Copy.svelte';
+	import Details from '#lib/components/Details.svelte';
+	import ExternalLink from '#lib/components/icons/ExternalLink.svelte';
 	import KuData from './KuData.svelte';
-	import Link from '$lib/components/Link.svelte';
-	import LipamankaData from '$lib/components/LipamankaData.svelte';
+	import Link from '#lib/components/Link.svelte';
+	import LipamankaData from '#lib/components/LipamankaData.svelte';
 	import PuData from './PuData.svelte';
 	import Wikipedia from './icons/Wikipedia.svelte';
 	import WordEtymology from './WordEtymology.svelte';
 	import WordUsageSummary from './WordUsageSummary.svelte';
-	import XMark from '$lib/components/icons/XMark.svelte';
+	import XMark from '#lib/components/icons/XMark.svelte';
 	import { resolve } from '$app/paths';
 	import GlyphInfo from './GlyphInfo.svelte';
 
@@ -80,7 +80,10 @@
 			<h2 class="text-2xl">{word.word}</h2>
 
 			<div class="ml-auto flex items-center gap-1">
-				<a href={resolve(`/${word.id}`)} class="interactable px-2 py-1">
+				<a
+					href={resolve('/[nimi]', { nimi: word.id })}
+					class="interactable px-2 py-1"
+				>
 					more
 				</a>
 

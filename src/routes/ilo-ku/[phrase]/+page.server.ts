@@ -1,5 +1,5 @@
 import { error, redirect } from '@sveltejs/kit';
-import { getOwn } from '$lib/util';
+import { getOwn } from '#lib/util.js';
 
 export async function load({ params, parent }) {
 	if (params.phrase.includes(' ')) {

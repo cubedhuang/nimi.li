@@ -1,10 +1,10 @@
 import { getContext, setContext } from 'svelte';
 
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 
 import type { UsageCategory } from '@kulupu-linku/sona/utils';
 
-import { usageCategories } from '$lib/util';
+import { usageCategories } from '#lib/util.js';
 
 import {
 	applyAppearance,
