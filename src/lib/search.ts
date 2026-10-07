@@ -69,9 +69,7 @@ export function scoreSearch(word: ListWord, search: string) {
 	}
 
 	if (translation.etymology) {
-		for (const etymology of translation.etymology) {
-			score += scoreMatch(etymology, search) * 20;
-		}
+		score += scoreMatch(translation.etymology, search) * 20;
 	}
 
 	if (getUcsur(word) === search) {
