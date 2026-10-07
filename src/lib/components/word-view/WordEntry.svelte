@@ -32,7 +32,7 @@
 	onpointerdown={() => loadWordDetail(word.id)}
 	onfocus={() => loadWordDetail(word.id)}
 	id={word.id}
-	class="group flex gap-1 px-2 py-0.5 outline-offset-2 outline-accent transition focus-visible:outline-2 focus-visible:outline-solid hv:bg-background"
+	class="group flex gap-1 px-2 py-0.5 outline-offset-2 outline-accent transition focus-visible:outline-2 focus-visible:outline-solid hv:bg-secondary hv:text-secondary-foreground"
 >
 	{#if settings.sitelenMode === 'pona'}
 		{#if glyphs?.length}
