@@ -101,8 +101,8 @@
 			<span class="font-bold {categoryTextColors[word.usage_category]}">
 				{getWordDisplayRecognition(word)}
 			</span>
+			&middot;
 		{/if}
-		&middot;
 		{word.usage_category}
 	</span>
 
