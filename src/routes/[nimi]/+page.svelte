@@ -5,7 +5,8 @@
 		categoryTextColors,
 		getUsageCategoryFromPercent,
 		getWordDisplayRecognition,
-		getUcsur
+		getUcsur,
+		getWordRecognition
 	} from '#lib/util.js';
 
 	import AudioPlayer from './AudioPlayer.svelte';
@@ -254,11 +255,12 @@
 		<div class="mt-1 flex items-center">
 			<p>
 				<b class={categoryTextColors[word.usage_category]}>
-					{word.usage_category} &middot; {getWordDisplayRecognition(
-						word
-					)}
+					{word.usage_category}
 				</b>
-				<span class="text-muted">usage</span>
+				{#if getWordRecognition(word) !== -1}
+					&middot; <b>{getWordDisplayRecognition(word)}</b>
+					<span class="text-muted">usage</span>
+				{/if}
 			</p>
 
 			<div

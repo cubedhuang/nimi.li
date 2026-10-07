@@ -7,7 +7,8 @@
 
 	import {
 		categoryTextColors,
-		getWordDisplayRecognition
+		getWordDisplayRecognition,
+		getWordRecognition
 	} from '#lib/util.js';
 	import { getSettings } from '#lib/settings/index.js';
 	import { getShownGlyphs } from './getShownGlyphs';
@@ -96,9 +97,11 @@
 	</a>
 
 	<span class="text-xs text-muted">
-		<span class="font-bold {categoryTextColors[word.usage_category]}">
-			{getWordDisplayRecognition(word)}
-		</span>
+		{#if getWordRecognition(word) !== -1}
+			<span class="font-bold {categoryTextColors[word.usage_category]}">
+				{getWordDisplayRecognition(word)}
+			</span>
+		{/if}
 		&middot;
 		{word.usage_category}
 	</span>
