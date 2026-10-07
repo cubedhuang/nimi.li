@@ -77,6 +77,10 @@
 			deferredPrompt = e;
 		});
 
+		window.addEventListener('appinstalled', () => {
+			deferredPrompt = undefined;
+		});
+
 		if (dev) {
 			// simulate deferred prompt
 			setTimeout(() => {
@@ -132,7 +136,8 @@
 				{#if deferredPrompt}
 					<button
 						onclick={() => {
-							deferredPrompt.prompt();
+							deferredPrompt.prompt?.();
+							deferredPrompt = undefined;
 						}}
 						transition:flyAndScale={{ y: 4 }}
 						class="nav-icon-button"
@@ -222,8 +227,8 @@
 		@apply absolute right-0 block h-full w-24 opacity-100;
 
 		box-shadow:
-			0 0 --spacing(2) --var(--color-accent),
-			0 0 --spacing(1) --var(--color-accent);
+			0 0 --spacing(2) var(--color-accent),
+			0 0 --spacing(1) var(--color-accent);
 		transform: rotate(3deg) translate(0px, -4px);
 	}
 
