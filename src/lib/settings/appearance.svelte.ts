@@ -47,8 +47,7 @@ export type Font = (typeof fonts)[number];
 function viewTransition(fn: () => void) {
 	if (
 		document.startViewTransition as
-			| undefined
-			| typeof document.startViewTransition
+			undefined | typeof document.startViewTransition
 	) {
 		document.startViewTransition(() => {
 			fn();

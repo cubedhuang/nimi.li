@@ -8,7 +8,7 @@ const GLYPH_CACHE = 'glyphs';
 const PRECACHE_FILES = assets
 	.map((asset) => resolve(asset.path as string))
 	.filter((file) => !file.includes('/fonts/'));
-const ASSETS = [
+const ASSETS: string[] = [
 	...immutable.map((asset) => resolve(asset.path)),
 	...PRECACHE_FILES
 ];
