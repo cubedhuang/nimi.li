@@ -264,7 +264,10 @@
 {/if} -->
 
 {#if settings.viewMode === 'compact'}
-	<div class="grid">
+	<div
+		class="grid divide-y rounded-lg border-2 bg-card"
+		class:hidden={!filteredWords.length}
+	>
 		{#each filteredWords as word (word.id)}
 			<WordEntry
 				{word}
@@ -274,14 +277,19 @@
 		{/each}
 	</div>
 {:else if settings.viewMode === 'glyphs'}
-	<div class="grid grid-cols-fill-28 gap-1">
-		{#each filteredWords as word (word.id)}
-			<WordGlyphEntry
-				{word}
-				glyphs={glyphs[word.id]}
-				onclick={() => selectWord(word)}
-			/>
-		{/each}
+	<div
+		class="rounded-lg border-2 bg-card"
+		class:hidden={!filteredWords.length}
+	>
+		<div class="-mr-px -mb-px grid grid-cols-fill-40">
+			{#each filteredWords as word (word.id)}
+				<WordGlyphEntry
+					{word}
+					glyphs={glyphs[word.id]}
+					onclick={() => selectWord(word)}
+				/>
+			{/each}
+		</div>
 	</div>
 {:else if settings.viewMode === 'detailed'}
 	<div class="grid grid-cols-fill-144 gap-2">

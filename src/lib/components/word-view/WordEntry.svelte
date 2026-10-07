@@ -21,7 +21,19 @@
 	const settings = getSettings();
 </script>
 
-<p class="flex gap-1" id={word.id}>
+<a
+	href={resolve('/[nimi]', { nimi: word.id })}
+	onclick={(e) => {
+		e.preventDefault();
+		if (onclick) {
+			onclick();
+		}
+	}}
+	onpointerdown={() => loadWordDetail(word.id)}
+	onfocus={() => loadWordDetail(word.id)}
+	id={word.id}
+	class="group flex gap-1 px-2 py-0.5 outline-offset-2 outline-accent transition focus-visible:outline-2 focus-visible:outline-solid hv:bg-background"
+>
 	{#if settings.sitelenMode === 'pona'}
 		{#if glyphs?.length}
 			<HydratedImg
@@ -72,20 +84,9 @@
 	{/if}
 
 	<span class="mt-0.5 ml-0.5">
-		<a
-			href={resolve('/[nimi]', { nimi: word.id })}
-			onclick={(e) => {
-				e.preventDefault();
-				if (onclick) {
-					onclick();
-				}
-			}}
-			onpointerdown={() => loadWordDetail(word.id)}
-			onfocus={() => loadWordDetail(word.id)}
-			class="font-bold transition hv:text-accent"
-		>
+		<span class="font-bold transition group-hv:text-accent">
 			{word.word}
-		</a>
+		</span>
 
 		<span class="text-xs text-muted">
 			{#if getWordRecognition(word) !== -1}
@@ -103,4 +104,4 @@
 
 		{word.translations.definition}
 	</span>
-</p>
+</a>
