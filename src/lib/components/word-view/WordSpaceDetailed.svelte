@@ -1,12 +1,10 @@
 <script lang="ts">
 	import type { ListGlyph, ListWord } from '#lib/types.js';
 
-	import {
-		categoryBackgroundColors,
-		getWordDisplayRecognition
-	} from '#lib/util.js';
+	import { categoryBackgroundColors } from '#lib/util.js';
 	import { getSettings } from '#lib/settings/index.js';
 	import Space from '#lib/components/Space.svelte';
+	import WordUsageSummary from '../WordUsageSummary.svelte';
 	import { resolve } from '$app/paths';
 	import { getShownGlyphs } from './getShownGlyphs';
 	import { loadWordDetail } from '#lib/wordDetail.js';
@@ -21,8 +19,20 @@
 	const { word, glyphs, onclick }: Props = $props();
 	const settings = getSettings();
 
-	const displayRecognition = $derived(getWordDisplayRecognition(word));
 	const shownGlyphs = $derived(getShownGlyphs(word, glyphs));
+
+	const etymology = $derived.by(() => {
+		const text = word.translations.etymology;
+		if (!text) return { source: null, rest: word.source_language };
+
+		const colon = text.indexOf(':');
+		if (colon === -1) return { source: null, rest: text };
+
+		return {
+			source: text.slice(0, colon),
+			rest: text.slice(colon + 1).trim()
+		};
+	});
 </script>
 
 <Space
@@ -31,114 +41,97 @@
 	id={word.id}
 	onpointerdown={() => loadWordDetail(word.id)}
 	onfocus={() => loadWordDetail(word.id)}
+	class="flex gap-4 p-5 hover:scale-[1.01]"
 >
-	<div class="grid grid-cols-3 text-muted">
-		<div>
-			<p class="line-clamp-1 break-all">
-				{word.source_language}
-			</p>
+	<div class="flex w-10 shrink-0 flex-col items-center gap-2">
+		{#if shownGlyphs?.length}
+			{#each shownGlyphs as glyph (glyph.id)}
+				<HydratedImg
+					src={glyph.svg}
+					crossorigin="anonymous"
+					alt={glyph.id}
+					width="40"
+					height="40"
+					loading="lazy"
+					decoding="async"
+					class="h-10 w-10 invertible"
+				/>
+			{/each}
+		{:else}
+			{#each word.representations?.ligatures ?? [] as sitelen, i (i)}
+				<p class="font-pona text-5xl">{sitelen}</p>
+			{/each}
+		{/if}
 
-			{#if word.translations.etymology}
-				<p class="line-clamp-1 text-xs break-all">
-					{word.translations.etymology}
-				</p>
-			{/if}
+		{#if word.representations?.sitelen_sitelen}
+			<HydratedImg
+				src="/internal/api/ss/{word.word}"
+				alt="{word.word} sitelen sitelen"
+				width="40"
+				height="40"
+				loading="lazy"
+				decoding="async"
+				class="h-10 w-10 invertible"
+			/>
+		{/if}
+
+		{#if settings.sitelenMode === 'jelo' && word.representations?.sitelen_jelo}
+			{#each word.representations.sitelen_jelo.slice(0, 3) as sitelen, i (i)}
+				<p class="text-3xl">{sitelen}</p>
+			{/each}
+		{:else if settings.sitelenMode === 'emosi' && word.representations?.sitelen_emosi}
+			<p class="text-3xl">{word.representations.sitelen_emosi}</p>
+		{/if}
+	</div>
+
+	<div class="min-w-0 flex-1">
+		<div class="flex flex-wrap items-baseline gap-x-3">
+			<h2 class="text-2xl break-all">{word.word}</h2>
+
+			<p class="text-sm text-muted">
+				{#if word.deprecated}
+					deprecated &middot;
+				{/if}
+				<WordUsageSummary {word} />
+				{#if word.book !== 'none'}
+					&middot; {word.book}
+				{/if}
+			</p>
 		</div>
 
-		<p class="mt-auto text-center text-xs text-muted">
-			{word.usage_category}
-			{#if displayRecognition !== 'unknown'}
-				&middot; {displayRecognition}
+		<p class="mt-1">{word.translations.definition}</p>
+
+		{#if word.translations.commentary}
+			{#each word.translations.commentary.split(/\n+/g) as line, i (i)}
+				<p
+					class="text-sm whitespace-pre-line text-muted
+					    {i === 0 ? 'mt-2' : 'mt-1'}"
+				>
+					{line}
+				</p>
+			{/each}
+		{/if}
+
+		<p class="mt-3 border-t pt-2 text-sm text-muted">
+			from
+			{#if etymology.source}
+				<i class="text-foreground">{etymology.source}</i>:
 			{/if}
-			{#if word.book !== 'none'}
-				&middot; {word.book}
+			{etymology.rest}
+			{#if word.author.length}
+				&middot; {word.author.join(', ')}
+			{/if}
+			{#if word.coined_era}
+				&middot; {word.coined_era}
 			{/if}
 		</p>
 
-		<div class="text-right">
-			{#if word.author.length}
-				<p class="line-clamp-1 break-all">
-					{word.author.join(', ')}
-				</p>
-			{/if}
-
-			{#if word.coined_era}
-				<p class="line-clamp-1 text-xs break-all">
-					{word.coined_era}
-
-					{#if word.creation_date}
-						&middot; {word.creation_date}
-					{/if}
-				</p>
-			{/if}
-		</div>
-	</div>
-
-	<div class="mt-1 flex gap-2 text-center">
-		{#if shownGlyphs?.length}
-			<div class="flex w-9 shrink-0 flex-col items-end gap-2 text-right">
-				{#each shownGlyphs ?? [] as glyph (glyph.id)}
-					<HydratedImg
-						src={glyph.svg}
-						crossorigin="anonymous"
-						alt={glyph.id}
-						width="32"
-						height="32"
-						loading="lazy"
-						decoding="async"
-						class="h-8 w-8 invertible"
-					/>
-				{/each}
-			</div>
-		{:else}
-			<div class="flex w-9 shrink-0 flex-col items-end text-right">
-				{#each word.representations?.ligatures ?? [] as sitelen, i (i)}
-					<p class="font-pona text-4xl">{sitelen}</p>
-				{/each}
-			</div>
+		{#if word.see_also.length}
+			<p class="mt-1 text-sm">
+				<span class="text-muted">see also</span>
+				{word.see_also.join(', ')}
+			</p>
 		{/if}
-
-		<div class="w-full">
-			<h2
-				class="line-clamp-1 text-3xl break-all transition group-hv:text-accent"
-			>
-				{word.word}
-			</h2>
-
-			<p class="mt-1">{word.translations.definition}</p>
-
-			{#if word.translations.commentary}
-				<p class="mt-2 text-sm text-muted">
-					{word.translations.commentary.replace(/\n/g, ' / ')}
-				</p>
-			{/if}
-		</div>
-
-		<div class="w-9 shrink-0">
-			{#if settings.sitelenMode === 'jelo'}
-				{#if word.representations?.sitelen_jelo}
-					{#each word.representations.sitelen_jelo.slice(0, 3) as sitelen, i (i)}
-						<p class="text-3xl">{sitelen}</p>
-					{/each}
-				{/if}
-			{:else if settings.sitelenMode === 'emosi'}
-				{#if word.representations?.sitelen_emosi}
-					<span class="w-9 text-center text-3xl">
-						{word.representations.sitelen_emosi}
-					</span>
-				{/if}
-			{:else if word.representations?.sitelen_sitelen}
-				<HydratedImg
-					src="/internal/api/ss/{word.word}"
-					alt="{word.word} sitelen sitelen"
-					width="36"
-					height="36"
-					loading="lazy"
-					decoding="async"
-					class="ml-auto h-9 w-9 invertible"
-				/>
-			{/if}
-		</div>
 	</div>
 
 	<span

@@ -46,9 +46,14 @@
 				</p>
 			{/if}
 			{#if glyph.translations.commentary}
-				<p class="mt-2 overflow-hidden text-xs text-muted">
-					{glyph.translations.commentary}
-				</p>
+				{#each glyph.translations.commentary.split(/\n+/g) as line, i (i)}
+					<p
+						class="mt-2 overflow-hidden text-xs text-muted
+						    {i === 0 ? 'mt-2' : 'mt-1'}"
+					>
+						{line}
+					</p>
+				{/each}
 			{/if}
 			{#if glyph.author.length}
 				<p class="mt-2 text-sm">

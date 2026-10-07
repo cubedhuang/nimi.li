@@ -284,7 +284,7 @@
 		{/each}
 	</div>
 {:else if settings.viewMode === 'detailed'}
-	<div class="grid grid-cols-fill-96 gap-2">
+	<div class="grid grid-cols-fill-144 gap-2">
 		{#each filteredWords as word (word.id)}
 			<WordSpaceDetailed
 				{word}

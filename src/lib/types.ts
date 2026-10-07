@@ -14,16 +14,21 @@ export type SignData = {
 	signs: Sign[];
 };
 
-export type ListWord = Omit<
+export type ListWord = Pick<
 	Word,
-	| 'audio'
-	| 'author_verbatim'
-	| 'image'
-	| 'ku_data'
-	| 'pu_verbatim'
-	| 'resources'
+	| 'id'
+	| 'word'
+	| 'author'
+	| 'book'
+	| 'coined_era'
+	| 'creation_date'
+	| 'deprecated'
+	| 'representations'
 	| 'see_also'
-	| 'svg'
+	| 'source_language'
+	| 'translations'
+	| 'usage_category'
+	| 'usage'
 > & {
 	// terms for searching
 	ku_search?: string[];

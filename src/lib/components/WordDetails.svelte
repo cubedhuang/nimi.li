@@ -305,7 +305,7 @@
 		{/if}
 
 		{#if word.translations.commentary}
-			{#each word.translations.commentary.split('\n') as line, i (i)}
+			{#each word.translations.commentary.split(/\n+/g) as line, i (i)}
 				<p class="text-muted {i === 0 ? 'mt-2' : 'mt-1'}">
 					{line}
 				</p>
