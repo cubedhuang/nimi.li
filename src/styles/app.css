@@ -230,5 +230,5 @@
 }
 
 @utility nav-icon-button {
-	@apply cursor-pointer rounded-lg p-2 text-muted transition-colors hv:bg-secondary hv:text-foreground;
+	@apply cursor-pointer rounded-lg p-2 text-muted outline-hidden outline-2 outline-offset-2 outline-accent transition-colors focus-visible:outline-solid hv:bg-secondary hv:text-foreground;
 }

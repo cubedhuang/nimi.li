@@ -108,7 +108,7 @@
 			<div class="nav-anchor flex items-center gap-1">
 				<a
 					href={resolve('/(words)')}
-					class="mr-2 font-display text-lg font-bold transition-colors hv:text-accent"
+					class="mr-2 font-display text-lg font-bold outline-hidden outline-2 outline-offset-2 outline-accent transition-colors focus-visible:outline-solid hv:text-accent"
 				>
 					nimi.li
 				</a>
@@ -233,7 +233,7 @@
 	}
 
 	.nav-link {
-		@apply cursor-pointer rounded-lg border-2 border-transparent px-2 py-1 text-sm text-muted transition hv:bg-secondary hv:text-secondary-foreground;
+		@apply cursor-pointer rounded-lg border-2 border-transparent px-2 py-1 text-sm text-muted outline-hidden outline-2 outline-offset-2 outline-accent transition focus-visible:outline-solid hv:bg-secondary hv:text-secondary-foreground;
 	}
 
 	.nav-link.active {
