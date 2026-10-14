@@ -36,7 +36,7 @@
 	onpointerdown={() => loadWordDetail(word.id)}
 	onfocus={() => loadWordDetail(word.id)}
 	id={word.id}
-	class="group flex flex-col items-center border-r border-b p-2 text-center outline-offset-2 outline-accent transition
+	class="group flex flex-col items-center border-r border-b p-2 first:rounded-tl-md text-center outline-offset-2 outline-accent transition
 	    focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-solid hv:bg-secondary hv:text-secondary-foreground"
 >
 	{#if settings.sitelenMode === 'pona'}

@@ -283,7 +283,7 @@
 	</div>
 {:else if settings.viewMode === 'glyphs'}
 	<div
-		class="rounded-lg border-2 bg-card"
+		class="overflow-hidden rounded-lg border-2 bg-card has-focus-visible:overflow-visible"
 		class:hidden={!filteredWords.length}
 	>
 		<div class="-mr-px -mb-px grid grid-cols-fill-40">
