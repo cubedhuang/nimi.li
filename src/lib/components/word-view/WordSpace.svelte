@@ -9,7 +9,6 @@
 	import { resolve } from '$app/paths';
 	import { getShownGlyphs } from './getShownGlyphs';
 	import { loadWordDetail } from '#lib/wordDetail.js';
-	import HydratedImg from '#lib/components/HydratedImg.svelte';
 
 	interface Props {
 		word: ListWord;
@@ -34,7 +33,7 @@
 				class="float-right ml-2 flex flex-col items-end gap-2 text-right"
 			>
 				{#each getShownGlyphs(word, glyphs) as glyph (glyph.id)}
-					<HydratedImg
+					<img
 						src={glyph.svg}
 						crossorigin="anonymous"
 						alt={glyph.id}
@@ -55,7 +54,7 @@
 		{/if}
 	{:else if settings.sitelenMode === 'sitelen'}
 		{#if word.representations?.sitelen_sitelen}
-			<HydratedImg
+			<img
 				src="/internal/api/ss/{word.word}"
 				alt="{word.word} sitelen sitelen"
 				width="40"

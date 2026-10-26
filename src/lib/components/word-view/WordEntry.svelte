@@ -9,7 +9,6 @@
 	import { getSettings } from '#lib/settings/index.js';
 	import { resolve } from '$app/paths';
 	import { loadWordDetail } from '#lib/wordDetail.js';
-	import HydratedImg from '#lib/components/HydratedImg.svelte';
 
 	interface Props {
 		word: ListWord;
@@ -36,7 +35,7 @@
 >
 	{#if settings.sitelenMode === 'pona'}
 		{#if glyphs?.length}
-			<HydratedImg
+			<img
 				src={glyphs[0].svg}
 				crossorigin="anonymous"
 				alt={glyphs[0].id}
@@ -55,7 +54,7 @@
 		{/if}
 	{:else if settings.sitelenMode === 'sitelen'}
 		{#if word.representations?.sitelen_sitelen}
-			<HydratedImg
+			<img
 				src="/internal/api/ss/{word.word}"
 				alt="{word.word} sitelen sitelen"
 				width="24"

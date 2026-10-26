@@ -101,30 +101,14 @@ export type Settings = {
 		: never;
 };
 
-// TODO: remove this after a while. this change was made 2026-09-13. remove
-// after maybe a month or two
-// also remove HydratedImg with this
-function readLegacyStorage(key: string): unknown {
-	const storageKey = `nimi.li:${key}`;
-	try {
-		const json = localStorage.getItem(storageKey);
-		localStorage.removeItem(storageKey);
-		return json === null ? undefined : JSON.parse(json);
-	} catch {
-		return undefined;
-	}
-}
-
 function readSettings(cookie: string | undefined): Settings {
 	const values = parseSettingsCookie(cookie);
-	const migrate = browser && cookie === undefined;
 	const settings: Record<string, unknown> = {};
 
 	for (const [name, { key, initial, validate }] of Object.entries(
 		definitions
 	)) {
-		let value =
-			values[key] ?? (migrate ? readLegacyStorage(key) : undefined);
+		let value = values[key];
 		try {
 			if (!validate(value as never)) value = initial;
 		} catch {
