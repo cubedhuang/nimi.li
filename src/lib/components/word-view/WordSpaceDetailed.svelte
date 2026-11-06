@@ -85,7 +85,7 @@
 
 	<div class="min-w-0 flex-1">
 		<div class="flex flex-wrap items-baseline gap-x-3">
-			<h2 class="text-2xl break-all">{word.word}</h2>
+			<h2 lang="tok" class="text-2xl break-all">{word.word}</h2>
 
 			<p class="text-sm text-muted">
 				{#if word.deprecated}

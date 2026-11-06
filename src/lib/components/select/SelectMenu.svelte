@@ -28,6 +28,8 @@
 		open = $bindable()
 	}: Props = $props();
 
+	const listboxId = $props.id();
+
 	const label = $derived(
 		options.find((option) => option.value === value)?.label || ''
 	);
@@ -44,6 +46,8 @@
 	>
 		<Select.Trigger
 			class="flex w-full interactable items-center px-2 py-0.5 text-ellipsis"
+			role="combobox"
+			aria-controls={open ? listboxId : undefined}
 			aria-label="{name}: {label}"
 			bind:ref
 		>
@@ -70,11 +74,12 @@
 		</Select.Trigger>
 
 		<Select.Portal disabled>
-			<Select.ContentStatic forceMount>
+			<Select.ContentStatic id={listboxId} forceMount>
 				{#snippet child({ props, open })}
 					{#if open}
 						<div
 							{...props}
+							aria-label={name}
 							transition:flyAndScale={{ y: -8 }}
 							class="absolute top-full left-0 z-50 mt-1 flex max-h-80 w-full flex-col gap-1 overflow-auto rounded-md border-2 bg-card p-1 text-card-foreground shadow-md"
 						>

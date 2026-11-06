@@ -8,5 +8,9 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		sveltekit({ preprocess: vitePreprocess(), adapter: adapter() })
-	]
+	],
+	optimizeDeps: {
+		// prevent reload during tests with dev server
+		include: ['bits-ui']
+	}
 });

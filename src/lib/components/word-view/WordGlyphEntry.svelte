@@ -91,7 +91,7 @@
 		<span class="h-12"></span>
 	{/if}
 
-	<b class="transition group-hv:text-accent">
+	<b lang="tok" class="transition group-hv:text-accent">
 		{word.word}
 	</b>
 
