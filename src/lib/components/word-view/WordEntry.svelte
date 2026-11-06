@@ -83,7 +83,7 @@
 	{/if}
 
 	<span class="mt-0.5 ml-0.5">
-		<span class="font-bold transition group-hv:text-accent">
+		<span lang="tok" class="font-bold transition group-hv:text-accent">
 			{word.word}
 		</span>
 

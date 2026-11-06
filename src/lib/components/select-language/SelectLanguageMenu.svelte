@@ -139,10 +139,15 @@
 				placeholder="o alasa..."
 				class="w-full appearance-none rounded-md px-2 py-0.5 pl-6 outline-hidden placeholder:text-muted"
 				bind:value={search}
+				aria-controls="language-options"
 			/>
 		</div>
 
-		<Command.List class="flex-1 overflow-y-auto">
+		<Command.List
+			id="language-options"
+			tabindex={0}
+			class="flex-1 overflow-y-auto"
+		>
 			<Command.Empty class="py-1.5 pl-7 text-muted">
 				No language found.
 			</Command.Empty>

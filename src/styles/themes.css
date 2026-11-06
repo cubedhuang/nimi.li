@@ -69,7 +69,8 @@
 
 		--background: var(--color-stone-900);
 		--foreground: var(--color-stone-50);
-		--accent: var(--color-orange-400);
+		/* orange-400 is oklch(75% 0.183 55.934) which is under 4.5:1 on secondary */
+		--accent: oklch(78% 0.183 55.934);
 		--muted: var(--color-stone-400);
 
 		--border: var(--color-stone-700);
@@ -228,7 +229,8 @@
 
 		--background: var(--color-gray-900);
 		--foreground: var(--color-gray-50);
-		--accent: var(--color-blue-400);
+		/* blue-400 is oklch(70.7% 0.165 254.624) which is under 4.5:1 on secondary */
+		--accent: oklch(76% 0.165 254.624);
 		--muted: var(--color-gray-400);
 
 		--border: var(--color-gray-700);

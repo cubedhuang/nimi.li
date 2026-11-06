@@ -80,7 +80,7 @@
 		</p>
 	{/if}
 
-	<h2 class="text-xl">{word.word}</h2>
+	<h2 lang="tok" class="text-xl">{word.word}</h2>
 
 	<p class="text-sm text-muted">
 		<WordUsageSummary {word} />
