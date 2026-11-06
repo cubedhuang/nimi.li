@@ -14,7 +14,9 @@
 	</p>
 {/if}
 
-{word.translations.etymology}
+{#if word.translations.etymology}
+	<p dir="auto">{word.translations.etymology}</p>
+{/if}
 
 {#if word.author.length}
 	<p>

@@ -77,7 +77,7 @@
 			</div>
 
 			{#each words as word (word.id)}
-				<p class="mt-2">
+				<p dir="auto" class="mt-2">
 					{word.translations.definition}
 				</p>
 			{/each}

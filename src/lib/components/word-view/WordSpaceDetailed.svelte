@@ -98,12 +98,13 @@
 			</p>
 		</div>
 
-		<p class="mt-1">{word.translations.definition}</p>
+		<p dir="auto" class="mt-1 text-start">{word.translations.definition}</p>
 
 		{#if word.translations.commentary}
 			{#each word.translations.commentary.split(/\n+/g) as line, i (i)}
 				<p
-					class="text-sm whitespace-pre-line text-muted
+					dir="auto"
+					class="text-start text-sm whitespace-pre-line text-muted
 					    {i === 0 ? 'mt-2' : 'mt-1'}"
 				>
 					{line}
@@ -114,9 +115,9 @@
 		<p class="mt-3 border-t pt-2 text-sm text-muted">
 			from
 			{#if etymology.source}
-				<i class="text-foreground">{etymology.source}</i>:
+				<i dir="auto" class="text-foreground">{etymology.source}</i>:
 			{/if}
-			{etymology.rest}
+			<span dir="auto">{etymology.rest}</span>
 			{#if word.author.length}
 				&middot; {word.author.join(', ')}
 			{/if}

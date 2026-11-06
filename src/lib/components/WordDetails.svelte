@@ -196,7 +196,7 @@
 			</div>
 		{/if}
 
-		<p class="mt-2">
+		<p dir="auto" class="mt-2">
 			{word.translations.definition}
 		</p>
 
@@ -306,7 +306,7 @@
 
 		{#if word.translations.commentary}
 			{#each word.translations.commentary.split(/\n+/g) as line, i (i)}
-				<p class="text-muted {i === 0 ? 'mt-2' : 'mt-1'}">
+				<p dir="auto" class="text-muted {i === 0 ? 'mt-2' : 'mt-1'}">
 					{line}
 				</p>
 			{/each}

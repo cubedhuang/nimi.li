@@ -86,7 +86,7 @@
 		<WordUsageSummary {word} />
 	</p>
 
-	<p class="line-clamp-4">
+	<p dir="auto" class="line-clamp-4 text-start">
 		{word.translations.definition}
 	</p>
 

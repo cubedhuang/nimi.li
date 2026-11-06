@@ -105,7 +105,7 @@
 		{word.usage_category}
 	</span>
 
-	<p class="line-clamp-4 text-center text-xs leading-tight">
+	<p dir="auto" class="line-clamp-4 text-center text-xs leading-tight">
 		{word.translations.definition}
 	</p>
 </a>
