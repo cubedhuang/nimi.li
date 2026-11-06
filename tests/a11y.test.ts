@@ -13,9 +13,40 @@ const pages = [
 
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
-async function expectNoViolations(page: Page) {
+const lightThemes = ['light', 'orange', 'pink', 'purple', 'blue', 'green'];
+const darkThemes = [
+	'amoled',
+	'dark',
+	'stone',
+	'red',
+	'emerald',
+	'dim',
+	'indigo'
+];
+
+// these light themes are opt-in for more pastel colors, so only check 3:1
+// contrast (the WCAG minimum for large text and icons)
+const pastelThemes = ['pink', 'purple', 'blue', 'green'];
+const pastelOptions = {
+	runOnly: wcagTags,
+	checks: {
+		'color-contrast': {
+			options: {
+				contrastRatio: {
+					normal: { expected: 3 },
+					large: { expected: 3 }
+				}
+			}
+		}
+	}
+};
+
+async function expectNoViolations(page: Page, theme: string) {
+	const options = pastelThemes.includes(theme)
+		? pastelOptions
+		: { runOnly: wcagTags };
 	const { violations } = await new AxeBuilder({ page })
-		.withTags(wcagTags)
+		.options(options)
 		.analyze();
 
 	const summary = violations.map((violation) => ({
@@ -28,19 +59,35 @@ async function expectNoViolations(page: Page) {
 	expect(summary).toEqual([]);
 }
 
-for (const colorScheme of ['light', 'dark'] as const) {
-	test.describe(colorScheme, () => {
-		test.use({ colorScheme });
+for (const theme of [...lightThemes, ...darkThemes]) {
+	const isDark = darkThemes.includes(theme);
+
+	test.describe(theme, () => {
+		test.use({ colorScheme: isDark ? 'dark' : 'light' });
+
+		test.beforeEach(async ({ context, baseURL }) => {
+			const settings = {
+				'base-theme': theme,
+				[isDark ? 'dark-theme' : 'light-theme']: theme
+			};
+			await context.addCookies([
+				{
+					name: 'settings',
+					value: encodeURIComponent(JSON.stringify(settings)),
+					url: baseURL
+				}
+			]);
+		});
 
 		for (const path of pages) {
 			test(path, async ({ page }) => {
 				await page.goto(path, { waitUntil: 'networkidle' });
 				// theme is set on the client
 				await expect(page.locator('html')).toHaveClass(
-					new RegExp(`\\b${colorScheme}\\b`)
+					new RegExp(`\\b${theme}\\b`)
 				);
 
-				await expectNoViolations(page);
+				await expectNoViolations(page, theme);
 			});
 		}
 
@@ -60,7 +107,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
 				)
 			);
 
-			await expectNoViolations(page);
+			await expectNoViolations(page, theme);
 		});
 	});
 }
