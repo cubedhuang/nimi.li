@@ -20,8 +20,7 @@
 	onclick={() => {
 		settings.font = value;
 	}}
-	role="option"
-	aria-selected={selected}
+	aria-pressed={selected}
 >
 	{name}
 </button>

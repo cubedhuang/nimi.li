@@ -27,6 +27,10 @@
 		ref = $bindable(),
 		open = $bindable()
 	}: Props = $props();
+
+	const label = $derived(
+		options.find((option) => option.value === value)?.label || ''
+	);
 </script>
 
 <div class="{className} relative text-sm">
@@ -40,7 +44,7 @@
 	>
 		<Select.Trigger
 			class="flex w-full interactable items-center px-2 py-0.5 text-ellipsis"
-			aria-label={name}
+			aria-label="{name}: {label}"
 			bind:ref
 		>
 			<Icon />
@@ -48,7 +52,7 @@
 			<span
 				class="ml-1 flex-1 overflow-hidden text-left overflow-ellipsis whitespace-nowrap"
 			>
-				{options.find((option) => option.value === value)?.label || ''}
+				{label}
 			</span>
 
 			<svg

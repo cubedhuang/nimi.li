@@ -29,8 +29,7 @@
 		settings[slot] = value;
 		settings.baseTheme = value;
 	}}
-	role="option"
-	aria-selected={selected}
+	aria-pressed={selected}
 	aria-label={value}
 >
 	<span aria-hidden="true"> Aa </span>

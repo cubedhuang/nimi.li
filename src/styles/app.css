@@ -15,6 +15,7 @@
 	--color-secondary: var(--secondary);
 	--color-secondary-foreground: var(--secondary-foreground);
 	--color-secondary-border: var(--secondary-border);
+	--color-secondary-muted: var(--secondary-muted, var(--muted));
 
 	--color-card: var(--card);
 	--color-card-foreground: var(--card-foreground);

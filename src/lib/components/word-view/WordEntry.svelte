@@ -87,7 +87,7 @@
 			{word.word}
 		</span>
 
-		<span class="text-xs text-muted">
+		<span class="text-xs text-muted group-hv:text-secondary-muted">
 			{#if getWordRecognition(word) !== -1}
 				<span
 					class="font-bold {categoryTextColors[word.usage_category]}"

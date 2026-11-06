@@ -18,6 +18,11 @@
 		--card-foreground: var(--color-gray-950);
 	}
 
+	/* light theme's card color is weird compared to other themes so we just set this */
+	html.light {
+		--secondary-muted: var(--color-gray-600);
+	}
+
 	html.amoled {
 		color-scheme: dark;
 		--invert: 1;

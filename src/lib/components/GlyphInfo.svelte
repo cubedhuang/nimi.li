@@ -19,12 +19,12 @@
 	);
 </script>
 
-<div class="grid grid-cols-fill-48 gap-2">
+<div class="grid grid-cols-fill-48 gap-2 text-secondary-foreground">
 	{#each shownGlyphs as glyph (glyph.id)}
 		<figure
 			class="rounded-lg border-2 border-secondary-border bg-secondary p-2 sm:p-4"
 		>
-			<figcaption class="flex gap-4 text-xs text-muted">
+			<figcaption class="flex gap-4 text-xs text-secondary-muted">
 				<span>
 					{glyph.translations.names.join(' / ') || glyph.word}
 				</span>
@@ -48,7 +48,7 @@
 			{#if glyph.translations.commentary}
 				{#each glyph.translations.commentary.split(/\n+/g) as line, i (i)}
 					<p
-						class="mt-2 overflow-hidden text-xs text-muted
+						class="mt-2 overflow-hidden text-xs text-secondary-muted
 						    {i === 0 ? 'mt-2' : 'mt-1'}"
 					>
 						{line}
@@ -57,7 +57,7 @@
 			{/if}
 			{#if glyph.author.length}
 				<p class="mt-2 text-sm">
-					<span class="text-muted">by</span>
+					<span class="text-secondary-muted">by</span>
 					<i>{glyph.author.join(', ')}</i>
 				</p>
 			{/if}
