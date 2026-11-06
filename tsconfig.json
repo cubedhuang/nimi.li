@@ -4,6 +4,12 @@
 		"sourceMap": true,
 		"strict": true
 	},
-	"include": ["src", "vite.config.ts", "worker-configuration.d.ts"],
+	"include": [
+		"src",
+		"tests",
+		"playwright.config.ts",
+		"vite.config.ts",
+		"worker-configuration.d.ts"
+	],
 	"exclude": ["src/service-worker"]
 }

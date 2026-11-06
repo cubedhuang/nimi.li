@@ -42,10 +42,10 @@ export const categoryBackgroundColors: Record<UsageCategory, string> = {
 };
 
 export const categoryTextColors: Record<UsageCategory, string> = {
-	core: 'text-emerald-600 darkish:text-emerald-400',
-	common: 'text-sky-600 darkish:text-sky-400',
-	uncommon: 'text-yellow-600 darkish:text-yellow-400',
-	obscure: 'text-fuchsia-600 darkish:text-fuchsia-400',
+	core: 'text-emerald-700 darkish:text-emerald-400',
+	common: 'text-sky-700 darkish:text-sky-400',
+	uncommon: 'text-yellow-700 darkish:text-yellow-400',
+	obscure: 'text-fuchsia-700 darkish:text-fuchsia-400',
 	sandbox: 'text-gray-600 darkish:text-gray-300'
 };
 

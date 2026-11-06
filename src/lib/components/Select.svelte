@@ -75,7 +75,7 @@
 		<button
 			type="button"
 			class="flex w-full interactable items-center px-2 py-0.5 text-ellipsis"
-			aria-label={name}
+			aria-label="{name}: {label}"
 			aria-haspopup="listbox"
 			aria-expanded="false"
 			onpointerenter={preload}

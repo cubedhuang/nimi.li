@@ -8,6 +8,10 @@ node_modules
 /.svelte-kit
 /build
 
+# Playwright
+/test-results
+/playwright-report
+
 # OS
 .DS_Store
 Thumbs.db

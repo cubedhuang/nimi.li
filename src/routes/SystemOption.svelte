@@ -19,8 +19,7 @@
 	onclick={() => {
 		settings.systemTheme = !settings.systemTheme;
 	}}
-	role="option"
-	aria-selected={selected}
+	aria-pressed={selected}
 	aria-label="toggle system theme"
 >
 	<svg
