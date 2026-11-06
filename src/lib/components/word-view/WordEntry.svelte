@@ -101,6 +101,6 @@
 			{/if}
 		</span>
 
-		{word.translations.definition}
+		<span dir="auto">{word.translations.definition}</span>
 	</span>
 </a>

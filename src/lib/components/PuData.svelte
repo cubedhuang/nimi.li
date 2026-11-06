@@ -17,7 +17,7 @@
 
 		<li>
 			<span class="shrink-0 text-xs text-muted">{partOfSpeech}</span>
-			{definition}
+			<span dir="auto">{definition}</span>
 		</li>
 	{/each}
 </ul>

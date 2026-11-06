@@ -25,7 +25,7 @@
 			class="rounded-lg border-2 border-secondary-border bg-secondary p-2 sm:p-4"
 		>
 			<figcaption class="flex gap-4 text-xs text-secondary-muted">
-				<span>
+				<span dir="auto">
 					{glyph.translations.names.join(' / ') || glyph.word}
 				</span>
 				<span class="ml-auto">
@@ -41,13 +41,14 @@
 				class="mt-2 h-12 w-12 invertible"
 			/>
 			{#if glyph.translations.etymology}
-				<p class="mt-2 overflow-hidden text-sm">
+				<p dir="auto" class="mt-2 overflow-hidden text-sm">
 					{glyph.translations.etymology}
 				</p>
 			{/if}
 			{#if glyph.translations.commentary}
 				{#each glyph.translations.commentary.split(/\n+/g) as line, i (i)}
 					<p
+						dir="auto"
 						class="mt-2 overflow-hidden text-xs text-secondary-muted
 						    {i === 0 ? 'mt-2' : 'mt-1'}"
 					>

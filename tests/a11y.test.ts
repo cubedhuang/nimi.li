@@ -211,3 +211,20 @@ for (const colorScheme of ['light', 'dark'] as const) {
 		});
 	});
 }
+
+test.describe('translated text direction', () => {
+	const definition = (page: Page) =>
+		page.getByRole('heading', { name: 'meaning' }).locator('+ p');
+
+	test('right-to-left language', async ({ page, context, baseURL }) => {
+		await context.addCookies([{ name: 'lang', value: 'he', url: baseURL }]);
+		await page.goto('/pona', { waitUntil: 'networkidle' });
+		await expect(definition(page)).toHaveCSS('direction', 'rtl');
+		await expectNoViolations(page, 'light');
+	});
+
+	test('left-to-right language', async ({ page }) => {
+		await page.goto('/pona', { waitUntil: 'networkidle' });
+		await expect(definition(page)).toHaveCSS('direction', 'ltr');
+	});
+});

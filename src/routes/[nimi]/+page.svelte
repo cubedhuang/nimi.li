@@ -189,7 +189,7 @@
 <div class="mt-2 grid gap-2 sm:grid-cols-2">
 	<div class="box">
 		<h2 class="text-lg">meaning</h2>
-		<p class="mt-1">
+		<p dir="auto" class="mt-1">
 			{word.translations.definition}
 		</p>
 
@@ -395,7 +395,7 @@
 		{#if word.translations.commentary}
 			<h2 class="mt-4 text-lg">commentary</h2>
 			{#each word.translations.commentary.split('\n') as line, i (i)}
-				<p class="mt-1">
+				<p dir="auto" class="mt-1">
 					{line}
 				</p>
 			{/each}

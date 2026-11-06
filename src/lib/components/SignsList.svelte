@@ -26,7 +26,7 @@
 
 		<p>
 			{sign.is_two_handed ? 'two-handed' : 'one-handed'}
-			&middot; {parameters.join(' · ')}
+			&middot; <span dir="auto">{parameters.join(' · ')}</span>
 		</p>
 
 		{#each sign.etymology as etymology, i (i)}
