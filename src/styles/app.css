@@ -57,7 +57,27 @@
 	.red &,
 	.emerald &,
 	.dim &,
+	.contrast-dark &,
 	.indigo & {
+		@slot;
+	}
+}
+
+@custom-variant contrast {
+	html.contrast-light &,
+	html.contrast-dark & {
+		@slot;
+	}
+}
+
+@custom-variant contrast-light {
+	html.contrast-light & {
+		@slot;
+	}
+}
+
+@custom-variant contrast-dark {
+	html.contrast-dark & {
 		@slot;
 	}
 }

@@ -19,7 +19,16 @@ const views = [
 
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
-const lightThemes = ['light', 'orange', 'pink', 'purple', 'blue', 'green'];
+const lightThemes = [
+	'light',
+	'contrast-light',
+	'orange',
+	'riso',
+	'pink',
+	'purple',
+	'blue',
+	'green'
+];
 const darkThemes = [
 	'amoled',
 	'dark',
@@ -27,6 +36,7 @@ const darkThemes = [
 	'red',
 	'emerald',
 	'dim',
+	'contrast-dark',
 	'indigo'
 ];
 

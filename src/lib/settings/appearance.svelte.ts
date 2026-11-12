@@ -5,7 +5,9 @@ import type { Settings } from './settings.svelte';
 
 export const themes = [
 	'light',
+	'contrast-light',
 	'orange',
+	'riso',
 	'amoled',
 	'dark',
 	'stone',
@@ -16,6 +18,7 @@ export const themes = [
 	'red',
 	'emerald',
 	'dim',
+	'contrast-dark',
 	'indigo'
 ] as const;
 export type Theme = (typeof themes)[number];
@@ -27,6 +30,7 @@ const darkThemes: Theme[] = [
 	'red',
 	'emerald',
 	'dim',
+	'contrast-dark',
 	'indigo'
 ];
 

@@ -12,7 +12,7 @@
 </script>
 
 <button
-	class="grid size-12 interactable place-items-center text-lg transition-colors {className}
+	class="grid h-12 w-full interactable place-items-center text-lg transition-colors {className}
 		{selected
 		? 'ring-2 ring-secondary-foreground ring-offset-1 ring-offset-card'
 		: ''}"

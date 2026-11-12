@@ -23,6 +23,64 @@
 		--secondary-muted: var(--color-gray-600);
 	}
 
+	html.contrast-light {
+		color-scheme: light;
+
+		--background: var(--color-white);
+		--foreground: var(--color-black);
+		--accent: var(--color-blue-700);
+		--muted: var(--color-gray-700);
+
+		--border: var(--color-black);
+		--contrast: var(--color-blue-700);
+
+		--secondary: var(--color-yellow-300);
+		--secondary-foreground: var(--color-black);
+		--secondary-border: var(--color-black);
+
+		--card: var(--color-white);
+		--card-foreground: var(--color-black);
+	}
+
+	html.riso {
+		color-scheme: light;
+
+		--background: oklch(93.93% 0.0258 84.59);
+		--foreground: oklch(30% 0.14 267);
+		--accent: oklch(53% 0.2 28);
+		--muted: oklch(48% 0.105 269);
+
+		--border: oklch(81% 0.05 271);
+		--contrast: var(--foreground);
+
+		--secondary: oklch(94.5% 0.024 28);
+		--secondary-foreground: var(--foreground);
+		--secondary-border: oklch(81% 0.09 28);
+
+		--card: oklch(97.38% 0.0167 88);
+		--card-foreground: var(--foreground);
+	}
+
+	html.contrast-dark {
+		color-scheme: dark;
+		--invert: 1;
+
+		--background: var(--color-black);
+		--foreground: var(--color-white);
+		--accent: var(--color-yellow-300);
+		--muted: var(--color-gray-200);
+
+		--border: var(--color-gray-200);
+		--contrast: var(--color-yellow-300);
+
+		--secondary: var(--color-blue-950);
+		--secondary-foreground: var(--color-white);
+		--secondary-border: var(--color-white);
+
+		--card: var(--color-black);
+		--card-foreground: var(--color-white);
+	}
+
 	html.amoled {
 		color-scheme: dark;
 		--invert: 1;

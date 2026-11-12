@@ -10,14 +10,14 @@
 	let { checked = $bindable(), label, category }: Props = $props();
 
 	const categoryPillColors: Record<UsageCategory, string> = {
-		core: 'text-emerald-700 bg-emerald-100 border-emerald-300 hv:border-emerald-500 darkish:text-emerald-300 darkish:bg-emerald-900 darkish:border-emerald-600 darkish:hv:border-emerald-500',
-		common: 'text-sky-700 bg-sky-100 border-sky-300 hv:border-sky-500 darkish:text-sky-300 darkish:bg-sky-900 darkish:border-sky-600 darkish:hv:border-sky-500',
+		core: 'text-emerald-700 bg-emerald-100 border-emerald-300 hv:border-emerald-500 darkish:text-emerald-300 darkish:bg-emerald-900 darkish:border-emerald-600 darkish:hv:border-emerald-500 contrast:text-foreground contrast:border-border contrast:hv:border-contrast contrast-light:bg-emerald-200',
+		common: 'text-sky-700 bg-sky-100 border-sky-300 hv:border-sky-500 darkish:text-sky-300 darkish:bg-sky-900 darkish:border-sky-600 darkish:hv:border-sky-500 contrast:text-foreground contrast:border-border contrast:hv:border-contrast contrast-light:bg-sky-200',
 		uncommon:
-			'text-yellow-700 bg-yellow-100 border-yellow-300 hv:border-yellow-500 darkish:text-yellow-300 darkish:bg-yellow-900 darkish:border-yellow-600 darkish:hv:border-yellow-500',
+			'text-yellow-700 bg-yellow-100 border-yellow-300 hv:border-yellow-500 darkish:text-yellow-300 darkish:bg-yellow-900 darkish:border-yellow-600 darkish:hv:border-yellow-500 contrast:text-foreground contrast:border-border contrast:hv:border-contrast contrast-light:bg-yellow-200',
 		obscure:
-			'text-fuchsia-700 bg-fuchsia-100 border-fuchsia-300 hv:border-fuchsia-500 darkish:text-fuchsia-300 darkish:bg-fuchsia-900 darkish:border-fuchsia-600 darkish:hv:border-fuchsia-500',
+			'text-fuchsia-700 bg-fuchsia-100 border-fuchsia-300 hv:border-fuchsia-500 darkish:text-fuchsia-300 darkish:bg-fuchsia-900 darkish:border-fuchsia-600 darkish:hv:border-fuchsia-500 contrast:text-foreground contrast:border-border contrast:hv:border-contrast contrast-light:bg-fuchsia-200',
 		sandbox:
-			'text-gray-700 bg-gray-100 border-gray-300 hv:border-gray-500 darkish:text-gray-300 darkish:bg-gray-900 darkish:border-gray-600 darkish:hv:border-gray-500'
+			'text-gray-700 bg-gray-100 border-gray-300 hv:border-gray-500 darkish:text-gray-300 darkish:bg-gray-900 darkish:border-gray-600 darkish:hv:border-gray-500 contrast:text-foreground contrast:border-border contrast:hv:border-contrast contrast-light:bg-gray-200'
 	};
 
 	const usageCategory = $derived(

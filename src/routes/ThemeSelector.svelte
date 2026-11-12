@@ -41,12 +41,9 @@
 			class="anchor-top-right absolute z-50 mt-2 w-max popover p-4"
 		>
 			<div role="group" aria-label="color theme">
-				<div class="flex justify-between">
-					<SystemOption
-						class="bg-white text-gray-950 dark:bg-black dark:text-gray-50"
-					/>
-					<ThemeOption value="amoled" class="bg-black text-gray-50" />
-				</div>
+				<SystemOption
+					class="bg-white text-gray-950 dark:bg-black dark:text-gray-50"
+				/>
 
 				<div class="mt-2 grid grid-cols-2 gap-2">
 					<div class="grid grid-cols-2 gap-1">
@@ -55,12 +52,24 @@
 							class="bg-white text-gray-950"
 						/>
 						<ThemeOption
+							value="contrast-light"
+							class="border-black bg-white font-bold text-black"
+						/>
+						<ThemeOption
 							value="orange"
 							class="bg-orange-100 text-zinc-950"
 						/>
 						<ThemeOption
+							value="riso"
+							class="bg-[#f3ead8] text-[#102172]"
+						/>
+						<ThemeOption
 							value="pink"
 							class="bg-pink-100 text-pink-900"
+						/>
+						<ThemeOption
+							value="purple"
+							class="bg-purple-100 text-purple-900"
 						/>
 						<ThemeOption
 							value="blue"
@@ -70,10 +79,6 @@
 							value="green"
 							class="bg-green-100 text-green-900"
 						/>
-						<ThemeOption
-							value="purple"
-							class="bg-purple-100 text-purple-900"
-						/>
 					</div>
 					<div class="grid grid-cols-2 gap-1">
 						<ThemeOption
@@ -81,24 +86,32 @@
 							class="bg-zinc-900 text-zinc-50"
 						/>
 						<ThemeOption
-							value="stone"
-							class="bg-stone-800 text-stone-50"
+							value="contrast-dark"
+							class="border-white bg-black font-bold text-white"
 						/>
 						<ThemeOption
-							value="red"
-							class="bg-red-950 text-red-100"
+							value="amoled"
+							class="bg-black text-gray-50"
+						/>
+						<ThemeOption
+							value="stone"
+							class="bg-stone-800 text-stone-50"
 						/>
 						<ThemeOption
 							value="dim"
 							class="bg-gray-800 text-gray-50"
 						/>
 						<ThemeOption
-							value="emerald"
-							class="bg-emerald-950 text-emerald-100"
+							value="red"
+							class="bg-red-950 text-red-100"
 						/>
 						<ThemeOption
 							value="indigo"
 							class="bg-indigo-950 text-indigo-100"
+						/>
+						<ThemeOption
+							value="emerald"
+							class="bg-emerald-950 text-emerald-100"
 						/>
 					</div>
 				</div>

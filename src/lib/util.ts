@@ -34,19 +34,25 @@ export const usageCategories = [
 ] as const satisfies UsageCategory[];
 
 export const categoryBackgroundColors: Record<UsageCategory, string> = {
-	core: 'bg-emerald-400 darkish:bg-emerald-600',
-	common: 'bg-sky-400 darkish:bg-sky-600',
-	uncommon: 'bg-yellow-400 darkish:bg-yellow-600',
-	obscure: 'bg-fuchsia-400 darkish:bg-fuchsia-600',
-	sandbox: 'bg-gray-400 darkish:bg-gray-600'
+	core: 'bg-emerald-400 darkish:bg-emerald-600 contrast-light:bg-emerald-700 contrast-dark:bg-emerald-400',
+	common: 'bg-sky-400 darkish:bg-sky-600 contrast-light:bg-sky-700 contrast-dark:bg-sky-400',
+	uncommon:
+		'bg-yellow-400 darkish:bg-yellow-600 contrast-light:bg-yellow-700 contrast-dark:bg-yellow-400',
+	obscure:
+		'bg-fuchsia-400 darkish:bg-fuchsia-600 contrast-light:bg-fuchsia-700 contrast-dark:bg-fuchsia-400',
+	sandbox:
+		'bg-gray-400 darkish:bg-gray-600 contrast-light:bg-gray-700 contrast-dark:bg-gray-300'
 };
 
 export const categoryTextColors: Record<UsageCategory, string> = {
-	core: 'text-emerald-700 darkish:text-emerald-400',
-	common: 'text-sky-700 darkish:text-sky-400',
-	uncommon: 'text-yellow-700 darkish:text-yellow-400',
-	obscure: 'text-fuchsia-700 darkish:text-fuchsia-400',
-	sandbox: 'text-gray-600 darkish:text-gray-300'
+	core: 'text-emerald-700 darkish:text-emerald-400 contrast-light:text-emerald-800 contrast-dark:text-emerald-300',
+	common: 'text-sky-700 darkish:text-sky-400 contrast-light:text-sky-800 contrast-dark:text-sky-300',
+	uncommon:
+		'text-yellow-700 darkish:text-yellow-400 contrast-light:text-yellow-900 contrast-dark:text-yellow-300',
+	obscure:
+		'text-fuchsia-700 darkish:text-fuchsia-400 contrast-light:text-fuchsia-800 contrast-dark:text-fuchsia-300',
+	sandbox:
+		'text-gray-600 darkish:text-gray-300 contrast-light:text-gray-800 contrast-dark:text-gray-200'
 };
 
 export const categoryIndex = Object.fromEntries(
