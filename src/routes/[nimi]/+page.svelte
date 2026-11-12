@@ -295,7 +295,7 @@
 					{@const dates = Object.keys(word.usage).sort()}
 
 					<div
-						class="absolute top-full left-1/2 flex w-max -translate-x-1/2 gap-4 rounded-lg border-2 bg-card p-4 shadow-md"
+						class="absolute top-full left-1/2 flex w-max -translate-x-1/2 gap-4 popover p-4"
 						transition:flyAndScale={{ y: -4 }}
 					>
 						{#each dates as date (date)}

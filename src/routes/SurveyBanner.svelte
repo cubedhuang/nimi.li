@@ -91,7 +91,7 @@
 			{#if opened}
 				<div
 					transition:flyAndScale={{ x: 4, y: -8 }}
-					class="absolute top-full right-0 z-50 mt-2 w-max rounded-lg border-2 bg-card p-4 text-card-foreground shadow-md"
+					class="absolute top-full right-0 z-50 mt-2 w-max popover p-4 text-card-foreground"
 				>
 					<p>Have you taken the surveys yet?</p>
 

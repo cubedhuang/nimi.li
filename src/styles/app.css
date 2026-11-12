@@ -210,6 +210,10 @@
 	@apply rounded-lg border-2 bg-card p-4 lg:p-6;
 }
 
+@utility popover {
+	@apply rounded-lg border-2 border-contrast bg-card shadow-lg;
+}
+
 @utility alert {
 	@apply rounded-lg border-2 border-secondary-border bg-secondary text-secondary-foreground;
 }

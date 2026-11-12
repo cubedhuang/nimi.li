@@ -81,7 +81,7 @@
 							{...props}
 							aria-label={name}
 							transition:flyAndScale={{ y: -8 }}
-							class="absolute top-full left-0 z-50 mt-1 flex max-h-80 w-full flex-col gap-1 overflow-auto rounded-md border-2 bg-card p-1 text-card-foreground shadow-md"
+							class="absolute top-full left-0 z-50 mt-1 flex max-h-80 w-full flex-col gap-1 overflow-auto popover p-1 text-card-foreground"
 						>
 							{#each options as option (option.value)}
 								<Select.Item

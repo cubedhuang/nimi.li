@@ -150,7 +150,7 @@
 					{#if moreOptions}
 						<div
 							transition:flyAndScale={{ y: -4 }}
-							class="absolute top-full z-10 mt-2 hidden w-max flex-wrap gap-1 rounded-lg border-2 bg-card p-2 shadow-md
+							class="absolute top-full z-10 mt-2 hidden w-max flex-wrap gap-1 popover p-2
 								sm:flex"
 						>
 							{#each books as book (book.name)}

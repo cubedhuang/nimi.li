@@ -38,7 +38,7 @@
 	{#if opened}
 		<div
 			transition:flyAndScale={{ x: 4, y: -8 }}
-			class="anchor-top-right absolute z-50 mt-2 w-max rounded-lg border-2 bg-card p-4 shadow-md"
+			class="anchor-top-right absolute z-50 mt-2 w-max popover p-4"
 		>
 			<div role="group" aria-label="color theme">
 				<div class="flex justify-between">

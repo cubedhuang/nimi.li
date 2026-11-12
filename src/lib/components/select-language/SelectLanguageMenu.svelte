@@ -106,7 +106,7 @@
 						<div
 							{...props}
 							transition:flyAndScale={{ y: -8 }}
-							class="anchor-top-right absolute z-50 mt-2 h-92 w-72 rounded-md border-2 bg-card text-card-foreground shadow-md"
+							class="anchor-top-right absolute z-50 mt-2 h-92 w-72 popover text-card-foreground"
 						>
 							{@render command()}
 						</div>

@@ -45,8 +45,8 @@
 			<div
 				use:focusFirstElement
 				transition:flyAndScale={{ y: 16, start: 0.975 }}
-				class="absolute right-0 bottom-0 left-0 max-h-[75vh] overflow-y-auto border-t-2 bg-card shadow-md
-					md:right-4 md:bottom-4 md:left-auto md:max-h-[min(40rem,100vh-2rem)] md:w-xl md:rounded-lg md:border-2"
+				class="absolute right-0 bottom-0 left-0 max-h-[75vh] overflow-y-auto border-t-2 border-contrast bg-card shadow-[0_-8px_24px_rgb(0_0_0/0.15)]
+					md:right-4 md:bottom-4 md:left-auto md:max-h-[min(40rem,100vh-2rem)] md:w-xl md:rounded-lg md:border-2 md:shadow-xl"
 				class:p-6={padding}
 			>
 				{@render children(value)}
