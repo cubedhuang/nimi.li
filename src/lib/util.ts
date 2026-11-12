@@ -76,7 +76,7 @@ export function sortLanguages(languages: Record<string, Language>) {
 	}));
 }
 
-export const RECOGNITION_PERIOD = '2025-09';
+export const RECOGNITION_PERIOD = '2026-09';
 
 export function getWordRecognition(word: { usage: Record<string, number> }) {
 	return word.usage[RECOGNITION_PERIOD] ?? -1;
@@ -90,8 +90,13 @@ export function getWordDisplayRecognition(word: {
 	return `${recognition}%`;
 }
 
-export function getUsageCategoryFromPercent(percent: number): UsageCategory {
-	if (percent >= 90) return 'core';
+const CORE_85_PERIOD = '2026-09';
+
+export function getUsageCategoryFromPercent(
+	percent: number,
+	period: string = RECOGNITION_PERIOD
+): UsageCategory {
+	if (percent >= (period >= CORE_85_PERIOD ? 85 : 90)) return 'core';
 	if (percent >= 60) return 'common';
 	if (percent >= 30) return 'uncommon';
 	if (percent >= 2) return 'obscure';

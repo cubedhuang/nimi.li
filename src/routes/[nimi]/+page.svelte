@@ -300,8 +300,10 @@
 					>
 						{#each dates as date (date)}
 							{@const usage = Number(word.usage[date])}
-							{@const usageCategory =
-								getUsageCategoryFromPercent(usage)}
+							{@const usageCategory = getUsageCategoryFromPercent(
+								usage,
+								date
+							)}
 
 							<span class="flex flex-col">
 								<b class={categoryTextColors[usageCategory]}>
