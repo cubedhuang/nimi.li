@@ -3,17 +3,13 @@
 	import type { PageData } from './$types';
 
 	import { focusFirstElement } from '#lib/actions/focusFirstElement.js';
-	import {
-		azWordSort,
-		categoryBackgroundColors,
-		normalize
-	} from '#lib/util.js';
+	import { azWordSort, normalize } from '#lib/util.js';
 	import { scoreSearch } from '#lib/search.js';
 	import { getSettings } from '#lib/settings/index.js';
 	import type { SignData } from '#lib/types.js';
 
-	import ColoredCheckbox from '#lib/components/ColoredCheckbox.svelte';
 	import LukaPonaEntry from './LukaPonaEntry.svelte';
+	import PillToggle from '#lib/components/PillToggle.svelte';
 	import Search from '#lib/components/Search.svelte';
 	import SignDetails from './SignDetails.svelte';
 	import Meta from '#lib/components/Meta.svelte';
@@ -86,10 +82,10 @@
 />
 
 <div class="flex flex-wrap gap-1">
-	<ColoredCheckbox
+	<PillToggle
 		bind:checked={settings.autoplay}
 		label="Play Videos Automatically"
-		color={categoryBackgroundColors['core']}
+		category="core"
 	/>
 </div>
 
