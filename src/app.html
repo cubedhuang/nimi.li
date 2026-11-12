@@ -48,6 +48,17 @@
 					).matches;
 					html.classList.add(isDark ? darkTheme : lightTheme);
 				}
+
+				// see syncThemeColor in appearance.svelte.ts
+				const ctx = new OffscreenCanvas(1, 1).getContext('2d');
+				if (ctx) {
+					ctx.fillStyle = getComputedStyle(html).backgroundColor;
+					ctx.fillRect(0, 0, 1, 1);
+					const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+					document
+						.querySelector('meta[name="theme-color"]')
+						?.setAttribute('content', `rgb(${r}, ${g}, ${b})`);
+				}
 			}
 		</script>
 

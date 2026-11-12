@@ -57,6 +57,25 @@ function viewTransition(fn: () => void) {
 	}
 }
 
+// crazy hack:
+// - the browser UI color can't read CSS variables
+// - theme colors are oklch, and the browser requires hex/rgb string
+// - solution: use a canvas to do the conversion
+//    - https://stackoverflow.com/a/79318603
+// NOTE: sync with the inline script in app.html
+function syncThemeColor() {
+	const ctx = new OffscreenCanvas(1, 1).getContext('2d');
+	if (!ctx) return;
+
+	ctx.fillStyle = getComputedStyle(document.documentElement).backgroundColor;
+	ctx.fillRect(0, 0, 1, 1);
+	const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+
+	document
+		.querySelector('meta[name="theme-color"]')
+		?.setAttribute('content', `rgb(${r}, ${g}, ${b})`);
+}
+
 function changeTheme(value: Theme) {
 	if (document.documentElement.classList.contains(value)) {
 		return;
@@ -68,6 +87,8 @@ function changeTheme(value: Theme) {
 		for (const theme of themes) {
 			document.documentElement.classList.toggle(theme, value === theme);
 		}
+
+		syncThemeColor();
 
 		// Force a reflow to make sure no element-specific transitions are triggered
 		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
