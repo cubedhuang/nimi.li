@@ -1,7 +1,8 @@
 <script lang="ts">
 	import {
 		categoryTextColors,
-		getWordDisplayRecognition
+		getWordDisplayRecognition,
+		getWordRecognition
 	} from '#lib/util.js';
 	import type { Glyph } from '@kulupu-linku/sona';
 
@@ -28,11 +29,13 @@
 				<span dir="auto">
 					{glyph.translations.names.join(' / ') || glyph.word}
 				</span>
-				<span class="ml-auto">
-					<b class={categoryTextColors[glyph.usage_category]}>
-						{getWordDisplayRecognition(glyph)}
-					</b>
-				</span>
+				{#if getWordRecognition(glyph) !== -1}
+					<span class="ml-auto">
+						<b class={categoryTextColors[glyph.usage_category]}>
+							{getWordDisplayRecognition(glyph)}
+						</b>
+					</span>
+				{/if}
 			</figcaption>
 			<img
 				src={glyph.svg}
