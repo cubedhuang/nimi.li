@@ -93,18 +93,6 @@
 		scrollbar-width: thin;
 	}
 
-	::-webkit-scrollbar {
-		width: 4px;
-	}
-
-	::-webkit-scrollbar-track {
-		background: var(--scrollbar-bg);
-	}
-
-	::-webkit-scrollbar-thumb {
-		background-color: var(--scrollbar-thumb);
-	}
-
 	:is(h1, h2, h3) {
 		@apply font-bold;
 	}
