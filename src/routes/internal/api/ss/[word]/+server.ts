@@ -1,6 +1,17 @@
 import { error } from '@sveltejs/kit';
 import jpeg from 'jpeg-js';
 import { PNG } from 'pngjs/browser';
+import { getWords } from '#lib/server/fetch.js';
+
+export const prerender = true;
+
+export async function entries() {
+	const words = await getWords({ fetch, lang: 'en' });
+
+	return Object.values(words)
+		.filter((word) => word.representations?.sitelen_sitelen)
+		.map((word) => ({ word: word.word }));
+}
 
 export async function GET({ fetch, params, setHeaders }) {
 	let word = params.word;

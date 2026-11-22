@@ -7,7 +7,16 @@ import { defineConfig } from 'vite';
 export default defineConfig({
 	plugins: [
 		tailwindcss(),
-		sveltekit({ preprocess: vitePreprocess(), adapter: adapter() })
+		sveltekit({
+			preprocess: vitePreprocess(),
+			adapter: adapter({
+				routes: {
+					include: ['/*'],
+					// wildcard instead of a new rule because otherwise we run out of exclude rules on Cloudflare
+					exclude: ['<build>', '<files>', '/internal/api/ss/*']
+				}
+			})
+		})
 	],
 	optimizeDeps: {
 		// prevent reload during tests with dev server
