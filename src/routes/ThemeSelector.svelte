@@ -53,7 +53,7 @@
 						/>
 						<ThemeOption
 							value="contrast-light"
-							class="border-black bg-white font-bold text-black"
+							class="bg-white font-bold text-black"
 						/>
 						<ThemeOption
 							value="orange"
@@ -87,7 +87,7 @@
 						/>
 						<ThemeOption
 							value="contrast-dark"
-							class="border-white bg-black font-bold text-white"
+							class="bg-black font-bold text-white"
 						/>
 						<ThemeOption
 							value="amoled"
